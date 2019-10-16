@@ -1,6 +1,22 @@
 <Root>
 	<Title>Match Made in Hell</Title>
 	<Tagline>Love is DOOMED!</Tagline>
+	<LevelSelect>Level Select</LevelSelect>
+	<Level>Level </Level>
+	<Settings>Settings</Settings>
+	<Volume>Volume</Volume>
+	<Controls>Controls</Controls>
+	<RebindKeys>Rebind Keys</RebindKeys>
+	<MoveLeft>Move Left: </MoveLeft>
+	<MoveRight>Move Right: </MoveRight>
+	<Jump>Jump: </Jump>
+	<Duck>Duck: </Duck>
+	<Shoot>Shoot: </Shoot>
+	<Credits>Credits</Credits>
+	<Back>Back</Back>
+	<NewGame>New Game</NewGame>
+	<LoadGame>Load Game</LoadGame>
+	<Quit>Quit</Quit>
 	<RejectionsList itemCount="10">
 		<Item>Sorry babe, it's not me, it's you.</Item>
 		<Item>This isn't gonna work out between us, but I'm sure you've got a great personality.</Item>
