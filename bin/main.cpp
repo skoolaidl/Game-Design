@@ -44,11 +44,11 @@ int main(int argc, char** argv)
       
     }
     if (focused) {
-        float deltaMs = clock.restart().asSeconds();
+        float deltaS = clock.restart().asSeconds();
     
-        logic.update(deltaMs);
-        human.update(deltaMs);
-        ai.update(deltaMs);
+        logic.update(deltaS);
+        human.update(deltaS);
+        ai.update(deltaS);
     
     }
     
