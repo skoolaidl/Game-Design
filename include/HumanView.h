@@ -11,6 +11,7 @@ class HumanView : public View {
         sf::RenderWindow& display;
         void checkKeyboard(float time);
         sf::Font font;
+        sf::Texture texture;
         void drawObjects();
         //variable that determines the current state of the game
         int gameState;
