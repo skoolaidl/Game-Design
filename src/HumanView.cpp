@@ -33,8 +33,11 @@ void HumanView::update(float time) {
 
 void HumanView::drawObjects() {
     display.clear();
-    sf::RectangleShape player (sf::Vector2f(50,100));
-    player.setFillColor(sf::Color::Red);
+    if (!texture.loadFromFile("../res/Chad_Chamberlain_sprite.png"))
+    {
+        // error...
+    }
+    sf::Sprite player(texture);
     player.setPosition(width/2, height/2);
     display.draw(player);
     display.display();
