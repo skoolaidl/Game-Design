@@ -1,9 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-#include "moveable.h"
+#include "shooter.h"
 
-class Enemy : public Moveable {
-
+class Enemy : public Shooter {
+    
 };
 
 #endif

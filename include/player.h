@@ -1,8 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "moveable.h"
+#include "shooter.h"
 
-class Player : public Moveable {
+class Player : public Shooter {
 
 };
 

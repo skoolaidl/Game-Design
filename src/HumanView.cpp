@@ -33,7 +33,7 @@ void HumanView::update(float time) {
 
 void HumanView::drawObjects() {
     display.clear();
-    if (!texture.loadFromFile("../res/Chad_Chamberlain_sprite.png"))
+    if (!texture.loadFromFile("../res/chad_sized.png"))
     {
         // error...
     }
