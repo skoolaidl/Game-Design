@@ -2,7 +2,7 @@
 #define PLAYER_H
 #include "moveable.h"
 
-Class Player : public Moveable {
+class Player : public Moveable {
 
 };
 

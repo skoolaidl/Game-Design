@@ -2,7 +2,7 @@
 #define ENEMY_H
 #include "moveable.h"
 
-Class Enemy : public Moveable {
+class Enemy : public Moveable {
 
 };
 

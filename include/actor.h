@@ -1,7 +1,7 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-Class Actor {
+class Actor {
 
 };
 
