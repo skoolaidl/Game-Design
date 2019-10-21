@@ -2,7 +2,7 @@
 #define PLATFORM_H
 #include "actor.h"
 
-Class Platform : public Actor {
+class Platform : public Actor {
 
 };
 

@@ -2,7 +2,7 @@
 #define STATIONARY_H
 #include "actor.h"
 
-Class Stationary : public Actor {
+class Stationary : public Actor {
 
 };
 
