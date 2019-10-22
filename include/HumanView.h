@@ -1,8 +1,10 @@
 #ifndef HUMANVIEW_H
 #define HUMANVIEW_H
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "view.h"
 #include "GameLogic.h"
+#include "platform.h"
 
 class HumanView : public View {
     
@@ -12,6 +14,10 @@ class HumanView : public View {
         void checkKeyboard(float time);
         sf::Font font;
         sf::Texture texture;
+        std::vector<Platform> platforms; 
+        Platform floor;
+        Platform platformA;
+        bool inAir;
         void drawObjects();
         //variable that determines the current state of the game
         int gameState;

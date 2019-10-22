@@ -14,6 +14,11 @@ void HumanView::init() {
     sf::Vector2u size = display.getSize();
     width = size.x;
     height = size.y;
+    inAir = false;
+    floor.init(500.f, 50.f, 150.f, 350.f);
+    platformA.init(100.f, 20.f, 450.f, 290.f);
+    platforms.push_back(floor);
+    platforms.push_back(platformA);
     drawObjects();
 }
 
@@ -33,28 +38,49 @@ void HumanView::update(float time) {
 
 void HumanView::drawObjects() {
     display.clear();
-    if (!texture.loadFromFile("../res/chad_sized.png"))
-    {
-        // error...
-    }
-    sf::Sprite player(texture);
-    player.setPosition(width/2, height/2);
-    display.draw(player);
+
+    display.draw(logic.getPlayer().getDrawable());
+    display.draw(floor.getDrawable());
+    display.draw(platformA.getDrawable());
     display.display();
 }
 
 void HumanView::checkKeyboard(float time) {
+    time = (time < 1.f) ? 1.f : time;
     if (sf::Keyboard::isKeyPressed(right)) {
         //character moves right
+        logic.getPlayer().move((5.f * time), 0.f);
     }
     if (sf::Keyboard::isKeyPressed(left)) {
         //character moves left
+        logic.getPlayer().move((-5.f * time), 0.f);
     }
     if (sf::Keyboard::isKeyPressed(shoot)) {
         //character shoots
     }
     if (sf::Keyboard::isKeyPressed(up)) {
-        //character jumps
+        //character jumps only if he's on the ground
+        if(!inAir) {
+            inAir = true;
+            logic.getPlayer().jump(time);
+        }
+    }
+    if(!(logic.getPlayer().collides(platforms)))
+    {
+        inAir = true;
+        logic.getPlayer().move(0.f, (5.f * time));
+    }
+    else
+    {
+        if(inAir)
+        {
+            inAir = false;
+        }
+    }
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+        display.close();
     }
 }
 

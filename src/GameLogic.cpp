@@ -14,6 +14,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     height = wHeight;
     bulletSpeed = 500;
     gameState = 1;
+    player.init();
     
 }
 
@@ -46,4 +47,8 @@ void GameLogic::increaseScore(int level, int increase) {
     else {
         //invalid level
     }
+}
+
+Player& GameLogic::getPlayer() {
+    return player;
 }
