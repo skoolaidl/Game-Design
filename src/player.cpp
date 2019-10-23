@@ -15,26 +15,65 @@ void Player::init() {
         // error...
     }
     setSprite(sf::Sprite(texture));
+    velocityX = 0.f;
+    velocityY = 0.f;
     xpos = 400.f;
     ypos = 300.f;
+    maxJumpHeight = ypos - 100.f;
+    inAir = false;
+    falling = false;
     getSprite().setPosition(xpos, ypos);
 }
 
-void Player::move(float distanceX, float distanceY) 
+void Player::setVelocityX(float velX)
 {
-    xpos += distanceX;
-    ypos += distanceY;
+    velocityX = velX;
+}
+
+void Player::setVelocityY(float velY)
+{
+    velocityY = velY;
+}
+
+void Player::updateMovement() 
+{
+    xpos += velocityX;
+    ypos += velocityY;
     getSprite().setPosition(xpos, ypos);
 }
 
-void Player::jump(float deltaS)
+bool Player::atMaxJumpHeight()
 {
-    float maxJumpHeight = ypos - 100.f;
-    while(ypos > maxJumpHeight)
+    if (ypos < maxJumpHeight)
     {
-        ypos -= (0.1f * deltaS);
-        getSprite().setPosition(xpos, ypos);
+        falling = true;
     }
+    return (ypos < maxJumpHeight);
+}
+
+void Player::setMaxJumpHeight()
+{
+    maxJumpHeight = ypos - 100.f;
+}
+
+bool Player::isInAir()
+{
+    return inAir;
+}
+
+void Player::setInAir(bool b)
+{
+    inAir = b;
+}
+
+bool Player::isFalling()
+{
+    return falling;
+}
+
+void Player::setFalling(bool b)
+{
+    falling = b;
 }
 
 void Player::shoot()

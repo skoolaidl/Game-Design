@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "player.h"
+#include "platform.h"
 
 class GameLogic {
     private:
@@ -13,6 +14,9 @@ class GameLogic {
         float bulletSpeed;
         sf::Font font;
         Player player;
+        Platform floor;
+        Platform platformA;
+        std::vector<Actor> actorsVector;
         
         void softReset();
         void reset();
@@ -30,6 +34,8 @@ class GameLogic {
         void increaseScore(int level, int increase);
 
         Player& getPlayer();
+
+        std::vector<Actor>& getActors();
         
 
         

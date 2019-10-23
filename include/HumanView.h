@@ -14,10 +14,6 @@ class HumanView : public View {
         void checkKeyboard(float time);
         sf::Font font;
         sf::Texture texture;
-        std::vector<Actor> platforms; 
-        Platform floor;
-        Platform platformA;
-        bool inAir;
         void drawObjects();
         //variable that determines the current state of the game
         int gameState;
