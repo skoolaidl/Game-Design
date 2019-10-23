@@ -14,22 +14,17 @@ void Player::init() {
     {
         // error...
     }
-    sprite = sf::Sprite(texture);
+    setSprite(sf::Sprite(texture));
     xpos = 400.f;
     ypos = 300.f;
-    sprite.setPosition(xpos, ypos);
-}
-
-sf::Drawable& Player::getDrawable()
-{
-    return sprite;
+    getSprite().setPosition(xpos, ypos);
 }
 
 void Player::move(float distanceX, float distanceY) 
 {
     xpos += distanceX;
     ypos += distanceY;
-    sprite.setPosition(xpos, ypos);
+    getSprite().setPosition(xpos, ypos);
 }
 
 void Player::jump(float deltaS)
@@ -38,7 +33,7 @@ void Player::jump(float deltaS)
     while(ypos > maxJumpHeight)
     {
         ypos -= (0.1f * deltaS);
-        sprite.setPosition(xpos, ypos);
+        getSprite().setPosition(xpos, ypos);
     }
 }
 
@@ -47,11 +42,11 @@ void Player::shoot()
 
 }
 
-bool Player::collides(std::vector<Platform> objVector)
+bool Player::collides(std::vector<Actor> objVector)
 {
     for(int i = 0; i < objVector.size(); ++i)
     {
-        if(sprite.getGlobalBounds().intersects( ( (sf::RectangleShape&)objVector[i].getDrawable() ).getGlobalBounds() ))
+        if(getSprite().getGlobalBounds().intersects( objVector[i].getSprite().getGlobalBounds() ))
         {
             return true;
         }

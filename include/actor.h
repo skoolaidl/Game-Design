@@ -3,8 +3,12 @@
 #include <SFML/Graphics.hpp>
 
 class Actor {
+    private:
+        sf::Sprite sprite;
+
     public :
-        virtual sf::Drawable& getDrawable() = 0;
+        virtual sf::Sprite& getSprite() {return sprite;}
+        virtual void setSprite(sf::Sprite s) {sprite = s;}
         
     
 };

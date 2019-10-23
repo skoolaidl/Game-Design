@@ -14,7 +14,7 @@ class HumanView : public View {
         void checkKeyboard(float time);
         sf::Font font;
         sf::Texture texture;
-        std::vector<Platform> platforms; 
+        std::vector<Actor> platforms; 
         Platform floor;
         Platform platformA;
         bool inAir;

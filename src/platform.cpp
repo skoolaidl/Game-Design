@@ -8,15 +8,15 @@ Platform::Platform() {
 }
 
 void Platform::init(const float w, const float h, const float x, const float y) {
-    width = w;
-    height = h;
+    scaleWidth = w;
+    scaleHeight = h;
     xpos = x;
     ypos = y;
-    platform = sf::RectangleShape(sf::Vector2f(width, height));
-    platform.setPosition(xpos, ypos);
-}
-
-sf::Drawable& Platform::getDrawable()
-{
-    return platform;
+    if (!texture.loadFromFile("../res/cave_floor.jpg"))
+    {
+        // error...
+    }
+    setSprite(sf::Sprite(texture));
+    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    getSprite().setPosition(xpos, ypos);
 }

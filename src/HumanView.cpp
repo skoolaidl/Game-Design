@@ -15,8 +15,8 @@ void HumanView::init() {
     width = size.x;
     height = size.y;
     inAir = false;
-    floor.init(500.f, 50.f, 150.f, 350.f);
-    platformA.init(100.f, 20.f, 450.f, 290.f);
+    floor.init(1.f, 1.5f, 150.f, 350.f);
+    platformA.init(0.3f, 0.4f, 450.f, 290.f);
     platforms.push_back(floor);
     platforms.push_back(platformA);
     drawObjects();
@@ -39,9 +39,9 @@ void HumanView::update(float time) {
 void HumanView::drawObjects() {
     display.clear();
 
-    display.draw(logic.getPlayer().getDrawable());
-    display.draw(floor.getDrawable());
-    display.draw(platformA.getDrawable());
+    display.draw(logic.getPlayer().getSprite());
+    display.draw(floor.getSprite());
+    display.draw(platformA.getSprite());
     display.display();
 }
 

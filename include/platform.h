@@ -5,16 +5,15 @@
 
 class Platform : public Actor {
     private:
-        float width;
-        float height;
+        float scaleWidth;
+        float scaleHeight;
         float xpos;
         float ypos;
-        sf::RectangleShape platform;
+        sf::Texture texture;
 
     public:
         Platform();
         void init(const float width, const float height, const float xpos, const float ypos);
-        sf::Drawable& getDrawable();
 };
 
 #endif
