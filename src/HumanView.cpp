@@ -31,30 +31,46 @@ void HumanView::update(float time) {
     
 }
 
+
 void HumanView::drawObjects() {
     display.clear();
-    if (!texture.loadFromFile("../res/chad_sized.png"))
+
+    display.draw(logic.getPlayer().getSprite());
+    for(int i = 0; i < logic.getActors().size(); ++i)
     {
-        // error...
+        display.draw(logic.getActors()[i].getSprite());
     }
-    sf::Sprite player(texture);
-    player.setPosition(width/2, height/2);
-    display.draw(player);
     display.display();
 }
 
 void HumanView::checkKeyboard(float time) {
+    time = (time < 1.f) ? 1.f : time;
     if (sf::Keyboard::isKeyPressed(right)) {
         //character moves right
+        logic.playerMoveRight(time);    
     }
     if (sf::Keyboard::isKeyPressed(left)) {
         //character moves left
+        logic.playerMoveLeft(time);
     }
+    
+    if (sf::Keyboard::isKeyPressed(up)) {
+        //character jumps
+        logic.playerJump(time);
+    }
+    else
+    {
+        //character falls if player has already let go of up key but does nothing if he is on the ground
+        logic.playerFall(time);
+    }
+    
     if (sf::Keyboard::isKeyPressed(shoot)) {
         //character shoots
     }
-    if (sf::Keyboard::isKeyPressed(up)) {
-        //character jumps
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+        display.close();
     }
 }
 

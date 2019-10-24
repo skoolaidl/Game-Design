@@ -5,7 +5,7 @@
 class Moveable : public Actor {
     
     public:
-        virtual void move(int distanceX, int distanceY) = 0;
+        virtual void updateMovement() = 0;
         
 
 };

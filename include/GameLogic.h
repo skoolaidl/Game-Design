@@ -2,6 +2,8 @@
 #define GAMELOGIC_H
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "player.h"
+#include "platform.h"
 
 class GameLogic {
     private:
@@ -11,6 +13,10 @@ class GameLogic {
         int height;
         float bulletSpeed;
         sf::Font font;
+        Player player;
+        Platform floor;
+        Platform platformA;
+        std::vector<Actor> actorsVector;
         
         void softReset();
         void reset();
@@ -26,8 +32,20 @@ class GameLogic {
         void update(float time);
                 
         void increaseScore(int level, int increase);
-        
 
+        Player& getPlayer();
+
+        std::vector<Actor>& getActors();
+
+        bool collides(Actor actor, std::vector<Actor> objVector);
+
+        void playerMoveRight(float time);
+
+        void playerMoveLeft(float time);
+
+        void playerJump(float time);
+        
+        void playerFall(float time);
         
 };
 

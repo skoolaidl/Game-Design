@@ -1,8 +1,10 @@
 #ifndef HUMANVIEW_H
 #define HUMANVIEW_H
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "view.h"
 #include "GameLogic.h"
+#include "platform.h"
 
 class HumanView : public View {
     
