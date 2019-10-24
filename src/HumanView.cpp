@@ -47,63 +47,26 @@ void HumanView::checkKeyboard(float time) {
     time = (time < 1.f) ? 1.f : time;
     if (sf::Keyboard::isKeyPressed(right)) {
         //character moves right
-        if (logic.getPlayer().isInAir())    //character has less directional control when in the air
-        {
-            logic.getPlayer().setVelocityX(2.f * time);
-        }
-        else
-        {
-            logic.getPlayer().setVelocityX(4.f * time);
-        }        
+        logic.playerMoveRight(time);    
     }
-    else if (sf::Keyboard::isKeyPressed(left)) {
+    if (sf::Keyboard::isKeyPressed(left)) {
         //character moves left
-        if (logic.getPlayer().isInAir())    //character has less directional control when in the air
-        {
-            logic.getPlayer().setVelocityX(-2.f * time);
-        }
-        else
-        {
-            logic.getPlayer().setVelocityX(-4.f * time);
-        }      
-    }
-    else
-    {
-        logic.getPlayer().setVelocityX(0.f);
+        logic.playerMoveLeft(time);
     }
     
-    if (sf::Keyboard::isKeyPressed(up) && !logic.getPlayer().atMaxJumpHeight() && !logic.getPlayer().isFalling()) {
-        //character jumps only if he's on the ground or is in the middle of jumping up
-        logic.getPlayer().setVelocityY(-5.f * time);
-    }
-    else if (logic.getPlayer().isInAir()) //if player is not going up and not on ground then fall
-    {
-        logic.getPlayer().setFalling(true); //player has already jumped and needs to fall before jumping again
-        logic.getPlayer().setVelocityY(3.f * time);
+    if (sf::Keyboard::isKeyPressed(up)) {
+        //character jumps
+        logic.playerJump(time);
     }
     else
     {
-        logic.getPlayer().setVelocityY(0.f);
+        //character falls if player has already let go of up key but does nothing if he is on the ground
+        logic.playerFall(time);
     }
-
-    logic.getPlayer().updateMovement();
     
     if (sf::Keyboard::isKeyPressed(shoot)) {
         //character shoots
     }
-
-    // if(!(logic.getPlayer().collides(logic.getActors())))
-    // {
-    //     inAir = true;
-    //     logic.getPlayer().move(0.f, (5.f * time));
-    // }
-    // else
-    // {
-    //     if(inAir)
-    //     {
-    //         inAir = false;
-    //     }
-    // }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {

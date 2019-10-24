@@ -40,6 +40,8 @@ void Player::updateMovement()
     xpos += velocityX;
     ypos += velocityY;
     getSprite().setPosition(xpos, ypos);
+    velocityX = 0.f;
+    velocityY = 0.f;
 }
 
 bool Player::atMaxJumpHeight()
@@ -79,16 +81,4 @@ void Player::setFalling(bool b)
 void Player::shoot()
 {
 
-}
-
-bool Player::collides(std::vector<Actor> objVector)
-{
-    for(int i = 0; i < objVector.size(); ++i)
-    {
-        if(getSprite().getGlobalBounds().intersects( objVector[i].getSprite().getGlobalBounds() ))
-        {
-            return true;
-        }
-    }
-    return false;
 }

@@ -28,7 +28,7 @@ void GameLogic::update(float time) {
         //perform game logic
 
         //player jumping mechanism checking if colliding with other actor
-        if(!(player.collides(actorsVector)))
+        if(!(collides(player, actorsVector)))
         {
             player.setInAir(true);
         }
@@ -38,6 +38,7 @@ void GameLogic::update(float time) {
             player.setInAir(false);
             player.setFalling(false);
         }
+        player.updateMovement();
     }
     
 }
@@ -71,4 +72,59 @@ Player& GameLogic::getPlayer() {
 
 std::vector<Actor>& GameLogic::getActors() {
     return actorsVector;
+}
+
+bool GameLogic::collides(Actor actor, std::vector<Actor> objVector)
+{
+    for(int i = 0; i < objVector.size(); ++i)
+    {
+        if(actor.getSprite().getGlobalBounds().intersects( objVector[i].getSprite().getGlobalBounds() ))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void GameLogic::playerMoveRight(float time) {
+    if (player.isInAir())    //character has less directional control when in the air
+    {
+        player.setVelocityX(2.f * time);
+    }
+    else
+    {
+        player.setVelocityX(4.f * time);
+    }        
+}
+
+void GameLogic::playerMoveLeft(float time) {
+    if (player.isInAir())    //character has less directional control when in the air
+    {
+        player.setVelocityX(-2.f * time);
+    }
+    else
+    {
+        player.setVelocityX(-4.f * time);
+    }        
+}
+
+void GameLogic::playerJump(float time) {
+    //character jumps only if he's on the ground or is in the middle of jumping up
+    if (!player.atMaxJumpHeight() && !player.isFalling()) 
+    {
+        player.setVelocityY(-5.f * time);
+    }
+    else
+    {
+        playerFall(time);
+    }
+    
+}
+
+void GameLogic::playerFall(float time) {
+    if (player.isInAir()) //if player is not going up and not on ground then fall
+    {
+        player.setFalling(true); //player has already jumped and needs to fall before jumping again
+        player.setVelocityY(3.f * time);
+    }
 }

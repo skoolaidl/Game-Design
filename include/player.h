@@ -29,7 +29,6 @@ class Player : public Shooter {
         void setInAir(bool b);
         bool isFalling();
         void setFalling(bool b);
-        bool collides(std::vector<Actor> objVector);
 };
 
 #endif

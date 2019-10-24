@@ -36,8 +36,16 @@ class GameLogic {
         Player& getPlayer();
 
         std::vector<Actor>& getActors();
-        
 
+        bool collides(Actor actor, std::vector<Actor> objVector);
+
+        void playerMoveRight(float time);
+
+        void playerMoveLeft(float time);
+
+        void playerJump(float time);
+        
+        void playerFall(float time);
         
 };
 
