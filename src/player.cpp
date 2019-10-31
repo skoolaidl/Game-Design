@@ -46,11 +46,11 @@ void Player::updateMovement()
 
 bool Player::atMaxJumpHeight()
 {
-    if (ypos < maxJumpHeight)
+    if (ypos <= maxJumpHeight)
     {
         falling = true;
     }
-    return (ypos < maxJumpHeight);
+    return (ypos <= maxJumpHeight);
 }
 
 void Player::setMaxJumpHeight()
