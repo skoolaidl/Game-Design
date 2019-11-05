@@ -15,7 +15,7 @@ class Player : public Shooter {
         float maxJumpHeight;
         bool inAir;
         bool falling;
-    
+
     public:
         Player();
         void init();
