@@ -165,5 +165,7 @@ void GameLogic::playerFall(float time) {
 }
 
 void GameLogic::playerShoot(float time){
-  
+  Bullet newBullet(sf::Vector2f(50, 5));
+  newBullet.setPos(sf::Vector2f(player.getSprite().getPosition().x, player.getSprite().getPosition().y));
+  bulletVec.push_back(newBullet);
 }

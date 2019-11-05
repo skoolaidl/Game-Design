@@ -4,6 +4,7 @@
 #include <vector>
 #include "player.h"
 #include "platform.h"
+#include "Bullet.h"
 
 class GameLogic {
     private:
@@ -16,22 +17,25 @@ class GameLogic {
         Player player;
         Platform floor;
         Platform platformA;
+        Bullet bullet;
+        boolean isFiring;
         std::vector<Actor> actorsVector;
-        
+        std::vector<Bullet> bulletVec;
+
         void softReset();
         void reset();
         void updatePlayerCollision(std::vector<Actor> objVector, float time);
-        
-		
+
+
 	public:
 		GameLogic();
-                
+
         int getGameState();
-        
+
         void init(int wWidth, int wHeight);
-        
+
         void update(float time);
-                
+
         void increaseScore(int level, int increase);
 
         Player& getPlayer();
@@ -45,9 +49,9 @@ class GameLogic {
         void playerMoveLeft(float time);
 
         void playerJump(float time);
-        
+
         void playerFall(float time);
-        
+
 };
 
 #endif
