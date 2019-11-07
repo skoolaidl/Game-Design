@@ -4,6 +4,7 @@
 #include <vector>
 #include "player.h"
 #include "platform.h"
+#include "LevelCreator.h"
 
 class GameLogic {
     private:

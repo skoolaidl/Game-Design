@@ -1,5 +1,4 @@
 #include "GameLogic.h"
-#include "LevelCreator.cpp"
 
 /*
 GameLogic class that holds all of the game objects and detects collisions
@@ -17,8 +16,11 @@ void GameLogic::init(int wWidth, int wHeight) {
     gameState = 1;
     player.init();
 
-    floor.init(1.f, 1.5f, 150.f, 350.f);
-    platformA.init(0.3f, 0.4f, 450.f, 290.f);
+    // floor.init(1.f, 1.5f, 150.f, 350.f);
+    // platformA.init(0.3f, 0.4f, 450.f, 290.f);
+
+
+    
     
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
