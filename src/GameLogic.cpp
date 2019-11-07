@@ -29,6 +29,8 @@ void GameLogic::update(float time) {
         //perform game logic
         updatePlayerCollision(actorsVector, time);
         player.updateMovement();
+        
+        updateProjectileCollisions();
     }
     
 }

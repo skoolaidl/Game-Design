@@ -16,7 +16,11 @@ class GameLogic {
         Player player;
         Platform floor;
         Platform platformA;
-        std::vector<Actor> actorsVector;
+        std::vector<Actor&> actorsVector;
+        std::vector<Platform&> platforms;
+        std::vector<Spike&> spikes;
+        std::vector<Projectile&> projectiles;
+        std::vector<Enemy&> enemies;
         
         void softReset();
         void reset();
