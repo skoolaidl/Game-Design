@@ -44,7 +44,6 @@ void HumanView::drawObjects() {
 }
 
 void HumanView::checkKeyboard(float time) {
-    time = (time < 1.f) ? 1.f : time;
     if (sf::Keyboard::isKeyPressed(right)) {
         //character moves right
         logic.playerMoveRight(time);    

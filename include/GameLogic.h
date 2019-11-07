@@ -13,7 +13,7 @@ class GameLogic {
         int width;
         int height;
         float bulletSpeed;
-        sf::Font font;
+        float gravity;
         Player player;
         Platform floor;
         Platform platformA;
@@ -21,6 +21,7 @@ class GameLogic {
         
         void softReset();
         void reset();
+        void updatePlayerCollision(std::vector<Actor> objVector, float time);
         
 		
 	public:
