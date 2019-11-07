@@ -9,11 +9,6 @@ public:
     bullet.setFillColor(sf::Color::Red);
   }
 
-  void init(sf::Vector2f size){
-    bullet.setSize(size);
-    bullet.setFillColor(sf::Color::Red);
-  }
-
   int getRight(){
     return bullet.getPosition().x+bullet.getSize().x;
   }

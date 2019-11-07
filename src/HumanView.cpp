@@ -1,5 +1,4 @@
 #include "HumanView.h"
-#include "GameLogic.h"
 #include <SFML/System.hpp>
 
 /*
@@ -24,11 +23,7 @@ void HumanView::update(float time) {
         //error, game not initialized
         case 0: break;
         //running
-        case 1: {
-          drawObjects();
-          checkKeyboard(time);
-          break;
-        }
+        case 1: drawObjects(); checkKeyboard(time); break;
         case 2: break;
         case 3: break;
         case 4: break;
