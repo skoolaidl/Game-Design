@@ -7,7 +7,7 @@ and updates game status
 */
 
 GameLogic::GameLogic() {
-
+    
 }
 
 void GameLogic::init(int wWidth, int wHeight) {
@@ -30,7 +30,7 @@ void GameLogic::update(float time) {
         updatePlayerCollision(actorsVector, time);
         player.updateMovement();
     }
-
+    
 }
 
 void GameLogic::softReset() {
@@ -50,7 +50,7 @@ void GameLogic::increaseScore(int level, int increase) {
     level--;
     if ( level >= 0 && level <= 9 ) {
         scores[level] = scores[level] + increase;
-    }
+    }  
     else {
         //invalid level
     }
@@ -71,7 +71,7 @@ bool GameLogic::collides(Actor actor, std::vector<Actor> objVector)
         if (actor.getSprite().getGlobalBounds().intersects( objVector[i].getSprite().getGlobalBounds() ) )
         {
             return true;
-        }
+        }                                                                                                                                                                                                
     }
     return false;
 }
@@ -90,7 +90,7 @@ void GameLogic::updatePlayerCollision(std::vector<Actor> objVector, float time)
     //does not reach all the way to the ground to avoid collision when standing on a platform
     sf::FloatRect leftHitBox = sf::FloatRect(playerX - bufferSpaceX, playerY, bufferSpaceX, playerHeight - 2*bufferSpaceY);
     sf::FloatRect rightHitBox = sf::FloatRect(playerX + playerWidth, playerY, bufferSpaceX, playerHeight - 2*bufferSpaceY);
-
+    
     for(int i = 0; i < objVector.size(); ++i)
     {
         if (bottomHitBox.intersects( objVector[i].getSprite().getGlobalBounds() ) )
@@ -106,13 +106,13 @@ void GameLogic::updatePlayerCollision(std::vector<Actor> objVector, float time)
             player.setFalling(true);
             player.setInAir(true);
         }
-
-        if (leftHitBox.intersects( objVector[i].getSprite().getGlobalBounds() )
+        
+        if (leftHitBox.intersects( objVector[i].getSprite().getGlobalBounds() ) 
                 || rightHitBox.intersects( objVector[i].getSprite().getGlobalBounds() ))
         {
             //player running into object on horizontal axis
             player.setVelocityX(0.f);
-        }
+        }                                                                                                                                                                                           
     }
     //if player is not colliding with any other object, he is in the air
     if(!(collides(player, objVector)))
@@ -129,7 +129,7 @@ void GameLogic::playerMoveRight(float time) {
     else
     {
         player.setVelocityX(4.f * time);
-    }
+    }        
 }
 
 void GameLogic::playerMoveLeft(float time) {
@@ -140,12 +140,12 @@ void GameLogic::playerMoveLeft(float time) {
     else
     {
         player.setVelocityX(-4.f * time);
-    }
+    }        
 }
 
 void GameLogic::playerJump(float time) {
     //character jumps only if he's on the ground or is in the middle of jumping up
-    if (!player.atMaxJumpHeight() && !player.isFalling())
+    if (!player.atMaxJumpHeight() && !player.isFalling()) 
     {
         player.setVelocityY(-5.f * time);
     }
@@ -153,7 +153,7 @@ void GameLogic::playerJump(float time) {
     {
         playerFall(time);
     }
-
+    
 }
 
 void GameLogic::playerFall(float time) {
@@ -162,8 +162,4 @@ void GameLogic::playerFall(float time) {
         player.setFalling(true); //player has already jumped and needs to fall before jumping again
         player.setVelocityY(gravity * time);
     }
-}
-
-void GameLogic::playerShoot(float time){
-  
 }
