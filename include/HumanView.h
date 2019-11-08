@@ -11,12 +11,11 @@ class HumanView : public View {
     private:
         //display window
         sf::RenderWindow& display;
+        sf::View& view;
         void checkKeyboard(float time);
         sf::Font font;
         sf::Texture texture;
         void drawObjects();
-        //variable that determines the current state of the game
-        int gameState;
         int width;
         int height;
         sf::Keyboard::Key left;
@@ -25,7 +24,7 @@ class HumanView : public View {
         sf::Keyboard::Key shoot;
     
     public: 
-        HumanView(sf::RenderWindow& App, GameLogic& logic): View( logic ), display(App) {};
+        HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& view): View( logic ), display(App), view(view) {};
         
         void init();
         void update(float time);
