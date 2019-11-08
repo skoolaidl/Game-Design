@@ -2,8 +2,12 @@
 #define GAMELOGIC_H
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <functional>
 #include "player.h"
 #include "platform.h"
+#include "spike.h"
+#include "projectile.h"
+#include "enemy.h"
 
 class GameLogic {
     private:
@@ -16,15 +20,16 @@ class GameLogic {
         Player player;
         Platform floor;
         Platform platformA;
-        std::vector<Actor&> actorsVector;
-        std::vector<Platform&> platforms;
-        std::vector<Spike&> spikes;
-        std::vector<Projectile&> projectiles;
-        std::vector<Enemy&> enemies;
+        std::vector<std::reference_wrapper<Actor>> actorsVector;
+        std::vector<std::reference_wrapper<Platform>> platforms;
+        std::vector<std::reference_wrapper<Spike>> spikes;
+        std::vector<std::reference_wrapper<Projectile>> projectiles;
+        std::vector<std::reference_wrapper<Enemy>> enemies;
         
         void softReset();
         void reset();
-        void updatePlayerCollision(std::vector<Actor> objVector, float time);
+        void updatePlayerCollision(float time);
+        void updateProjectileCollisions();
         
 		
 	public:
@@ -40,9 +45,9 @@ class GameLogic {
 
         Player& getPlayer();
 
-        std::vector<Actor>& getActors();
+        std::vector<std::reference_wrapper<Actor>> getActors();
 
-        bool collides(Actor actor, std::vector<Actor> objVector);
+        bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
 
         void playerMoveRight(float time);
 

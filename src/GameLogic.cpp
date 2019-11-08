@@ -27,7 +27,7 @@ void GameLogic::init(int wWidth, int wHeight) {
 void GameLogic::update(float time) {
     if (gameState == 1) {
         //perform game logic
-        updatePlayerCollision(actorsVector, time);
+        updatePlayerCollision(time);
         player.updateMovement();
         
         updateProjectileCollisions();
@@ -48,6 +48,11 @@ int GameLogic::getGameState() {
     return gameState;
 }
 
+void GameLogic::updateProjectileCollisions() {
+    //does nothing yet, eventually loop through projectiles and 
+    //check if they are hitting the player or an enemy
+}
+
 void GameLogic::increaseScore(int level, int increase) {
     level--;
     if ( level >= 0 && level <= 9 ) {
@@ -62,15 +67,15 @@ Player& GameLogic::getPlayer() {
     return player;
 }
 
-std::vector<Actor>& GameLogic::getActors() {
+std::vector<std::reference_wrapper<Actor>> GameLogic::getActors() {
     return actorsVector;
 }
 
-bool GameLogic::collides(Actor actor, std::vector<Actor> objVector)
+bool GameLogic::collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector)
 {
     for(int i = 0; i < objVector.size(); ++i)
     {
-        if (actor.getSprite().getGlobalBounds().intersects( objVector[i].getSprite().getGlobalBounds() ) )
+        if (actor.getSprite().getGlobalBounds().intersects( objVector[i].get().getSprite().getGlobalBounds() ) )
         {
             return true;
         }                                                                                                                                                                                                
@@ -78,7 +83,7 @@ bool GameLogic::collides(Actor actor, std::vector<Actor> objVector)
     return false;
 }
 
-void GameLogic::updatePlayerCollision(std::vector<Actor> objVector, float time)
+void GameLogic::updatePlayerCollision(float time)
 {
     float playerX = player.getSprite().getPosition().x;
     float playerY = player.getSprite().getPosition().y;
@@ -93,31 +98,31 @@ void GameLogic::updatePlayerCollision(std::vector<Actor> objVector, float time)
     sf::FloatRect leftHitBox = sf::FloatRect(playerX - bufferSpaceX, playerY, bufferSpaceX, playerHeight - 2*bufferSpaceY);
     sf::FloatRect rightHitBox = sf::FloatRect(playerX + playerWidth, playerY, bufferSpaceX, playerHeight - 2*bufferSpaceY);
     
-    for(int i = 0; i < objVector.size(); ++i)
+    for(int i = 0; i < actorsVector.size(); ++i)
     {
-        if (bottomHitBox.intersects( objVector[i].getSprite().getGlobalBounds() ) )
+        if (bottomHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ) )
         {
             //player on platform
             player.setFalling(false);
             player.setInAir(false);
             player.setMaxJumpHeight();
         }
-        else if (topHitBox.intersects( objVector[i].getSprite().getGlobalBounds() ) )
+        else if (topHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ) )
         {
             //player hit his head while jumping
             player.setFalling(true);
             player.setInAir(true);
         }
         
-        if (leftHitBox.intersects( objVector[i].getSprite().getGlobalBounds() ) 
-                || rightHitBox.intersects( objVector[i].getSprite().getGlobalBounds() ))
+        if (leftHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ) 
+                || rightHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ))
         {
             //player running into object on horizontal axis
             player.setVelocityX(0.f);
         }                                                                                                                                                                                           
     }
     //if player is not colliding with any other object, he is in the air
-    if(!(collides(player, objVector)))
+    if(!(collides(player, actorsVector)))
     {
         player.setInAir(true);
     }

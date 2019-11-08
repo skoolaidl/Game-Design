@@ -38,7 +38,7 @@ void HumanView::drawObjects() {
     display.draw(logic.getPlayer().getSprite());
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
-        display.draw(logic.getActors()[i].getSprite());
+        display.draw(logic.getActors()[i].get().getSprite());
     }
     display.display();
 }

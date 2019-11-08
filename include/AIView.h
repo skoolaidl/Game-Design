@@ -7,9 +7,9 @@
 
 class AIView: public View {
 	private:        
-		
+		int gameState;
 	public:
-		AIView(GameLogic& logic);
+		AIView(GameLogic& logic): View(logic) {};
         
         void init();
         
