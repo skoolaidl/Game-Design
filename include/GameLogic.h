@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "player.h"
+#include "enemy.h"
 #include "platform.h"
 
 class GameLogic {
@@ -14,6 +15,7 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         Player player;
+        Enemy enemy;
         Platform floor;
         Platform platformA;
         std::vector<Actor> actorsVector;
@@ -47,6 +49,8 @@ class GameLogic {
         void playerJump(float time);
         
         void playerFall(float time);
+
+        void enemyFall(float time) {
         
 };
 

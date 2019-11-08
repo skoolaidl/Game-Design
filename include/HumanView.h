@@ -16,7 +16,6 @@ class HumanView : public View {
         sf::Texture texture;
         void drawObjects();
         //variable that determines the current state of the game
-        int gameState;
         int width;
         int height;
         sf::Keyboard::Key left;
@@ -28,6 +27,7 @@ class HumanView : public View {
         HumanView(sf::RenderWindow& App, GameLogic& logic): View( logic ), display(App) {};
         
         void init();
+
         void update(float time);
         
         

@@ -17,10 +17,12 @@ void GameLogic::init(int wWidth, int wHeight) {
     gravity = 3.f;
     gameState = 1;
     player.init();
+    enemy.init();
     floor.init(1.f, 1.5f, 150.f, 350.f);
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
+    actorsVector.push_back(enemy);
 }
 
 
@@ -162,4 +164,16 @@ void GameLogic::playerFall(float time) {
         player.setFalling(true); //player has already jumped and needs to fall before jumping again
         player.setVelocityY(gravity * time);
     }
+}
+
+void GameLogic::enemyFall(float time) {
+    if(!(collides(enemy, actorsVector)))
+    {
+        player.setVelocityY(gravity * time);
+    }
+    else
+    {
+        player.setVelocityY(0.f);
+    }
+    
 }

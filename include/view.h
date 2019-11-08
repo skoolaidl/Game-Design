@@ -7,12 +7,11 @@ Interface for views that holds shared capabilities between AIView and HumanView
 */
 class View {
     
-    protected:
-    
-    GameLogic& logic;
+    private:
+        GameLogic& logic;
     
     public:
-        View( GameLogic& logic ) : logic(logic) {};
+        View( GameLogic& gameLogic ): logic(gameLogic) {};
         virtual void init() = 0;
         virtual void update(float time) = 0;
         

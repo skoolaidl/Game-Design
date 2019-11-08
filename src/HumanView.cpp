@@ -6,7 +6,6 @@ HumanView handles the drawing of the game to the screen, user input, and sound
 */
 
 void HumanView::init() {
-    gameState = 1;
     left = sf::Keyboard::Left;
     right = sf::Keyboard::Right;
     up = sf::Keyboard::Up;
@@ -19,7 +18,7 @@ void HumanView::init() {
 
 void HumanView::update(float time) {
     
-    switch (gameState) {
+    switch (logic.getGameState()) {
         //error, game not initialized
         case 0: break;
         //running
