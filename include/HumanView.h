@@ -24,7 +24,7 @@ class HumanView : public View {
         sf::Keyboard::Key shoot;
     
     public: 
-        HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& view): View( logic ), display(App), view(view) {};
+        HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView): View( logic ), display(App), view(pView) {};
         
         void init();
         void update(float time);
