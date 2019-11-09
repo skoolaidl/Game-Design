@@ -6,7 +6,6 @@ HumanView handles the drawing of the game to the screen, user input, and sound
 */
 
 void HumanView::init() {
-    gameState = 1;
     left = sf::Keyboard::Left;
     right = sf::Keyboard::Right;
     up = sf::Keyboard::Up;
@@ -14,12 +13,14 @@ void HumanView::init() {
     sf::Vector2u size = display.getSize();
     width = size.x;
     height = size.y;
+    view.reset(sf::FloatRect(0,0,width,height));
+    view.setViewport(sf::FloatRect(0,0,1.f,1.f));
     drawObjects();
 }
 
 void HumanView::update(float time) {
     
-    switch (gameState) {
+    switch (logic.getGameState()) {
         //error, game not initialized
         case 0: break;
         //running
@@ -34,7 +35,14 @@ void HumanView::update(float time) {
 
 void HumanView::drawObjects() {
     display.clear();
-
+    
+    float x = logic.getPlayer().getSprite().getPosition().x;
+    if ( x + 10 < width/2 ) {
+        x = width/2;
+    } 
+    
+    view.setCenter(x,height/2);
+    display.setView(view);
     display.draw(logic.getPlayer().getSprite());
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
