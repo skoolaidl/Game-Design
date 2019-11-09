@@ -31,6 +31,8 @@ void GameLogic::update(float time) {
         //perform game logic
         updatePlayerCollision(actorsVector, time);
         player.updateMovement();
+        enemyFall(time);
+        enemy.updateMovement();
     }
     
 }
@@ -169,11 +171,11 @@ void GameLogic::playerFall(float time) {
 void GameLogic::enemyFall(float time) {
     if(!(collides(enemy, actorsVector)))
     {
-        player.setVelocityY(gravity * time);
+        enemy.setVelocityY(gravity * time);
     }
     else
     {
-        player.setVelocityY(0.f);
+        enemy.setVelocityY(0.f);
     }
     
 }
