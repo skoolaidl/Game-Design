@@ -7,7 +7,7 @@ Interface for views that holds shared capabilities between AIView and HumanView
 */
 class View {
     
-    private:
+    protected:
         GameLogic& logic;
     
     public:

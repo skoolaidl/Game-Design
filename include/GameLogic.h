@@ -50,7 +50,7 @@ class GameLogic {
         
         void playerFall(float time);
 
-        void enemyFall(float time) {
+        void enemyFall(float time);
         
 };
 
