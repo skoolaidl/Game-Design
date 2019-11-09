@@ -29,6 +29,7 @@ class Player : public Shooter {
         void setInAir(bool b);
         bool isFalling();
         void setFalling(bool b);
+        void resetPosition();
 };
 
 #endif

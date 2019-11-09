@@ -13,6 +13,8 @@ void HumanView::init() {
     sf::Vector2u size = display.getSize();
     width = size.x;
     height = size.y;
+    view.reset(sf::FloatRect(0,0,width,height));
+    view.setViewport(sf::FloatRect(0,0,1.f,1.f));
     drawObjects();
 }
 
@@ -33,11 +35,18 @@ void HumanView::update(float time) {
 
 void HumanView::drawObjects() {
     display.clear();
-
+    
+    float x = logic.getPlayer().getSprite().getPosition().x;
+    if ( x + 10 < width/2 ) {
+        x = width/2;
+    } 
+    
+    view.setCenter(x,height/2);
+    display.setView(view);
     display.draw(logic.getPlayer().getSprite());
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
-        display.draw(logic.getActors()[i].getSprite());
+        display.draw(logic.getActors()[i].get().getSprite());
     }
     display.display();
 }

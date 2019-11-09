@@ -25,6 +25,12 @@ void Player::init() {
     getSprite().setPosition(xpos, ypos);
 }
 
+void Player::resetPosition() {
+    xpos = 400.f;
+    ypos = 300.f;
+    getSprite().setPosition(xpos, ypos);
+}
+
 void Player::setVelocityX(float velX)
 {
     velocityX = velX;
