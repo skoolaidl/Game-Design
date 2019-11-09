@@ -19,8 +19,14 @@ void GameLogic::init(int wWidth, int wHeight) {
     player.init();
     floor.init(1.f, 1.5f, 150.f, 350.f);
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
+    spike1.init(1.f,1.f, 650.f, 350.f);
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
+    actorsVector.push_back(spike1);
+    platforms.push_back(floor);
+    platforms.push_back(platformA);
+    spikes.push_back(spike1);
+    
 }
 
 
@@ -30,6 +36,7 @@ void GameLogic::update(float time) {
         updatePlayerCollision(time);
         player.updateMovement();
         
+        updatePlayerCollisionSpikes();
         updateProjectileCollisions();
     }
     
@@ -37,6 +44,7 @@ void GameLogic::update(float time) {
 
 void GameLogic::softReset() {
     //return player character to beginning of level
+    player.resetPosition();
 }
 
 void GameLogic::reset() {
@@ -46,6 +54,18 @@ void GameLogic::reset() {
 int GameLogic::getGameState() {
     //gameState can be 0, uninitialized; 1, running; or others
     return gameState;
+}
+
+void GameLogic::updatePlayerCollisionSpikes() {
+    //check if player is colliding with any spikes    
+    for(int i = 0; i < spikes.size(); ++i)
+    {
+        if (player.getSprite().getGlobalBounds().intersects( spikes[i].get().getSprite().getGlobalBounds() ) )
+        {
+            softReset();
+        }                                                                                                                                                                                          
+    }
+    
 }
 
 void GameLogic::updateProjectileCollisions() {
@@ -98,24 +118,24 @@ void GameLogic::updatePlayerCollision(float time)
     sf::FloatRect leftHitBox = sf::FloatRect(playerX - bufferSpaceX, playerY, bufferSpaceX, playerHeight - 2*bufferSpaceY);
     sf::FloatRect rightHitBox = sf::FloatRect(playerX + playerWidth, playerY, bufferSpaceX, playerHeight - 2*bufferSpaceY);
     
-    for(int i = 0; i < actorsVector.size(); ++i)
+    for(int i = 0; i < platforms.size(); ++i)
     {
-        if (bottomHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ) )
+        if (bottomHitBox.intersects( platforms[i].get().getSprite().getGlobalBounds() ) )
         {
             //player on platform
             player.setFalling(false);
             player.setInAir(false);
             player.setMaxJumpHeight();
         }
-        else if (topHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ) )
+        else if (topHitBox.intersects( platforms[i].get().getSprite().getGlobalBounds() ) )
         {
             //player hit his head while jumping
             player.setFalling(true);
             player.setInAir(true);
         }
         
-        if (leftHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ) 
-                || rightHitBox.intersects( actorsVector[i].get().getSprite().getGlobalBounds() ))
+        if (leftHitBox.intersects( platforms[i].get().getSprite().getGlobalBounds() ) 
+                || rightHitBox.intersects( platforms[i].get().getSprite().getGlobalBounds() ))
         {
             //player running into object on horizontal axis
             player.setVelocityX(0.f);

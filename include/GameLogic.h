@@ -8,6 +8,7 @@
 #include "spike.h"
 #include "projectile.h"
 #include "enemy.h"
+#include "spike.h"
 
 class GameLogic {
     private:
@@ -20,6 +21,7 @@ class GameLogic {
         Player player;
         Platform floor;
         Platform platformA;
+        Spike spike1;
         std::vector<std::reference_wrapper<Actor>> actorsVector;
         std::vector<std::reference_wrapper<Platform>> platforms;
         std::vector<std::reference_wrapper<Spike>> spikes;
@@ -29,6 +31,7 @@ class GameLogic {
         void softReset();
         void reset();
         void updatePlayerCollision(float time);
+        void updatePlayerCollisionSpikes();
         void updateProjectileCollisions();
         
 		
