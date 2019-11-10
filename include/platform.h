@@ -9,11 +9,11 @@ class Platform : public Actor {
         float scaleHeight;
         float xpos;
         float ypos;
-        sf::Texture texture;
+        //sf::Texture texture;
 
     public:
         Platform();
-        void init(const float width, const float height, const float xpos, const float ypos);
+        void init(const float width, const float height, const float xpos, const float ypos, sf::IntRect rect, sf::Sprite tile);
 };
 
 #endif

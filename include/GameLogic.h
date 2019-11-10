@@ -14,9 +14,13 @@ class GameLogic {
         int height;
         float bulletSpeed;
         float gravity;
+
         Player player;
         Platform floor;
         Platform platformA;
+
+        LevelCreator loader;
+
         std::vector<Actor> actorsVector;
         
         void softReset();

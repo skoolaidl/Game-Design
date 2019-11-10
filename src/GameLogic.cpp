@@ -21,8 +21,13 @@ void GameLogic::init(int wWidth, int wHeight) {
     // floor.init(1.f, 1.5f, 150.f, 350.f);
     // platformA.init(0.3f, 0.4f, 450.f, 290.f);
 
-    actorsVector.push_back(floor);
-    actorsVector.push_back(platformA);
+    loader.init(actorsVector);
+    //TODO: change logic for level select
+    loader.LoadMap(0);
+    loader.SetMap();
+
+    // actorsVector.push_back(floor);
+    // actorsVector.push_back(platformA);
 }
 
 
