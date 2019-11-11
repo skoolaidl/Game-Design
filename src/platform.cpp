@@ -16,7 +16,9 @@ void Platform::init(const float w, const float h, const float x, const float y) 
     {
         // error...
     }
+    texture.setRepeated(true);
     setSprite(sf::Sprite(texture));
-    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    getSprite().setTextureRect({ 0, 0, (texture.getSize().x) * scaleWidth, (texture.getSize().y) * scaleHeight });
+    //getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
     getSprite().setPosition(xpos, ypos);
 }

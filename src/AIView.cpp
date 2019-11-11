@@ -1,6 +1,7 @@
 #include "AIView.h"
 
 void AIView::init() {
+
 }
 
 void AIView::update(float time) {
