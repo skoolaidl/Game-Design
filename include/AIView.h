@@ -6,8 +6,8 @@
 #include "GameLogic.h"
 
 class AIView: public View {
-	private:        
-		int gameState;
+	private:       
+        
 	public:
 		AIView(GameLogic& logic): View(logic) {};
         

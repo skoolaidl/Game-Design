@@ -8,7 +8,6 @@
 #include "spike.h"
 #include "projectile.h"
 #include "enemy.h"
-#include "spike.h"
 
 class GameLogic {
     private:
@@ -48,7 +47,7 @@ class GameLogic {
 
         Player& getPlayer();
 
-        std::vector<std::reference_wrapper<Actor>> getActors();
+        std::vector<std::reference_wrapper<Actor>>& getActors();
 
         bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
 

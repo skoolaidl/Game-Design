@@ -87,7 +87,7 @@ Player& GameLogic::getPlayer() {
     return player;
 }
 
-std::vector<std::reference_wrapper<Actor>> GameLogic::getActors() {
+std::vector<std::reference_wrapper<Actor>>& GameLogic::getActors() {
     return actorsVector;
 }
 
