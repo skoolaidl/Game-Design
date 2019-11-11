@@ -6,10 +6,10 @@
 #include "GameLogic.h"
 
 class AIView: public View {
-	private:        
-		
+	private:       
+        
 	public:
-		AIView(GameLogic& logic);
+		AIView(GameLogic& logic): View(logic) {};
         
         void init();
         

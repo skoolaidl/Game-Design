@@ -17,11 +17,17 @@ void Player::init() {
     setSprite(sf::Sprite(texture));
     velocityX = 0.f;
     velocityY = 0.f;
-    xpos = 400.f;
+    xpos = 200.f;
     ypos = 300.f;
     maxJumpHeight = ypos - 100.f;
     inAir = false;
     falling = false;
+    getSprite().setPosition(xpos, ypos);
+}
+
+void Player::resetPosition() {
+    xpos = 200.f;
+    ypos = 300.f;
     getSprite().setPosition(xpos, ypos);
 }
 
