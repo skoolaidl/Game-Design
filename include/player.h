@@ -17,7 +17,6 @@ class Player : public Shooter {
         bool falling;
         float stepSizeX;
         float stepSizeY;
-    
     public:
         Player();
         void init();

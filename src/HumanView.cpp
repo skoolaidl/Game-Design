@@ -40,7 +40,7 @@ void HumanView::update(float time) {
         case 3: break;
         case 4: break;
     }
-    
+
 }
 
 void HumanView::drawMenu() {
@@ -86,13 +86,13 @@ void HumanView::checkKeyboardStart() {
 void HumanView::checkKeyboard(float time) {
     if (sf::Keyboard::isKeyPressed(right)) {
         //character moves right
-        logic.playerMoveRight(time);    
+        logic.playerMoveRight(time);
     }
     if (sf::Keyboard::isKeyPressed(left)) {
         //character moves left
         logic.playerMoveLeft(time);
     }
-    
+
     if (sf::Keyboard::isKeyPressed(up)) {
         //character jumps
         logic.playerJump(time);
@@ -102,14 +102,14 @@ void HumanView::checkKeyboard(float time) {
         //character falls if player has already let go of up key but does nothing if he is on the ground
         logic.playerFall(time);
     }
-    
+
     if (sf::Keyboard::isKeyPressed(shoot)) {
         //character shoots
+        logic.playerShoot(time);
     }
-    
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
         display.close();
     }
 }
-
