@@ -18,11 +18,11 @@ void GameLogic::init(int wWidth, int wHeight) {
     gravity = 3.f;
     gameState = 1;
     player.init();
-    enemy1.init(200.f, 320.f);
+    enemy1.init(250.f, 320.f);
     enemy2.init(500.f, 320.f);
     floor.init(5.f, 1.f, 150.f, 350.f);
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
-    spike1.init(1.f,1.f, 650.f, 350.f);
+    spike1.init(1.f,1.f, 670.f, 320.f);
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
     actorsVector.push_back(enemy1);
