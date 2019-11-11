@@ -1,4 +1,5 @@
 #include "HumanView.h"
+#include "GameLogic.h"
 #include <SFML/System.hpp>
 
 /*

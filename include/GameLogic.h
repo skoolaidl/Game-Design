@@ -8,7 +8,7 @@
 #include "platform.h"
 #include "spike.h"
 #include "projectile.h"
-#include "enemy.h"
+#include "Bullet.h"
 
 class GameLogic {
     private:
@@ -36,6 +36,7 @@ class GameLogic {
         std::vector<std::reference_wrapper<Spike>> spikes;
         std::vector<std::reference_wrapper<Projectile>> projectiles;
         std::vector<std::reference_wrapper<Enemy>> enemies;
+        std::vector<std::reference_wrapper<Bullet>> bullets;
         
         void softReset();
         void reset();
@@ -48,11 +49,15 @@ class GameLogic {
         void enemyFall(Enemy& enemy, float timeS);
         void enemySetBounds(Enemy& enemy);
         void enemyTrack(Enemy& enemy, float timeS);
-        
-		
+        		
+        Bullet bullet;
+        boolean isFiring;
+
+
+
 	public:
 		GameLogic();
-                
+
         int getGameState();
         void setGameState(int newState);
         
@@ -71,10 +76,6 @@ class GameLogic {
 
         void playerMoveLeft(float timeS);
 
-        void playerJump(float timeS);
-        
-        void playerFall(float timeS);
-        
 };
 
 #endif

@@ -312,5 +312,7 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
 }
 
 void GameLogic::playerShoot(float timeS){
-  
+    Bullet newBullet(sf::Vector2f(50, 5));
+    newBullet.setPos(sf::Vector2f(player.getSprite().getPosition().x, player.getSprite().getPosition().y));
+    bulletVec.push_back(newBullet);
 }
