@@ -1,9 +1,10 @@
 #include "enemy.h"
 
 /*
-Basic enemy class that has actions and holds information for the 
+Basic enemy class that has actions and holds information for the
 created enemy
 */
+
 Enemy::Enemy() {
 
 }
@@ -124,3 +125,17 @@ void Enemy::shoot()
 {
 
 }
+
+
+void Enemy::setPos(sf::vector2f newPos){
+  enemy.setPos(newPos);
+}
+
+void Enemy::checkCollision(Bullet bullet){
+    if (bullet.getRight()>enemy.getPosition().x &&
+        bullet.getTop()<enemy.getPosition().y+enemy.getSize().y &&
+        bullet.getDown()>enemy.getPosition().y){
+    enemy.setPosition(sf::Vector2f(4234432,4234423));
+}
+}
+

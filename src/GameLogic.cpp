@@ -8,7 +8,7 @@ and updates game status
 */
 
 GameLogic::GameLogic() {
-    
+
 }
 
 void GameLogic::init(int wWidth, int wHeight) {
@@ -49,7 +49,7 @@ void GameLogic::update(float timeS) {
         updatePlayerCollisionSpikes();
         updateProjectileCollisions();
     }
-    
+
 }
 
 void GameLogic::softReset() {
@@ -87,7 +87,7 @@ void GameLogic::increaseScore(int level, int increase) {
     level--;
     if ( level >= 0 && level <= 9 ) {
         scores[level] = scores[level] + increase;
-    }  
+    }
     else {
         //invalid level
     }
@@ -108,7 +108,7 @@ bool GameLogic::collides(Actor actor, std::vector<std::reference_wrapper<Actor>>
         if (actor.getSprite().getGlobalBounds().intersects( objVector[i].get().getSprite().getGlobalBounds() ) )
         {
             return true;
-        }                                                                                                                                                                                                
+        }
     }
     return false;
 }
@@ -161,7 +161,7 @@ void GameLogic::updatePlayerCollision(float timeS)
         {
             //player running into object on horizontal axis
             player.setVelocityX(0.f);
-        }                                                                                                                                                                                           
+        }
     }
     //if player is not colliding with any other object, he is in the air
     if(!(collides(player, actorsVector)))
@@ -194,7 +194,7 @@ void GameLogic::playerMoveLeft(float timeS) {
 
 void GameLogic::playerJump(float timeS) {
     //character jumps only if he's on the ground or is in the middle of jumping up
-    if (!player.atMaxJumpHeight() && !player.isFalling()) 
+    if (!player.atMaxJumpHeight() && !player.isFalling())
     {
         player.setVelocityY((-1*player.getStepSizeY()) * timeS);
     }
@@ -202,7 +202,7 @@ void GameLogic::playerJump(float timeS) {
     {
         playerFall(timeS);
     }
-    
+
 }
 
 void GameLogic::playerFall(float timeS) {
@@ -267,4 +267,8 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
     enemyFall(enemy, timeS);
     enemyTrack(enemy, timeS);
     enemy.updateMovement();
+}
+
+void GameLogic::playerShoot(float timeS){
+  
 }

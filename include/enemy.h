@@ -31,6 +31,10 @@ class Enemy : public Shooter {
         void setMaxLeftDistance(float dist);
         void updateMovement();
         void trackActor(Actor actor, float timeS);
+        void setPos(sf::vector2f newPos);
+        void checkCollision(Bullet bullet);
+
+
 };
 
 #endif
