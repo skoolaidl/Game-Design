@@ -15,6 +15,8 @@ class Player : public Shooter {
         float maxJumpHeight;
         bool inAir;
         bool falling;
+        float stepSizeX;
+        float stepSizeY;
     
     public:
         Player();
@@ -30,6 +32,8 @@ class Player : public Shooter {
         bool isFalling();
         void setFalling(bool b);
         void resetPosition();
+        float getStepSizeX();
+        float getStepSizeY();
 };
 
 #endif

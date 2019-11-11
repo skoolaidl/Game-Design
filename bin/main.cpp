@@ -20,6 +20,7 @@ int main(int argc, char** argv)
   //init GameLogic and views
   logic.init(windowWidth, windowHeight);
   human.init();
+  ai.init();
   App.setVerticalSyncEnabled(true);
   
   bool focused = true;

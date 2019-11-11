@@ -27,6 +27,7 @@ class HumanView : public View {
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView): View( logic ), display(App), view(pView) {};
         
         void init();
+
         void update(float time);
         
         

@@ -22,6 +22,8 @@ void Player::init() {
     maxJumpHeight = ypos - 100.f;
     inAir = false;
     falling = false;
+    stepSizeX = 4.f;
+    stepSizeY = 5.f;
     getSprite().setPosition(xpos, ypos);
 }
 
@@ -87,4 +89,14 @@ void Player::setFalling(bool b)
 void Player::shoot()
 {
 
+}
+
+float Player::getStepSizeX()
+{
+    return stepSizeX;
+}
+
+float Player::getStepSizeY()
+{
+    return stepSizeY;
 }
