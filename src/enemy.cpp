@@ -1,4 +1,5 @@
 #include "enemy.h"
+#include <string>
 
 /*
 Basic enemy class that has actions and holds information for the 
@@ -25,8 +26,15 @@ void Enemy::init() {
     getSprite().setPosition(xpos, ypos);
 }
 
-void Enemy::init(float x, float y) {
-    if (!texture.loadFromFile("../res/demon_red_sprite_resized.png"))
+void Enemy::init(float x, float y, int color) {
+    std::string text = "";
+    switch (color) {
+        case 0: text = "../res/demon_red_sprite_resized.png"; break;
+        case 1: text = "../res/demon_blue_sprite_resized.png"; break;
+        case 2: text = "../res/demon_green_sprite_resized.png"; break;
+    }
+        
+    if (!texture.loadFromFile(text))
     {
         // error...
     }

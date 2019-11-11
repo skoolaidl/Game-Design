@@ -15,6 +15,7 @@ class HumanView : public View {
         void checkKeyboard(float time);
         sf::Font font;
         sf::Texture texture;
+        sf::Sprite background;
         void drawObjects();
         int width;
         int height;

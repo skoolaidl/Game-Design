@@ -19,7 +19,7 @@ void Player::init() {
     velocityY = 0.f;
     xpos = 200.f;
     ypos = 300.f;
-    maxJumpHeight = ypos - 100.f;
+    maxJumpHeight = ypos - 150.f;
     inAir = false;
     falling = false;
     stepSizeX = 4.f;
@@ -63,7 +63,7 @@ bool Player::atMaxJumpHeight()
 
 void Player::setMaxJumpHeight()
 {
-    maxJumpHeight = ypos - 100.f;
+    maxJumpHeight = ypos - 150.f;
 }
 
 bool Player::isInAir()

@@ -21,9 +21,15 @@ class GameLogic {
         Player player;
         Enemy enemy1;
         Enemy enemy2;
+        Enemy enemy3;
         Platform floor;
         Platform platformA;
+        Platform platformB;
+        Platform platformC;
         Spike spike1;
+        Spike spike2;
+        Spike spike3;
+        Spike spike4;
         std::vector<std::reference_wrapper<Actor>> actorsVector;
         std::vector<std::reference_wrapper<Platform>> platforms;
         std::vector<std::reference_wrapper<Spike>> spikes;
@@ -34,7 +40,7 @@ class GameLogic {
         void reset();
         bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
         void updatePlayerCollision(float timeS);
-        void updatePlayerCollisionSpikes();
+        void updatePlayerCollisionSpikesEnemy();
         void updateProjectileCollisions();
         bool updatePlatformCollisions(Actor actor);
         void updateEnemyMovement(Enemy& enemy, float timeS);

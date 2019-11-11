@@ -15,6 +15,13 @@ void HumanView::init() {
     height = size.y;
     view.reset(sf::FloatRect(0,0,width,height));
     view.setViewport(sf::FloatRect(0,0,1.f,1.f));
+    if (!texture.loadFromFile("../res/background_resized.gif"))
+    {
+        // error...
+    }
+    texture.setRepeated(true);
+    background = sf::Sprite(texture);
+    background.setTextureRect({ 0, 0, 4000, height});
     drawObjects();
 }
 
@@ -35,7 +42,7 @@ void HumanView::update(float time) {
 
 void HumanView::drawObjects() {
     display.clear();
-    
+    display.draw(background);
     float x = logic.getPlayer().getSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;

@@ -18,7 +18,7 @@ class Enemy : public Shooter {
     public:
         Enemy();
         void init();
-        void init(float x, float y);
+        void init(float x, float y, int color=0);
         void shoot();
         void setVelocityX(float velX);
         void setVelocityY(float velY);
