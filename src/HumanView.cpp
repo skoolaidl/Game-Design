@@ -37,7 +37,7 @@ void HumanView::drawObjects() {
     display.clear();
     
     float x = logic.getPlayer().getSprite().getPosition().x;
-    if ( x + 10 < width/2 ) {
+    if ( x < width/2 ) {
         x = width/2;
     } 
     

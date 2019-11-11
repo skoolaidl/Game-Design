@@ -17,7 +17,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     gravity = 3.f;
     gameState = 1;
     player.init();
-    floor.init(1.f, 1.5f, 150.f, 350.f);
+    floor.init(5.f, 1.f, 150.f, 350.f);
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
     spike1.init(1.f,1.f, 650.f, 350.f);
     actorsVector.push_back(floor);
@@ -188,5 +188,8 @@ void GameLogic::playerFall(float time) {
     {
         player.setFalling(true); //player has already jumped and needs to fall before jumping again
         player.setVelocityY(gravity * time);
+        if (player.getSprite().getPosition().y > 600.f) {
+            softReset();
+        }
     }
 }
