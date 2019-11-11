@@ -249,7 +249,7 @@ void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
     if (player.getSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
         && player.getSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
      {
-        enemy.trackActor(player, timeS);
+        enemy.trackPlayer(player, timeS);
      }
 }
 
