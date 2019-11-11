@@ -25,8 +25,11 @@ void LevelCreator::LoadMap(int level){
     if (openfile.is_open()){
         // std::string tileLocation;
         // openfile >> tileLocation;
-        tileTexture.loadFromFile(mapTiles);
-        tiles.setTexture(tileTexture);
+        if (!tileTexture.loadFromFile(mapTiles))
+        {
+            std::cout << "error" << std::endl;
+        }
+        //tiles.setTexture(tileTexture);
         while(!openfile.eof()){
             std::string tileLoc;
             openfile >> tileLoc;
@@ -50,8 +53,7 @@ void LevelCreator::SetMap() {
             if (map[i][j].x != -1 && map[i][j].y != -1){
                 Platform platform;
                 sf::IntRect rect = sf::IntRect(map[i][j].x * 40, map[i][j].y * 40, 40, 40);
-                // tiles.setTextureRect(sf::IntRect(map[i][j].x * 40, map[i][j].y * 40, 40, 40));
-                platform.init(40, 40, 40 * i, 40 * j, rect, tiles);
+                platform.init(1, 1, 40 * i, 40 * j, rect, tileTexture);
                 actorsVector.push_back(platform);
             } 
         }

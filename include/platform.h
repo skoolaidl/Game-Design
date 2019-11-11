@@ -13,7 +13,7 @@ class Platform : public Actor {
 
     public:
         Platform();
-        void init(const float width, const float height, const float xpos, const float ypos, sf::IntRect rect, sf::Sprite tile);
+        void init(const float width, const float height, const float xpos, const float ypos, sf::IntRect rect, sf::Texture tile);
 };
 
 #endif
