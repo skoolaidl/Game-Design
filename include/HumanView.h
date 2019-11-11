@@ -12,9 +12,12 @@ class HumanView : public View {
         //display window
         sf::RenderWindow& display;
         sf::View& view;
+        void drawMenu();
         void checkKeyboard(float time);
+        void checkKeyboardStart();
         sf::Font font;
         sf::Texture texture;
+        sf::Texture girlText;
         sf::Sprite background;
         void drawObjects();
         int width;

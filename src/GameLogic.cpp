@@ -16,18 +16,18 @@ void GameLogic::init(int wWidth, int wHeight) {
     height = wHeight;
     bulletSpeed = 500;
     gravity = 3.f;
-    gameState = 1;
+    gameState = 0;
     player.init();
     enemy1.init(1000.f, 320.f);
     enemy2.init(500.f, 320.f,1);
     enemy3.init(1500.f, 320.f,2);
     floor.init(5.f, 1.f, 150.f, 350.f);
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
-    platformB.init(2.f, 1.f, 2700.f, 350.f);
-    platformC.init(1.f, 0.5f, 1000.f, 250.f);
+    platformB.init(2.f, 1.f, 2700.f, 280.f);
+    platformC.init(1.f, 0.5f, 1000.f, 280.f);
     spike1.init(1.f,1.f, 650.f, 320.f);
     spike2.init(1.f,1.f,1200.f, 320.f);
-    spike3.init(1.f,1.f,1600.f, 320.f);
+    spike3.init(1.f,1.f,1550.f, 320.f);
     spike4.init(1.f,1.f,2100.f, 320.f);
 
     actorsVector.push_back(floor);
@@ -41,6 +41,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     actorsVector.push_back(spike2);
     actorsVector.push_back(spike3);
     actorsVector.push_back(spike4);
+    actorsVector.push_back(girl);
     platforms.push_back(platformB);
     platforms.push_back(floor);
     platforms.push_back(platformA);
@@ -71,6 +72,10 @@ void GameLogic::update(float timeS) {
     
 }
 
+Actor& GameLogic::getGirl(){
+    return girl;
+}
+
 void GameLogic::softReset() {
     //return player character to beginning of level
     player.resetPosition();
@@ -84,6 +89,10 @@ void GameLogic::reset() {
 int GameLogic::getGameState() {
     //gameState can be 0, uninitialized; 1, running; or others
     return gameState;
+}
+
+void GameLogic::setGameState(int newState) {
+    gameState = newState;
 }
 
 void GameLogic::updatePlayerCollisionSpikesEnemy() {
@@ -102,6 +111,13 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
         }    
     }
     
+}
+
+void GameLogic::updatePlayerCollisionGirl() {
+    if (player.getSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
+        {
+            gameState = 2;
+        }          
 }
 
 void GameLogic::updateProjectileCollisions() {

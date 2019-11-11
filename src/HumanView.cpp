@@ -15,6 +15,9 @@ void HumanView::init() {
     height = size.y;
     view.reset(sf::FloatRect(0,0,width,height));
     view.setViewport(sf::FloatRect(0,0,1.f,1.f));
+    girlText.loadFromFile("../res/girl_resized.png");
+    logic.getGirl().setSprite(sf::Sprite(girlText));
+    logic.getGirl().getSprite().setPosition(3600, 250);
     if (!texture.loadFromFile("../res/background_resized.gif"))
     {
         // error...
@@ -29,20 +32,35 @@ void HumanView::update(float time) {
     
     switch (logic.getGameState()) {
         //error, game not initialized
-        case 0: break;
+        case 0: drawMenu(); checkKeyboardStart(); break;
         //running
         case 1: drawObjects(); checkKeyboard(time); break;
-        case 2: break;
+        //end of level
+        case 2: drawEndLevel(); checkKeyboardEndLevel(); break;
         case 3: break;
         case 4: break;
     }
     
 }
 
+void HumanView::drawMenu() {
+    display.clear();
+    //load font
+    if (!font.loadFromFile("times.ttf"))
+    {
+        // error...
+    }
+    sf::Text start("Welcome to Match Made in Hell!\nPress enter to start", font, 50);
+    win.setPosition(display.getSize().x / 4, display.getSize().y / 3);
+    win.setFillColor(sf::Color::Red);
+    display.draw(start);
+    display.display();
+}
 
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
+    display.draw(logic.getGirl().getSprite());
     float x = logic.getPlayer().getSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;
@@ -56,6 +74,13 @@ void HumanView::drawObjects() {
     }
     display.draw(logic.getPlayer().getSprite());
     display.display();
+}
+
+void HumanView::checkKeyboardStart() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+        //character moves right
+        logic.setGameState(1);   
+    }
 }
 
 void HumanView::checkKeyboard(float time) {
