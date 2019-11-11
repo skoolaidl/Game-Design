@@ -25,10 +25,11 @@ void GameLogic::init(int wWidth, int wHeight) {
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
     platformB.init(2.f, 1.f, 2700.f, 350.f);
     platformC.init(1.f, 0.5f, 1000.f, 250.f);
-    spike1.init(1.f,1.f, 650.f, 325.f);
-    spike2.init(1.f,1.f,1200.f, 325.f);
-    spike3.init(1.f,1.f,1600.f, 325.f);
-    spike4.init(1.f,1.f,2100.f, 325.f);
+    spike1.init(1.f,1.f, 650.f, 320.f);
+    spike2.init(1.f,1.f,1200.f, 320.f);
+    spike3.init(1.f,1.f,1600.f, 320.f);
+    spike4.init(1.f,1.f,2100.f, 320.f);
+
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
     actorsVector.push_back(platformB);
@@ -277,7 +278,7 @@ void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
     if (player.getSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
         && player.getSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
      {
-        enemy.trackActor(player, timeS);
+        enemy.trackPlayer(player, timeS);
      }
 }
 
