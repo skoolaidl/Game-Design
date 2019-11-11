@@ -37,17 +37,17 @@ void HumanView::drawObjects() {
     display.clear();
     
     float x = logic.getPlayer().getSprite().getPosition().x;
-    if ( x + 10 < width/2 ) {
+    if ( x < width/2 ) {
         x = width/2;
     } 
     
     view.setCenter(x,height/2);
     display.setView(view);
-    display.draw(logic.getPlayer().getSprite());
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
         display.draw(logic.getActors()[i].get().getSprite());
     }
+    display.draw(logic.getPlayer().getSprite());
     display.display();
 }
 

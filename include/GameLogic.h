@@ -20,7 +20,8 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         Player player;
-        Enemy enemy;
+        Enemy enemy1;
+        Enemy enemy2;
         Platform floor;
         Platform platformA;
         Spike spike1;
@@ -32,9 +33,15 @@ class GameLogic {
         
         void softReset();
         void reset();
-        void updatePlayerCollision(float time);
+        bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
+        void updatePlayerCollision(float timeS);
         void updatePlayerCollisionSpikes();
         void updateProjectileCollisions();
+        bool updatePlatformCollisions(Actor actor);
+        void updateEnemyMovement(Enemy& enemy, float timeS);
+        void enemyFall(Enemy& enemy, float timeS);
+        void enemySetBounds(Enemy& enemy);
+        void enemyTrack(Enemy& enemy, float timeS);
         
 		
 	public:
@@ -44,7 +51,7 @@ class GameLogic {
         
         void init(int wWidth, int wHeight);
         
-        void update(float time);
+        void update(float timeS);
                 
         void increaseScore(int level, int increase);
 
@@ -52,17 +59,13 @@ class GameLogic {
 
         std::vector<std::reference_wrapper<Actor>> getActors();
 
-        bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
+        void playerMoveRight(float timeS);
 
-        void playerMoveRight(float time);
+        void playerMoveLeft(float timeS);
 
-        void playerMoveLeft(float time);
-
-        void playerJump(float time);
+        void playerJump(float timeS);
         
-        void playerFall(float time);
-
-        void enemyFall(float time);
+        void playerFall(float timeS);
         
 };
 
