@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<Actors>
+    <Platform>
+        <scaleX>5</scaleX>
+        <scaleY>1</scaleY>
+        <x>150</x>
+        <y>350</y>
+    </Platform>
+    <Platform>
+        <scaleX>0.3</scaleX>
+        <scaleY>0.4</scaleY>
+        <x>450</x> 
+        <y>280</y>
+    </Platform>
+    <Spike>
+        <scaleX>1</scaleX>
+        <scaleY>1</scaleY>
+        <x>650</x>
+        <y>350</y>
+    </Spike>
+</Actors>
