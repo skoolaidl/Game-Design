@@ -16,23 +16,43 @@ void GameLogic::init(int wWidth, int wHeight) {
     height = wHeight;
     bulletSpeed = 500;
     gravity = 3.f;
-    gameState = 1;
+    gameState = 0;
     player.init();
-    enemy1.init(200.f, 320.f);
-    enemy2.init(500.f, 320.f);
+    enemy1.init(1000.f, 320.f);
+    enemy2.init(500.f, 320.f,1);
+    enemy3.init(1500.f, 320.f,2);
     floor.init(5.f, 1.f, 150.f, 350.f);
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
-    spike1.init(1.f,1.f, 650.f, 350.f);
+    platformB.init(2.f, 1.f, 2700.f, 280.f);
+    platformC.init(1.f, 0.5f, 1000.f, 280.f);
+    spike1.init(1.f,1.f, 650.f, 320.f);
+    spike2.init(1.f,1.f,1200.f, 320.f);
+    spike3.init(1.f,1.f,1550.f, 320.f);
+    spike4.init(1.f,1.f,2100.f, 320.f);
+
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
+    actorsVector.push_back(platformB);
+    actorsVector.push_back(platformC);
     actorsVector.push_back(enemy1);
     actorsVector.push_back(enemy2);
     actorsVector.push_back(spike1);
+    actorsVector.push_back(enemy3);
+    actorsVector.push_back(spike2);
+    actorsVector.push_back(spike3);
+    actorsVector.push_back(spike4);
+    actorsVector.push_back(girl);
+    platforms.push_back(platformB);
     platforms.push_back(floor);
     platforms.push_back(platformA);
+    platforms.push_back(platformC);
     enemies.push_back(enemy1);
     enemies.push_back(enemy2);
+    enemies.push_back(enemy3);
     spikes.push_back(spike1);
+    spikes.push_back(spike2);
+    spikes.push_back(spike3);
+    spikes.push_back(spike4);
     
 }
 
@@ -46,15 +66,20 @@ void GameLogic::update(float timeS) {
         {
             updateEnemyMovement(enemies[e].get(), timeS);
         }
-        updatePlayerCollisionSpikes();
+        updatePlayerCollisionSpikesEnemy();
         updateProjectileCollisions();
     }
 
 }
 
+Actor& GameLogic::getGirl(){
+    return girl;
+}
+
 void GameLogic::softReset() {
     //return player character to beginning of level
     player.resetPosition();
+    //reset score multiplier
 }
 
 void GameLogic::reset() {
@@ -66,7 +91,11 @@ int GameLogic::getGameState() {
     return gameState;
 }
 
-void GameLogic::updatePlayerCollisionSpikes() {
+void GameLogic::setGameState(int newState) {
+    gameState = newState;
+}
+
+void GameLogic::updatePlayerCollisionSpikesEnemy() {
     //check if player is colliding with any spikes    
     for(int i = 0; i < spikes.size(); ++i)
     {
@@ -75,7 +104,20 @@ void GameLogic::updatePlayerCollisionSpikes() {
             softReset();
         }                                                                                                                                                                                          
     }
+    for(int i = 0; i < enemies.size(); ++i) {
+        if (player.getSprite().getGlobalBounds().intersects( enemies[i].get().getSprite().getGlobalBounds() ) )
+        {
+            softReset();
+        }    
+    }
     
+}
+
+void GameLogic::updatePlayerCollisionGirl() {
+    if (player.getSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
+        {
+            gameState = 2;
+        }          
 }
 
 void GameLogic::updateProjectileCollisions() {
@@ -252,7 +294,7 @@ void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
     if (player.getSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
         && player.getSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
      {
-        enemy.trackActor(player, timeS);
+        enemy.trackPlayer(player, timeS);
      }
 }
 
@@ -270,5 +312,7 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
 }
 
 void GameLogic::playerShoot(float timeS){
-  
+    Bullet newBullet(sf::Vector2f(50, 5));
+    newBullet.setPos(sf::Vector2f(player.getSprite().getPosition().x, player.getSprite().getPosition().y));
+    bulletVec.push_back(newBullet);
 }
