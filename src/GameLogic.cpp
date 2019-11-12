@@ -88,7 +88,7 @@ void GameLogic::update(float timeS) {
        
         updatePlayerCollisionSpikesEnemy();
         updateProjectileCollisions();
-        updatePlayeCollisionGirl();
+        updatePlayerCollisionGirl();
     }
 
 }
