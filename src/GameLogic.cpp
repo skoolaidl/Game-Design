@@ -51,6 +51,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     platforms.push_back(platformB);
     platforms.push_back(floor);
     platforms.push_back(platformA);
+    platforms.push_back(platformB);
     platforms.push_back(platformC);
     platforms.push_back(platformD);
     platforms.push_back(platformE);
