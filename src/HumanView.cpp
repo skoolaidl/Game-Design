@@ -72,6 +72,8 @@ void HumanView::drawEndLevel() {
     end.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
+    view.setCenter(width/2,height/2);
+    display.setView(view);
     display.display();
 }
 
