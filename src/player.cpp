@@ -22,8 +22,9 @@ void Player::init() {
     maxJumpHeight = ypos - 150.f;
     inAir = false;
     falling = false;
-    stepSizeX = 4.f;
-    stepSizeY = 5.f;
+    stepSizeX = 400.f;
+    stepSizeY = 500.f;
+    direction = true;
     getSprite().setPosition(xpos, ypos);
 }
 
@@ -43,7 +44,7 @@ void Player::setVelocityY(float velY)
     velocityY = velY;
 }
 
-void Player::updateMovement() 
+void Player::updateMovement(float timeS) 
 {
     xpos += velocityX;
     ypos += velocityY;
@@ -99,4 +100,12 @@ float Player::getStepSizeX()
 float Player::getStepSizeY()
 {
     return stepSizeY;
+}
+
+bool Player::getDirection() {
+    return direction;
+}
+
+void Player::setDirection(bool pDirection) {
+    direction = pDirection;
 }

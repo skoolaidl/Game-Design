@@ -2,6 +2,8 @@
 #define ENEMY_H
 #include "shooter.h"
 #include "player.h"
+#include "Bullet.h"
+#include <SFML/System.hpp>
 
 class Enemy : public Shooter {
     private:
@@ -15,6 +17,8 @@ class Enemy : public Shooter {
         float maxLeftDistance;
         float stepSize;
         void checkMaxDistance();
+        
+        bool isOffScreen;
     
     public:
         Enemy();
@@ -30,11 +34,12 @@ class Enemy : public Shooter {
         float getMaxLeftDistance();
         void setMaxRightDistance(float dist);
         void setMaxLeftDistance(float dist);
-        void updateMovement();
+        void updateMovement(float timeS);
         void trackPlayer(Player player, float timeS);
         void trackActor(Actor actor, float timeS);
-        void setPos(sf::vector2f newPos);
+        void setPos(sf::Vector2f newPos);
         void checkCollision(Bullet bullet);
+        void setOffScreen();
 
 };
 

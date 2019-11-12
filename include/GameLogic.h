@@ -8,7 +8,6 @@
 #include "platform.h"
 #include "spike.h"
 #include "projectile.h"
-#include "Bullet.h"
 
 class GameLogic {
     private:
@@ -23,10 +22,14 @@ class GameLogic {
         Enemy enemy1;
         Enemy enemy2;
         Enemy enemy3;
+        Enemy enemy4;
         Platform floor;
         Platform platformA;
         Platform platformB;
         Platform platformC;
+        Platform platformD;
+        Platform platformE;
+        Projectile projectile;
         Spike spike1;
         Spike spike2;
         Spike spike3;
@@ -36,22 +39,21 @@ class GameLogic {
         std::vector<std::reference_wrapper<Spike>> spikes;
         std::vector<std::reference_wrapper<Projectile>> projectiles;
         std::vector<std::reference_wrapper<Enemy>> enemies;
-        std::vector<std::reference_wrapper<Bullet>> bullets;
+        
+        bool playerFired = false;
         
         void softReset();
         void reset();
         bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
         void updatePlayerCollision(float timeS);
         void updatePlayerCollisionSpikesEnemy();
+        void updatePlayerCollisionGirl();
         void updateProjectileCollisions();
         bool updatePlatformCollisions(Actor actor);
         void updateEnemyMovement(Enemy& enemy, float timeS);
         void enemyFall(Enemy& enemy, float timeS);
         void enemySetBounds(Enemy& enemy);
         void enemyTrack(Enemy& enemy, float timeS);
-        		
-        Bullet bullet;
-        boolean isFiring;
 
 
 
@@ -75,6 +77,12 @@ class GameLogic {
         void playerMoveRight(float timeS);
 
         void playerMoveLeft(float timeS);
+        
+        void playerShoot(float timeS);
+        
+        void playerJump(float timeS);
+        
+        void playerFall(float time);
 
 };
 

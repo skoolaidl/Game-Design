@@ -26,7 +26,7 @@ void HumanView::init() {
     texture.setRepeated(true);
     background = sf::Sprite(texture);
     background.setTextureRect({ 0, 0, 4000, height});
-    drawObjects();
+    //drawObjects();
 }
 
 void HumanView::update(float time) {
@@ -47,14 +47,31 @@ void HumanView::update(float time) {
 void HumanView::drawMenu() {
     display.clear();
     //load font
-    if (!font.loadFromFile("times.ttf"))
+    if (!font.loadFromFile("../res/times.ttf"))
     {
         // error...
     }
     sf::Text start("Welcome to Match Made in Hell!\nPress enter to start", font, 50);
-    win.setPosition(display.getSize().x / 4, display.getSize().y / 3);
-    win.setFillColor(sf::Color::Red);
+    start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
+    start.setFillColor(sf::Color::Red);
+    titleText.loadFromFile("../res/title_resized.png");
+    sf::Sprite title(titleText);
+    display.draw(title);
     display.draw(start);
+    display.display();
+}
+
+void HumanView::drawEndLevel() {
+    display.clear();
+    //load font
+    if (!font.loadFromFile("../res/times.ttf"))
+    {
+        // error...
+    }
+    sf::Text end("You completed the level", font, 50);
+    end.setPosition(display.getSize().x / 8, display.getSize().y - 200);
+    end.setFillColor(sf::Color::Red);
+    display.draw(end);
     display.display();
 }
 
@@ -79,9 +96,13 @@ void HumanView::drawObjects() {
 
 void HumanView::checkKeyboardStart() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-        //character moves right
+        //set gameState to running
         logic.setGameState(1);   
     }
+}
+
+void HumanView::checkKeyboardEndLevel() {
+
 }
 
 void HumanView::checkKeyboard(float time) {

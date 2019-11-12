@@ -17,13 +17,15 @@ class Player : public Shooter {
         bool falling;
         float stepSizeX;
         float stepSizeY;
+        //true is facing right, false is left
+        bool direction;
     public:
         Player();
         void init();
         void shoot();
         void setVelocityX(float velX);
         void setVelocityY(float velY);
-        void updateMovement();
+        void updateMovement(float timeS);
         bool atMaxJumpHeight();
         void setMaxJumpHeight();
         bool isInAir();
@@ -33,6 +35,8 @@ class Player : public Shooter {
         void resetPosition();
         float getStepSizeX();
         float getStepSizeY();
+        bool getDirection();
+        void setDirection(bool pDirection);
 };
 
 #endif

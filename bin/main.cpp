@@ -47,7 +47,7 @@ int main(int argc, char** argv)
     }
     if (focused) {
         float deltaS = clock.restart().asSeconds();
-        deltaS = (deltaS < 1.f) ? 1.f : deltaS;
+        //deltaS = (deltaS < 1.f) ? 1.f : deltaS;
     
         logic.update(deltaS);
         human.update(deltaS);
