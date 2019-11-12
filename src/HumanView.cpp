@@ -16,27 +16,71 @@ void HumanView::init() {
     height = size.y;
     view.reset(sf::FloatRect(0,0,width,height));
     view.setViewport(sf::FloatRect(0,0,1.f,1.f));
-    drawObjects();
+    girlText.loadFromFile("../res/girl_resized.png");
+    logic.getGirl().setSprite(sf::Sprite(girlText));
+    logic.getGirl().getSprite().setPosition(3600, 250);
+    if (!texture.loadFromFile("../res/background_resized.gif"))
+    {
+        // error...
+    }
+    texture.setRepeated(true);
+    background = sf::Sprite(texture);
+    background.setTextureRect({ 0, 0, 4000, height});
+    //drawObjects();
 }
 
 void HumanView::update(float time) {
     
     switch (logic.getGameState()) {
         //error, game not initialized
-        case 0: break;
+        case 0: drawMenu(); checkKeyboardStart(); break;
         //running
         case 1: drawObjects(); checkKeyboard(time); break;
-        case 2: break;
+        //end of level
+        case 2: drawEndLevel(); checkKeyboardEndLevel(); break;
         case 3: break;
         case 4: break;
     }
 
 }
 
+void HumanView::drawMenu() {
+    display.clear();
+    //load font
+    if (!font.loadFromFile("../res/times.ttf"))
+    {
+        // error...
+    }
+    sf::Text start("Welcome to Match Made in Hell!\nPress enter to start", font, 50);
+    start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
+    start.setFillColor(sf::Color::Red);
+    titleText.loadFromFile("../res/title_resized.png");
+    sf::Sprite title(titleText);
+    display.draw(title);
+    display.draw(start);
+    display.display();
+}
+
+void HumanView::drawEndLevel() {
+    display.clear();
+    //load font
+    if (!font.loadFromFile("../res/times.ttf"))
+    {
+        // error...
+    }
+    sf::Text end("You completed the level", font, 50);
+    end.setPosition(display.getSize().x / 8, display.getSize().y - 200);
+    end.setFillColor(sf::Color::Red);
+    display.draw(end);
+    view.setCenter(width/2,height/2);
+    display.setView(view);
+    display.display();
+}
 
 void HumanView::drawObjects() {
     display.clear();
-    
+    display.draw(background);
+    display.draw(logic.getGirl().getSprite());
     float x = logic.getPlayer().getSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;
@@ -50,6 +94,17 @@ void HumanView::drawObjects() {
     }
     display.draw(logic.getPlayer().getSprite());
     display.display();
+}
+
+void HumanView::checkKeyboardStart() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+        //set gameState to running
+        logic.setGameState(1);   
+    }
+}
+
+void HumanView::checkKeyboardEndLevel() {
+
 }
 
 void HumanView::checkKeyboard(float time) {

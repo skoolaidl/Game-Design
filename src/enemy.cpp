@@ -1,4 +1,5 @@
 #include "enemy.h"
+#include <string>
 
 /*
 Basic enemy class that has actions and holds information for the
@@ -22,12 +23,20 @@ void Enemy::init() {
     startXPos = xpos;
     maxRightDistance = 100.f;
     maxLeftDistance = 100.f;
-    stepSize = 1.f;
+    stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
+    isOffScreen = false;
 }
 
-void Enemy::init(float x, float y) {
-    if (!texture.loadFromFile("../res/demon_red_sprite_resized.png"))
+void Enemy::init(float x, float y, int color) {
+    std::string text = "";
+    switch (color) {
+        case 0: text = "../res/demon_red_sprite_resized.png"; break;
+        case 1: text = "../res/demon_blue_sprite_resized.png"; break;
+        case 2: text = "../res/demon_green_sprite_resized.png"; break;
+    }
+        
+    if (!texture.loadFromFile(text))
     {
         // error...
     }
@@ -39,8 +48,9 @@ void Enemy::init(float x, float y) {
     startXPos = xpos;
     maxRightDistance = 100.f;
     maxLeftDistance = 100.f;
-    stepSize = 1.f;
+    stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
+    isOffScreen = false;
 }
 
 void Enemy::setVelocityX(float velX)
@@ -88,8 +98,11 @@ void Enemy::setMaxLeftDistance(float dist)
     maxLeftDistance = dist;
 }
 
-void Enemy::updateMovement() 
+void Enemy::updateMovement(float timeS) 
 {
+    if (isOffScreen) {
+        return;
+    }
     checkMaxDistance();
     xpos += velocityX;
     ypos += velocityY;
@@ -130,16 +143,16 @@ void Enemy::shoot()
 
 }
 
-
-void Enemy::setPos(sf::vector2f newPos){
-  enemy.setPos(newPos);
+void Enemy::setOffScreen() {
+    getSprite().setPosition(400, 650);
+    isOffScreen = true;
 }
 
-void Enemy::checkCollision(Bullet bullet){
+/*void Enemy::checkCollision(Bullet bullet){
     if (bullet.getRight()>enemy.getPosition().x &&
         bullet.getTop()<enemy.getPosition().y+enemy.getSize().y &&
         bullet.getDown()>enemy.getPosition().y){
     enemy.setPosition(sf::Vector2f(4234432,4234423));
 }
-}
+}*/
 
