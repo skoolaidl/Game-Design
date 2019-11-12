@@ -17,17 +17,12 @@ void GameLogic::init(int wWidth, int wHeight) {
     gravity = 3.f;
     gameState = 1;
     player.init();
-
-    // floor.init(1.f, 1.5f, 150.f, 350.f);
-    // platformA.init(0.3f, 0.4f, 450.f, 290.f);
-
-    loader.init(actorsVector);
+    
+    loader.init();
     //TODO: change logic for level select
     loader.LoadMap(0);
-    loader.SetMap();
+    actorsVector = loader.SetMap();
 
-    // actorsVector.push_back(floor);
-    // actorsVector.push_back(platformA);
 }
 
 

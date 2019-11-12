@@ -14,12 +14,12 @@ class LevelCreator {
         sf::Vector2i map[100][100];
         sf::Vector2i loadCounter = sf::Vector2i(0, 0);
         std::vector<Actor> actorsVector;
-        std::string mapTiles =  ("../res/TileTest.png"); //change this once full tile set art completed
+        std::string mapTiles =  ("/Users/Seth/Desktop/Game-Design/res/TileTest.png"); //change this once full tile set art completed
     public:
         LevelCreator();
-        void init(std::vector<Actor> actorsVec);
+        void init();
         void LoadMap(int level);
-        void SetMap();
+        std::vector<Actor> SetMap();
 };
 
 #endif
