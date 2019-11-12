@@ -204,7 +204,7 @@ void GameLogic::updatePlayerCollision(float timeS)
     float playerWidth = player.getSprite().getGlobalBounds().width;
     float playerHeight = player.getSprite().getGlobalBounds().height;
     float bufferSpaceY = gravity * timeS;
-    float bufferSpaceX = 2.f * timeS;
+    float bufferSpaceX = player.getStepSizeX() * timeS;
     sf::FloatRect topHitBox = sf::FloatRect(playerX, playerY, playerWidth, bufferSpaceY);
     sf::FloatRect bottomHitBox = sf::FloatRect(playerX, playerY + playerHeight - bufferSpaceY, playerWidth, bufferSpaceY);
     //left and right hit boxes are slightly in front (or behind) character sprite to detect objects

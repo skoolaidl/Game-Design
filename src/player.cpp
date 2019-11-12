@@ -22,7 +22,7 @@ void Player::init() {
     maxJumpHeight = ypos - 150.f;
     inAir = false;
     falling = false;
-    stepSizeX = 400.f;
+    stepSizeX = 300.f;
     stepSizeY = 500.f;
     direction = true;
     getSprite().setPosition(xpos, ypos);
