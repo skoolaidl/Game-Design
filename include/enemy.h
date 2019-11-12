@@ -1,6 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "shooter.h"
+#include "player.h"
 
 class Enemy : public Shooter {
     private:
@@ -30,10 +31,9 @@ class Enemy : public Shooter {
         void setMaxRightDistance(float dist);
         void setMaxLeftDistance(float dist);
         void updateMovement();
-        void trackActor(Actor actor, float timeS);
+        void trackPlayer(Player player, float timeS);
         void setPos(sf::vector2f newPos);
         void checkCollision(Bullet bullet);
-
 
 };
 

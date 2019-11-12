@@ -105,13 +105,17 @@ void Enemy::checkMaxDistance()
     }
 }
 
-void Enemy::trackActor(Actor actor, float timeS)
+void Enemy::trackPlayer(Player player, float timeS)
 {
-    if(xpos < actor.getSprite().getPosition().x)
+    if(player.isInAir())
+    {
+        velocityX = 0.f;
+    }
+    else if(xpos < player.getSprite().getPosition().x)
     {
         velocityX = stepSize * timeS;
     }
-    else if(xpos > actor.getSprite().getPosition().x)
+    else if(xpos > player.getSprite().getPosition().x)
     {
         velocityX = -1*stepSize * timeS;
     }

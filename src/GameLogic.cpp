@@ -19,8 +19,8 @@ void GameLogic::init(int wWidth, int wHeight) {
     gameState = 0;
     player.init();
     enemy1.init(1000.f, 320.f);
-    enemy2.init(500.f, 320.f,1);
-    enemy3.init(1500.f, 320.f,2);
+    enemy2.init(500.f, 320.f, 1);
+    enemy3.init(1500.f, 320.f, 2);
     floor.init(5.f, 1.f, 150.f, 350.f);
     platformA.init(0.3f, 0.4f, 450.f, 280.f);
     platformB.init(2.f, 1.f, 2700.f, 280.f);
@@ -42,9 +42,9 @@ void GameLogic::init(int wWidth, int wHeight) {
     actorsVector.push_back(spike3);
     actorsVector.push_back(spike4);
     actorsVector.push_back(girl);
-    platforms.push_back(platformB);
     platforms.push_back(floor);
     platforms.push_back(platformA);
+    platforms.push_back(platformB);
     platforms.push_back(platformC);
     enemies.push_back(enemy1);
     enemies.push_back(enemy2);
@@ -312,7 +312,7 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
 }
 
 void GameLogic::playerShoot(float timeS){
-    Bullet newBullet(sf::Vector2f(50, 5));
+    Bullet newBullet(sf::Vector2f(50.f, 5.f));
     newBullet.setPos(sf::Vector2f(player.getSprite().getPosition().x, player.getSprite().getPosition().y));
     bulletVec.push_back(newBullet);
 }
