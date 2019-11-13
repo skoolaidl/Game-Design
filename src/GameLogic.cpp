@@ -203,7 +203,7 @@ void GameLogic::updatePlayerCollision(float timeS)
     float playerY = player.getSprite().getPosition().y;
     float playerWidth = player.getSprite().getGlobalBounds().width;
     float playerHeight = player.getSprite().getGlobalBounds().height;
-    float bufferSpaceY = gravity * timeS;
+    float bufferSpaceY = player.getStepSizeY() * timeS;
     float bufferSpaceX = player.getStepSizeX() * timeS;
     sf::FloatRect topHitBox = sf::FloatRect(playerX, playerY, playerWidth, bufferSpaceY);
     sf::FloatRect bottomHitBox = sf::FloatRect(playerX, playerY + playerHeight - bufferSpaceY, playerWidth, bufferSpaceY);
