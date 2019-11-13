@@ -41,6 +41,10 @@ void HumanView::update(float time) {
         case 3: break;
         case 4: break;
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+        display.close();
+    }
 
 }
 
@@ -132,8 +136,4 @@ void HumanView::checkKeyboard(float time) {
         logic.playerShoot(time);
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    {
-        display.close();
-    }
 }
