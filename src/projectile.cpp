@@ -6,11 +6,12 @@ checks to see if it has run into anything
 */
 
 Projectile::Projectile(){ 
-    isOffScreen = true;
+    isAvailable = true;
 }
 
-void Projectile::init(int type, float x, float y, bool pDirection) {
+void Projectile::init(int pType, float x, float y, bool pDirection) {
     direction = pDirection;
+	type = pType;
     //set sprite according to type (fireball 0 or bullet 1)
     std::string text = "";
     switch (type) {
@@ -24,7 +25,7 @@ void Projectile::init(int type, float x, float y, bool pDirection) {
     setSprite(sf::Sprite(texture));
     getSprite().setPosition(x,y);
     startX = x;
-    isOffScreen = false;
+    isAvailable = false;
 }
 
 void Projectile::setVelocity(float timeS)
@@ -33,7 +34,7 @@ void Projectile::setVelocity(float timeS)
 }
 
 void Projectile::updateMovement() {
-    if (isOffScreen) {
+    if (isAvailable) {
         return;
     }
     if (direction) {
@@ -56,8 +57,14 @@ bool Projectile::checkDistance() {
     return true;
 }
 
-void Projectile::setOffScreen() {
-    getSprite().setPosition(0, 650);
-    isOffScreen = true;
+void Projectile::setAvailable() {
+    isAvailable = true;
 }
 
+bool Projectile::getIsAvailable() {
+	return isAvailable;
+}
+
+int Projectile::getType() {
+	return type;
+}

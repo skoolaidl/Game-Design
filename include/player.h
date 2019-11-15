@@ -4,6 +4,7 @@
 #include <vector>
 #include "shooter.h"
 #include "platform.h"
+#include "projectile.h"
 
 class Player : public Shooter {
     private:
@@ -19,6 +20,8 @@ class Player : public Shooter {
         float stepSizeY;
         //true is facing right, false is left
         bool direction;
+        Projectile bullet;
+
     public:
         Player();
         void init();
@@ -37,6 +40,7 @@ class Player : public Shooter {
         float getStepSizeY();
         bool getDirection();
         void setDirection(bool pDirection);
+        Projectile& getBullet() { return bullet; }
 };
 
 #endif

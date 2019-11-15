@@ -125,7 +125,7 @@ void HumanView::checkKeyboard(float time) {
 
     if (sf::Keyboard::isKeyPressed(shoot)) {
         //character shoots
-        logic.playerShoot(time);
+        logic.playerShoot();
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

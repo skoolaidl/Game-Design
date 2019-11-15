@@ -11,17 +11,20 @@ class Projectile : public Moveable {
         bool direction;
         sf::Texture texture;
         float startX;
-        bool isOffScreen;
+        bool isAvailable;
+		int type;
         
     
     public:
         Projectile();
         
-        void init(int type, float x, float y, bool pDirection);       
+        void init(int pType, float x, float y, bool pDirection);       
         void updateMovement();
         bool checkDistance();
-        void setOffScreen();
+        void setAvailable();
 		void setVelocity(float timeS);
+		bool getIsAvailable();
+		int getType();
         
 };
 
