@@ -148,11 +148,4 @@ void Enemy::setOffScreen() {
     isOffScreen = true;
 }
 
-/*void Enemy::checkCollision(Bullet bullet){
-    if (bullet.getRight()>enemy.getPosition().x &&
-        bullet.getTop()<enemy.getPosition().y+enemy.getSize().y &&
-        bullet.getDown()>enemy.getPosition().y){
-    enemy.setPosition(sf::Vector2f(4234432,4234423));
-}
-}*/
 

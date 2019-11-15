@@ -31,6 +31,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     spike2.init(1.f,1.f,1200.f, 320.f);
     spike3.init(1.f,1.f,1550.f, 320.f);
     spike4.init(1.f,1.f,2100.f, 320.f);
+	girl.init(3600, 250);
 
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);

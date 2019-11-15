@@ -16,9 +16,6 @@ void HumanView::init() {
     height = size.y;
     view.reset(sf::FloatRect(0,0,width,height));
     view.setViewport(sf::FloatRect(0,0,1.f,1.f));
-    girlText.loadFromFile("../res/girl_resized.png");
-    logic.getGirl().setSprite(sf::Sprite(girlText));
-    logic.getGirl().getSprite().setPosition(3600, 250);
     if (!texture.loadFromFile("../res/background_resized.gif"))
     {
         // error...

@@ -8,6 +8,7 @@
 #include "platform.h"
 #include "spike.h"
 #include "projectile.h"
+#include "girl.h"
 
 class GameLogic {
     private:
@@ -18,7 +19,7 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         Player player;
-        Actor girl;
+        Girl girl;
         Enemy enemy1;
         Enemy enemy2;
         Enemy enemy3;

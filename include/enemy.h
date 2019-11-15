@@ -2,7 +2,6 @@
 #define ENEMY_H
 #include "shooter.h"
 #include "player.h"
-#include "Bullet.h"
 #include <SFML/System.hpp>
 
 class Enemy : public Shooter {
@@ -38,7 +37,6 @@ class Enemy : public Shooter {
         void trackPlayer(Player player, float timeS);
         void trackActor(Actor actor, float timeS);
         void setPos(sf::Vector2f newPos);
-        void checkCollision(Bullet bullet);
         void setOffScreen();
 
 };
