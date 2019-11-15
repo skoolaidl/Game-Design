@@ -64,12 +64,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     spikes.push_back(spike2);
     spikes.push_back(spike3);
     spikes.push_back(spike4);
-
-    std::cout << projectiles.size() << std::endl;
-    std::cout << actorsVector.size() << std::endl;
     
-	//projectiles.push_back(projectile);
-	//actorsVector.push_back(projectile);
 
 }
 
