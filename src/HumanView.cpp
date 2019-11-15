@@ -77,7 +77,6 @@ void HumanView::drawEndLevel() {
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
-    display.draw(logic.getGirl().getSprite());
     float x = logic.getPlayer().getSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;

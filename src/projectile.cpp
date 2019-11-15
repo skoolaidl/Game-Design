@@ -27,17 +27,20 @@ void Projectile::init(int type, float x, float y, bool pDirection) {
     isOffScreen = false;
 }
 
+void Projectile::setVelocity(float timeS)
+{
+	velocity = move_speed * timeS;
+}
 
-
-void Projectile::updateMovement(float timeS) {
+void Projectile::updateMovement() {
     if (isOffScreen) {
         return;
     }
     if (direction) {
-        getSprite().move(move_speed * timeS, 0);
+        getSprite().move(velocity, 0);
     }
     else {
-        getSprite().move(-(move_speed * timeS),0);
+        getSprite().move(-velocity,0);
     }
 }
 

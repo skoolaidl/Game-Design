@@ -25,7 +25,7 @@ class Player : public Shooter {
         void shoot();
         void setVelocityX(float velX);
         void setVelocityY(float velY);
-        void updateMovement(float timeS);
+        void updateMovement();
         bool atMaxJumpHeight();
         void setMaxJumpHeight();
         bool isInAir();

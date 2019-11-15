@@ -44,7 +44,7 @@ void Player::setVelocityY(float velY)
     velocityY = velY;
 }
 
-void Player::updateMovement(float timeS) 
+void Player::updateMovement() 
 {
     xpos += velocityX;
     ypos += velocityY;

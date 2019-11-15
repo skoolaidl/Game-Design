@@ -73,7 +73,7 @@ void GameLogic::update(float timeS) {
     if (gameState == 1) {
         //perform game logic
         updatePlayerCollision(timeS);
-        player.updateMovement(timeS);
+        player.updateMovement();
         for(int e = 0; e < enemies.size(); ++e)
         {
             updateEnemyMovement(enemies[e].get(), timeS);
@@ -84,7 +84,8 @@ void GameLogic::update(float timeS) {
                 playerFired = false;
             }
             else {
-                projectiles[p].get().updateMovement(timeS);
+				projectiles[p].get().setVelocity(timeS);
+                projectiles[p].get().updateMovement();
             }
         }
        
@@ -341,7 +342,7 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
     }
     enemyFall(enemy, timeS);
     enemyTrack(enemy, timeS);
-    enemy.updateMovement(timeS);
+    enemy.updateMovement();
 }
 
 void GameLogic::playerShoot(float timeS){

@@ -98,7 +98,7 @@ void Enemy::setMaxLeftDistance(float dist)
     maxLeftDistance = dist;
 }
 
-void Enemy::updateMovement(float timeS) 
+void Enemy::updateMovement() 
 {
     if (isOffScreen) {
         return;
