@@ -118,7 +118,7 @@ void Enemy::checkMaxDistance()
     }
 }
 
-bool Enemy::trackPlayer(Player player, float timeS)
+bool Enemy::trackPlayer(Player& player, float timeS)
 {
     if(player.isInAir())
     {

@@ -36,7 +36,7 @@ class Enemy : public Shooter {
         void setMaxRightDistance(float dist);
         void setMaxLeftDistance(float dist);
         void updateMovement();
-        bool trackPlayer(Player player, float timeS);
+        bool trackPlayer(Player& player, float timeS);
         void setOffScreen();
 		Projectile& getProjectile();
 		bool getDirection();

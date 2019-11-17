@@ -35,8 +35,12 @@ void HumanView::update(float time) {
         case 1: drawObjects(); checkKeyboard(time); break;
         //end of level
         case 2: drawEndLevel(); checkKeyboardEndLevel(); break;
+        //settings screen
         case 3: break;
+        //starting dialogue
         case 4: break;
+        //ending dialogue
+        case 5: break;
     }
 
 }
