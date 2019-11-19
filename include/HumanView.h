@@ -17,6 +17,12 @@ class HumanView : public View {
         void checkKeyboardStart();
         void checkKeyboardEndLevel();
         void drawEndLevel();
+        void drawSettingsMenu();
+        void drawLevelDialogue();
+        void drawEndLevelDialogue();
+        void checkKeyboardSettings();
+        void checkKeyboardDialogue();
+        sf::Keyboard::Key waitForKeyPress(sf::Keyboard::Key key);
         sf::Font font;
         sf::Texture texture;
         sf::Texture girlText;
@@ -29,6 +35,7 @@ class HumanView : public View {
         sf::Keyboard::Key right;
         sf::Keyboard::Key up;
         sf::Keyboard::Key shoot;
+        int waitingForKey;
     
     public: 
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView): View( logic ), display(App), view(pView) {};
