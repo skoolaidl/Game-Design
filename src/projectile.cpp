@@ -11,7 +11,7 @@ Projectile::Projectile(){
 
 void Projectile::init(int pType, float x, float y, bool pDirection) {
     direction = pDirection;
-	type = pType;
+    type = pType;
     //set sprite according to type (fireball 0 or bullet 1)
     std::string text = "";
     switch (type) {
@@ -30,7 +30,7 @@ void Projectile::init(int pType, float x, float y, bool pDirection) {
 
 void Projectile::setVelocity(float timeS)
 {
-	velocity = move_speed * timeS;
+    velocity = move_speed * timeS;
 }
 
 void Projectile::updateMovement() {
@@ -62,9 +62,9 @@ void Projectile::setAvailable() {
 }
 
 bool Projectile::getIsAvailable() {
-	return isAvailable;
+    return isAvailable;
 }
 
 int Projectile::getType() {
-	return type;
+    return type;
 }

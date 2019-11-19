@@ -128,11 +128,13 @@ bool Enemy::trackPlayer(Player& player, float timeS)
     else if(xpos < player.getSprite().getPosition().x)
     {
         velocityX = stepSize * timeS;
+        direction = true;
 		return true;
     }
     else if(xpos > player.getSprite().getPosition().x)
     {
         velocityX = -1*stepSize * timeS;
+        direction = false;
 		return true;
     }
     else

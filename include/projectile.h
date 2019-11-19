@@ -5,14 +5,14 @@
 
 class Projectile : public Moveable {
     private:
-        const float move_speed = 100.f;
+        const float move_speed = 200.f;
         const float max_distance = 500.f;
-		float velocity;
+        float velocity;
         bool direction;
         sf::Texture texture;
         float startX;
         bool isAvailable;
-		int type;
+        int type;
         
     
     public:
@@ -22,9 +22,9 @@ class Projectile : public Moveable {
         void updateMovement();
         bool checkDistance();
         void setAvailable();
-		void setVelocity(float timeS);
-		bool getIsAvailable();
-		int getType();
+        void setVelocity(float timeS);
+        bool getIsAvailable();
+        int getType();
         
 };
 

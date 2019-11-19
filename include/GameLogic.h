@@ -80,7 +80,7 @@ class GameLogic {
         void playerMoveLeft(float timeS);
         
         void playerShoot();
-		void enemyShoot(Enemy& enemy);
+        void enemyShoot(Enemy& enemy);
         
         void playerJump(float timeS);
         
