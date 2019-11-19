@@ -7,13 +7,17 @@ Strings::Strings() {
     std::srand(time(0));
 
     strings.insert({ "Title", "Match Made in Hell" });
+    strings.insert({ "CurrentLevel", "The Current Level is: " });
     strings.insert({ "MenuText", "Welcome to Match Made in Hell!\nPress s to go to the settings menu\nPress enter to start" });
-    strings.insert({ "SettingsText", "Settings Menu\nPress Backspace to return to the main menu\nPress the key you wish to change and then press the key you want\n\n\nThe current keys are:\n" });
+    strings.insert({ "Settings", "Settings Menu\n" });
+    strings.insert({ "SettingsText", "Press Backspace to return to the main menu\nPress the key you wish to change and then press\n the key you want" });
+    strings.insert({ "CurrentKeys", "The current keybindings are : \n" });
     strings.insert({ "MoveRight", "Move Right: " });
     strings.insert({ "MoveLeft", "Move Left: " });
     strings.insert({ "Jump", "Jump: " });
     strings.insert({ "Shoot", "Shoot: " });
     strings.insert({ "NewLine", "\n" });
+    strings.insert({ "ChangeLevel", "\nTo change the currently \nselected level, press 0-9, \nthe first level is 0" });
 
     responses.insert({"Rejections", { "Sorry babe, it's not me, it's you.",
         "This isn't gonna work out between us, but I'm sure you've got a great personality.",
@@ -72,6 +76,32 @@ Strings::Strings() {
     tierList.push_back("Average Douche");
     tierList.push_back("Satan’s Wingman");
     tierList.push_back("King of the Underworld");
+
+    keys = { "A","B","C","D","E","F","G","H","I","J","K",
+        "L","M","N","O",
+        "P","Q","R","S",
+        "T","U","V","W",
+        "X","Y","Z","Num0",
+        "Num1,""Num2,""Num3","Num4",
+        "Num5","Num6","Num7","Num8",
+        "Num9","Escape","LControl","LShift",
+        "LAlt","LSystem","RControl","RShift",
+        "RAlt","RSystem","Menu","LBracket",
+        "RBracket","Semicolon","Comma","Period",
+        "Quote","Slash","Backslash","Tilde",
+        "Equal","Hyphen","Space","Enter",
+        "Backspace","Tab","PageUp","PageDown",
+        "End","Home","Insert","Delete",
+        "Add","Subtract","Multiply","Divide",
+        "Left","Right","Up","Down",
+        "Numpad0","Numpad1","Numpad2","Numpad3",
+        "Numpad4","Numpad5","Numpad6","Numpad7",
+        "Numpad8","Numpad9","F1","F2",
+        "F3","F4","F5","F6",
+        "F7","F8","F9","F10",
+        "F11","F12","F13","F14",
+        "F15","Pause","KeyCount","Hyphen",
+        "Backspace","Backslash","Semicolon","Enter" };
 }
 
 std::string Strings::getString(std::string key) {
@@ -99,4 +129,11 @@ std::string Strings::getPreference(std::string key, int color) {
     pref.insert(index, colText);
     return pref;
 
+}
+
+std::string Strings::getKey( int key ) {
+    if (key == -1) {
+        return "Unknown";
+    }
+    return keys[key];
 }

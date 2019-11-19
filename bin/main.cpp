@@ -12,9 +12,10 @@ int main(int argc, char** argv)
   sf::RenderWindow App(sf::VideoMode(windowWidth,windowHeight,32), "Match Made in Hell", sf::Style::Titlebar | sf::Style::Close);
   sf::View view;
   
-  // create GameLogic, player view, and AI view
+  // create Strings, GameLogic, player view, and AI view
+  Strings strings;
   GameLogic logic;
-  HumanView human(App, logic, view);
+  HumanView human(App, logic, view, strings);
   AIView ai(logic);
   
   //init GameLogic and views

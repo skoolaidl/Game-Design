@@ -1,12 +1,14 @@
 #include "HumanView.h"
 #include "GameLogic.h"
 #include <SFML/System.hpp>
+#include <string>
 
 /*
 HumanView handles the drawing of the game to the screen, user input, and sound
 */
 
 void HumanView::init() {
+    currentLevel = 0;
     left = sf::Keyboard::Left;
     right = sf::Keyboard::Right;
     up = sf::Keyboard::Up;
@@ -55,11 +57,15 @@ void HumanView::drawMenu() {
     {
         // error...
     }
-    sf::Text start("Welcome to Match Made in Hell!\nPress s to go to the settings menu\nPress enter to start", font, 50);
+    sf::Text start(strings.getString("MenuText"), font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     start.setFillColor(sf::Color::Red);
+    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel) + strings.getString("ChangeLevel"), font, 40);
+    current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
+    current.setFillColor(sf::Color::Red);
     titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
+    display.draw(current);
     display.draw(title);
     display.draw(start);
     display.display();
@@ -72,11 +78,18 @@ void HumanView::drawSettingsMenu() {
     {
         // error...
     }
-    sf::Text settings("Settings Menu\nPress Backspace to return to the main menu\nPress the key you wish to change and then press the key you want\n\n\nThe current keys are:\nMove Right:  \nMove Left:  \nJump:  \nShoot:  ", font, 50);
+    sf::Text settings(strings.getString("SettingsText"), font, 30);
     settings.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     settings.setFillColor(sf::Color::Red);
+    sf::Text keys(strings.getString("CurrentKeys") + strings.getString("MoveRight") + strings.getKey(right) + 
+                        "\n" + strings.getString("MoveLeft") + strings.getKey(left) + "\n" 
+                        + strings.getString("Jump") + strings.getKey(up) + "\n" 
+                        + strings.getString("Shoot") + strings.getKey(shoot), font, 40);
+    keys.setPosition(display.getSize().x / 2, display.getSize().y / 8);
+    keys.setFillColor(sf::Color::Red);
     titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
+    display.draw(keys);
     display.draw(title);
     display.draw(settings);
     display.display();
@@ -179,11 +192,52 @@ void HumanView::drawObjects() {
 void HumanView::checkKeyboardStart() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
         //set gameState to running
-        logic.setGameState(1);   
+        logic.setGameState(1);
+        logic.setLevel(currentLevel);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //set gameState to settings
         logic.setGameState(3);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)) {
+        //change currentLevel to 0
+        currentLevel = 0;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+        //change currentLevel to 1
+        currentLevel = 1;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+        //change currentLevel to 2
+        currentLevel = 2;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+        //change currentLevel to 3
+        currentLevel = 3;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
+        //change currentLevel to 4
+        currentLevel = 4;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) {
+        //change currentLevel to 5
+        currentLevel = 5;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) {
+        //change currentLevel to 6
+        currentLevel = 6;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) {
+        //change currentLevel to 1
+        currentLevel = 7;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) {
+        //change currentLevel to 8
+        currentLevel = 8;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)) {
+        //change currentLevel to 9
+        currentLevel = 9;
     }
 }
 

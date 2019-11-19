@@ -18,6 +18,7 @@ class GameLogic {
         int height;
         float bulletSpeed;
         float gravity;
+        int currentLevel = 0;
         Player player;
         Girl girl;
         Enemy enemy1;
@@ -85,6 +86,8 @@ class GameLogic {
         void playerJump(float timeS);
         
         void playerFall(float time);
+
+        void setLevel(int level);
 
 
 };

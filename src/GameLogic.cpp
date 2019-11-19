@@ -98,6 +98,11 @@ void GameLogic::update(float timeS) {
 
 }
 
+void GameLogic::setLevel(int level) {
+    currentLevel = level;
+    //load specified level
+}
+
 Actor& GameLogic::getGirl(){
     return girl;
 }

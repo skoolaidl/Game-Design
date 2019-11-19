@@ -5,6 +5,7 @@
 #include "view.h"
 #include "GameLogic.h"
 #include "platform.h"
+#include "Strings.h"
 
 class HumanView : public View {
     
@@ -12,6 +13,7 @@ class HumanView : public View {
         //display window
         sf::RenderWindow& display;
         sf::View& view;
+        Strings& strings;
         void drawMenu();
         void checkKeyboard(float time);
         void checkKeyboardStart();
@@ -36,9 +38,10 @@ class HumanView : public View {
         sf::Keyboard::Key up;
         sf::Keyboard::Key shoot;
         int waitingForKey;
+        int currentLevel;
     
     public: 
-        HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView): View( logic ), display(App), view(pView) {};
+        HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};
         
         void init();
 
