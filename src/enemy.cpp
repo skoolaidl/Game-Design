@@ -144,11 +144,6 @@ bool Enemy::trackPlayer(Player& player, float timeS)
     }
 }
 
-void Enemy::shoot()
-{
-
-}
-
 void Enemy::setOffScreen() {
     getSprite().setPosition(400, 650);
     isOffScreen = true;
@@ -164,4 +159,17 @@ bool Enemy::getDirection() {
 
 void Enemy::setDirection(bool pDirection) {
 	direction = pDirection;
+}
+
+float Enemy::getProjectileOffsetX() {
+    if (direction) {
+        return projectileOffsetX;
+    }
+    else {
+        return - projectileOffsetX;
+    }
+}
+
+float Enemy::getProjectileOffsetY() {
+    return projectileOffsetY;
 }

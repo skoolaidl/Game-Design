@@ -54,7 +54,7 @@ class GameLogic {
         void enemySetBounds(Enemy& enemy);
         void enemyTrack(Enemy& enemy, float timeS);
 
-        bool removeFromActors(Actor& actor);
+        void removeFromActorsVector(Actor& actor);
 
 
 

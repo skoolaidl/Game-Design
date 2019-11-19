@@ -87,11 +87,6 @@ void Player::setFalling(bool b)
     falling = b;
 }
 
-void Player::shoot()
-{
-
-}
-
 float Player::getStepSizeX()
 {
     return stepSizeX;
@@ -108,4 +103,17 @@ bool Player::getDirection() {
 
 void Player::setDirection(bool pDirection) {
     direction = pDirection;
+}
+
+float Player::getBulletOffsetX() {
+    if (direction) {
+        return bulletOffsetX;
+    }
+    else {
+        return - bulletOffsetX;
+    }
+}
+
+float Player::getBulletOffsetY() {
+    return bulletOffsetY;
 }
