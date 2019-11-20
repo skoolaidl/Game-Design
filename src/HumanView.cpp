@@ -84,7 +84,7 @@ void HumanView::drawSettingsMenu() {
     sf::Text keys(strings.getString("CurrentKeys") + strings.getString("MoveRight") + strings.getKey(right) + 
                         "\n" + strings.getString("MoveLeft") + strings.getKey(left) + "\n" 
                         + strings.getString("Jump") + strings.getKey(up) + "\n" 
-                        + strings.getString("Shoot") + strings.getKey(shoot), font, 40);
+                        + strings.getString("Shoot") + strings.getKey(shoot), font, 30);
     keys.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     keys.setFillColor(sf::Color::Red);
     titleText.loadFromFile("../res/title_resized.png");
@@ -107,48 +107,37 @@ void HumanView::drawEndLevelDialogue() {
 }
 
 void HumanView::checkKeyboardSettings() {
-    if (waitingForKey > 0) {
-        switch (waitingForKey) {
-            case 1: right = waitForKeyPress(right); break;
-            case 2: left = waitForKeyPress(left); break;
-            case 3: up = waitForKeyPress(up); break;
-            case 4: shoot = waitForKeyPress(shoot); break;
-        }
-        return;
-    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         //go back to main menu
         logic.setGameState(0);
     }
-    if (sf::Keyboard::isKeyPressed(right)) {
-        //assign key for moving right
-        waitingForKey = 1;
-    }
-    if (sf::Keyboard::isKeyPressed(left)) {
-        //assign key for moving left
-        waitingForKey = 2;
-    }
-    if (sf::Keyboard::isKeyPressed(up)) {
-        //assign key for jumping
-        waitingForKey = 3;
-    }
-    if (sf::Keyboard::isKeyPressed(shoot)) {
-        //assign key for shooting
-        waitingForKey = 4;
-    }
     
 }
 
-sf::Keyboard::Key HumanView::waitForKeyPress(sf::Keyboard::Key key) {
-    sf::Event Event;
-    while (display.pollEvent(Event)) {
-        //check for keyPress
-        if (Event.type == sf::Event::KeyReleased) {
-            waitingForKey = 0;
-            return Event.key.code;
+void HumanView::checkKeyPressed(sf::Keyboard::Key key) {
+    if (logic.getGameState() == 3 && waitingForKey == 0) {
+        if (key == sf::Keyboard::Right) {
+            waitingForKey = 1;
+        }
+        if (key == sf::Keyboard::Left) {
+            waitingForKey = 2;
+        }
+        if (key == sf::Keyboard::Up) {
+            waitingForKey = 3;
+        }
+        if (key == sf::Keyboard::Space) {
+            waitingForKey = 4;
         }
     }
-    return key;
+    else if (waitingForKey > 0) {
+        switch (waitingForKey) {
+            case 1: right = key; break;
+            case 2: left = key; break;
+            case 3: up = key; break;
+            case 4: shoot = key; break;
+        }
+        waitingForKey = 0;
+    }
 }
 
 void HumanView::checkKeyboardDialogue() {

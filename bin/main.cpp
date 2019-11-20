@@ -43,6 +43,9 @@ int main(int argc, char** argv)
       else if (Event.type == sf::Event::GainedFocus) {
           focused = true;
       }
+      else if (Event.type == sf::Event::KeyReleased) {
+          human.checkKeyPressed(Event.key.code);
+      }
     
       
     }

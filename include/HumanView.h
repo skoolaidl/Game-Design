@@ -24,7 +24,6 @@ class HumanView : public View {
         void drawEndLevelDialogue();
         void checkKeyboardSettings();
         void checkKeyboardDialogue();
-        sf::Keyboard::Key waitForKeyPress(sf::Keyboard::Key key);
         sf::Font font;
         sf::Texture texture;
         sf::Texture girlText;
@@ -46,6 +45,7 @@ class HumanView : public View {
         void init();
 
         void update(float time);
+        void checkKeyPressed(sf::Keyboard::Key key);
         
         
 

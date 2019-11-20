@@ -10,12 +10,12 @@ Strings::Strings() {
     strings.insert({ "CurrentLevel", "The Current Level is: " });
     strings.insert({ "MenuText", "Welcome to Match Made in Hell!\nPress s to go to the settings menu\nPress enter to start" });
     strings.insert({ "Settings", "Settings Menu\n" });
-    strings.insert({ "SettingsText", "Press Backspace to return to the main menu\nPress the key you wish to change and then press\n the key you want" });
+    strings.insert({ "SettingsText", "Press Backspace to return to the main menu\nPress the key you wish to change and then press\nthe key you want." });
     strings.insert({ "CurrentKeys", "The current keybindings are : \n" });
-    strings.insert({ "MoveRight", "Move Right: " });
-    strings.insert({ "MoveLeft", "Move Left: " });
-    strings.insert({ "Jump", "Jump: " });
-    strings.insert({ "Shoot", "Shoot: " });
+    strings.insert({ "MoveRight", "Move Right(RightArrow):" });
+    strings.insert({ "MoveLeft", "Move Left(LeftArrow): " });
+    strings.insert({ "Jump", "Jump(UpArrow): " });
+    strings.insert({ "Shoot", "Shoot(Spacebar): " });
     strings.insert({ "NewLine", "\n" });
     strings.insert({ "ChangeLevel", "\nTo change the currently \nselected level, press 0-9, \nthe first level is 0" });
 
