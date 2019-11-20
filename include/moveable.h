@@ -5,7 +5,7 @@
 class Moveable : public Actor {
     
     public:
-        virtual void updateMovement(float timeS) = 0;
+        virtual void updateMovement() = 0;
         
 
 };

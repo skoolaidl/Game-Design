@@ -16,9 +16,6 @@ void HumanView::init() {
     height = size.y;
     view.reset(sf::FloatRect(0,0,width,height));
     view.setViewport(sf::FloatRect(0,0,1.f,1.f));
-    girlText.loadFromFile("../res/girl_resized.png");
-    logic.getGirl().setSprite(sf::Sprite(girlText));
-    logic.getGirl().getSprite().setPosition(3600, 250);
     if (!texture.loadFromFile("../res/background_resized.gif"))
     {
         // error...
@@ -38,8 +35,12 @@ void HumanView::update(float time) {
         case 1: drawObjects(); checkKeyboard(time); break;
         //end of level
         case 2: drawEndLevel(); checkKeyboardEndLevel(); break;
+        //settings screen
         case 3: break;
+        //starting dialogue
         case 4: break;
+        //ending dialogue
+        case 5: break;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
@@ -84,7 +85,6 @@ void HumanView::drawEndLevel() {
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
-    display.draw(logic.getGirl().getSprite());
     float x = logic.getPlayer().getSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;
@@ -133,7 +133,7 @@ void HumanView::checkKeyboard(float time) {
 
     if (sf::Keyboard::isKeyPressed(shoot)) {
         //character shoots
-        logic.playerShoot(time);
+        logic.playerShoot();
     }
 
 }

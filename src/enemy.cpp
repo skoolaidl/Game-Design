@@ -98,7 +98,7 @@ void Enemy::setMaxLeftDistance(float dist)
     maxLeftDistance = dist;
 }
 
-void Enemy::updateMovement(float timeS) 
+void Enemy::updateMovement() 
 {
     if (isOffScreen) {
         return;
@@ -118,29 +118,30 @@ void Enemy::checkMaxDistance()
     }
 }
 
-void Enemy::trackPlayer(Player player, float timeS)
+bool Enemy::trackPlayer(Player& player, float timeS)
 {
     if(player.isInAir())
     {
         velocityX = 0.f;
+		return false;
     }
     else if(xpos < player.getSprite().getPosition().x)
     {
         velocityX = stepSize * timeS;
+        direction = true;
+		return true;
     }
     else if(xpos > player.getSprite().getPosition().x)
     {
         velocityX = -1*stepSize * timeS;
+        direction = false;
+		return true;
     }
     else
     {
         velocityX = 0.f;
+		return false;
     }
-}
-
-void Enemy::shoot()
-{
-
 }
 
 void Enemy::setOffScreen() {
@@ -148,11 +149,27 @@ void Enemy::setOffScreen() {
     isOffScreen = true;
 }
 
-/*void Enemy::checkCollision(Bullet bullet){
-    if (bullet.getRight()>enemy.getPosition().x &&
-        bullet.getTop()<enemy.getPosition().y+enemy.getSize().y &&
-        bullet.getDown()>enemy.getPosition().y){
-    enemy.setPosition(sf::Vector2f(4234432,4234423));
+Projectile& Enemy::getProjectile() {
+	return projectile;
 }
-}*/
 
+bool Enemy::getDirection() {
+	return direction;
+}
+
+void Enemy::setDirection(bool pDirection) {
+	direction = pDirection;
+}
+
+float Enemy::getProjectileOffsetX() {
+    if (direction) {
+        return projectileOffsetX;
+    }
+    else {
+        return - projectileOffsetX;
+    }
+}
+
+float Enemy::getProjectileOffsetY() {
+    return projectileOffsetY;
+}
