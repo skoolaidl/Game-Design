@@ -10,6 +10,7 @@ HumanView handles the drawing of the game to the screen, user input, and sound
 
 void HumanView::init() {
     currentLevel = 0;
+    levelsWon = 0;
     left = sf::Keyboard::Left;
     right = sf::Keyboard::Right;
     up = sf::Keyboard::Up;
@@ -102,9 +103,13 @@ void HumanView::drawChadGirlBox() {
     sf::RectangleShape textBox(sf::Vector2f(650, 300));
     textBox.setPosition(width / 9, height / 2);
     textBox.setOutlineColor(sf::Color::Red);
+    sf::Text instruct(strings.getString("PressEnter"), font, 20);
+    instruct.setPosition(width / 5, 250);
+    instruct.setFillColor(sf::Color::White);
     display.draw(girl);
     display.draw(chad);
     display.draw(textBox);
+    display.draw(instruct);
 }
 
 void HumanView::drawLevelDialogue() {
@@ -139,6 +144,8 @@ void HumanView::drawEndLevelDialogue() {
         }
         first = false;
     }
+    view.setCenter(width / 2, height / 2);
+    display.setView(view);
     if (dialogueStage > 2) {
         return;
     }
@@ -220,11 +227,6 @@ void HumanView::checkKeyboardEndDialogue(float time) {
 
 void HumanView::drawEndLevel() {
     display.clear();
-    //load font
-    if (!font.loadFromFile("../res/times.ttf"))
-    {
-        // error...
-    }
     sf::Text end(strings.getString("EndLevel") + std::to_string(logic.getScore(currentLevel)), font, 50);
     end.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     end.setFillColor(sf::Color::Red);
@@ -235,8 +237,25 @@ void HumanView::drawEndLevel() {
 }
 
 void HumanView::drawFinalScore() {
-
-
+    display.clear();
+    sf::Text score;
+    score.setFillColor(sf::Color::Red);
+    score.setCharacterSize(20);
+    score.setFont(font);
+    float posY = height / 8;
+    for (int x = 0; x < 9; x++) {
+        score.setString(strings.getLevelScoreString(x, logic.getScore(x)));
+        score.setPosition(width / 6, posY);
+        display.draw(score);
+        posY += 30;
+    }
+    score.setString(strings.getString("Tier") + strings.getTier((levelsWon-1)/2));
+    score.setPosition(width / 6, posY + 30);
+    display.draw(score);
+    score.setString(strings.getString("FinalInstruct"));
+    score.setPosition(width / 6, posY + 60);
+    display.draw(score);
+    display.display();
 }
 
 void HumanView::checkKeyboardFinal() {
@@ -324,6 +343,9 @@ void HumanView::checkKeyboardEndLevel(float time) {
         startTime = time;
         currTime = time;
         first = true;
+        if (currentLevel > 9) {
+            logic.setGameState(6);
+        }
     }
     currTime += time;
 }

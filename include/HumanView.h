@@ -49,6 +49,7 @@ class HumanView : public View {
         bool first;
         std::string response;
         std::string preference;
+        int levelsWon;
     
     public: 
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};

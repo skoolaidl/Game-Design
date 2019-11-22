@@ -23,6 +23,8 @@ Strings::Strings() {
     strings.insert({ "EndLevel", "You completed the level\nYour score was: " });
     strings.insert({ "WonLevel", "You successfully rejected the date" });
     strings.insert({ "LostLevel", "You failed and got rejected by the girl" });
+    strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is: " });
+    strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
 
     responses.insert({"Rejections", { "Sorry babe, it's not me, it's you.",
         "This isn't gonna work out between us, but I'm sure you've got a great personality.",
@@ -74,7 +76,7 @@ Strings::Strings() {
         "My favorite character in my TV show just died. He was a _ demon with the perfect balance of cynicism and ruthlessness.",
         "When I was in college, my professor, Dr. _ Demon, inspired me to pursure a double major in Sadism and Witchcraft. Absolutely no regrets.",
         "My best friend was always there for me. If it wasn't for that amazing _ demon, Hell would be the absolute worst.",
-        "If it wasn't for Yolanda the _ Torturer's inluence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
+        "If it wasn't for Yolanda the _ Torturer's influence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
 
     tierList.push_back("Hopeless Mortal");
     tierList.push_back("Permanent Resident of the Friend Zone (aka Hell)");
@@ -148,4 +150,8 @@ std::string Strings::getKey( int key ) {
         return "Unknown";
     }
     return keys[key];
+}
+
+std::string Strings::getLevelScoreString(int level, int score) {
+    return "Your score for level " + std::to_string(level) + " was: " + std::to_string(score) + "\n";
 }

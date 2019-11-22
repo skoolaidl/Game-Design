@@ -21,5 +21,6 @@ class Strings{
         std::string getTier(int rank);
         std::string getPreference(std::string key, int color);
         std::string getKey(int key);
+        std::string getLevelScoreString(int level, int score);
 
 };
