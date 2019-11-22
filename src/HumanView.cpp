@@ -2,6 +2,7 @@
 #include "GameLogic.h"
 #include <SFML/System.hpp>
 #include <string>
+#include <iostream>
 
 /*
 HumanView handles the drawing of the game to the screen, user input, and sound
@@ -14,9 +15,11 @@ void HumanView::init() {
     up = sf::Keyboard::Up;
     shoot = sf::Keyboard::Space;
     waitingForKey = 0;
+    first = true;
     sf::Vector2u size = display.getSize();
     width = size.x;
     height = size.y;
+    dialogueStage = 0;
     view.reset(sf::FloatRect(0,0,width,height));
     view.setViewport(sf::FloatRect(0,0,1.f,1.f));
     if (!texture.loadFromFile("../res/background_resized.gif"))
@@ -26,37 +29,36 @@ void HumanView::init() {
     texture.setRepeated(true);
     background = sf::Sprite(texture);
     background.setTextureRect({ 0, 0, 4000, height});
-    //drawObjects();
+    //load font
+    if (!font.loadFromFile("../res/times.ttf"))
+    {
+        // error...
+    }
 }
 
 void HumanView::update(float time) {
     
     switch (logic.getGameState()) {
         //error, game not initialized
-        case 0: drawMenu(); checkKeyboardStart(); break;
+        case 0: drawMenu(); checkKeyboardStart(time); break;
         //running
         case 1: drawObjects(); checkKeyboard(time); break;
         //end of level
-        case 2: drawEndLevel(); checkKeyboardEndLevel(); break;
+        case 2: if (first) { drawEndLevel(); } checkKeyboardEndLevel(time); break;
         //settings screen
         case 3: drawSettingsMenu(); checkKeyboardSettings(); break;
         //starting dialogue
-        case 4: drawLevelDialogue(); checkKeyboardDialogue(); break;
+        case 4: if (first) { drawLevelDialogue(); } checkKeyboardDialogue(time); break;
         //ending dialogue
-        case 5: drawEndLevelDialogue(); checkKeyboardDialogue(); break;
-        //final ending dialogue
+        case 5: if (first) { drawEndLevelDialogue(); } checkKeyboardEndDialogue(time); break;
         //final score screen
+        case 6: if (first) { drawFinalScore(); } checkKeyboardFinal(); break;
     }
 
 }
 
 void HumanView::drawMenu() {
     display.clear();
-    //load font
-    if (!font.loadFromFile("../res/times.ttf"))
-    {
-        // error...
-    }
     sf::Text start(strings.getString("MenuText"), font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     start.setFillColor(sf::Color::Red);
@@ -73,11 +75,6 @@ void HumanView::drawMenu() {
 
 void HumanView::drawSettingsMenu() {
     display.clear();
-    //load font
-    if (!font.loadFromFile("../res/times.ttf"))
-    {
-        // error...
-    }
     sf::Text settings(strings.getString("SettingsText"), font, 30);
     settings.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     settings.setFillColor(sf::Color::Red);
@@ -87,7 +84,6 @@ void HumanView::drawSettingsMenu() {
                         + strings.getString("Shoot") + strings.getKey(shoot), font, 30);
     keys.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     keys.setFillColor(sf::Color::Red);
-    titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
     display.draw(keys);
     display.draw(title);
@@ -96,13 +92,64 @@ void HumanView::drawSettingsMenu() {
 
 }
 
+void HumanView::drawChadGirlBox() {
+    display.clear();
+    chadText.loadFromFile("../res/chad.png");
+    sf::Sprite chad(chadText);
+    girlText.loadFromFile("../res/girl_example_sprite.png");
+    sf::Sprite girl(girlText);
+    girl.setPosition(width - 400, 0);
+    sf::RectangleShape textBox(sf::Vector2f(650, 300));
+    textBox.setPosition(width / 9, height / 2);
+    textBox.setOutlineColor(sf::Color::Red);
+    display.draw(girl);
+    display.draw(chad);
+    display.draw(textBox);
+}
+
 void HumanView::drawLevelDialogue() {
-
-
+    if (first) {
+        switch (dialogueStage) {
+            //eventually change to be appropriate color based on 
+            case 0: preference = strings.getPreference("Kill", 0); break;
+            case 1: preference = strings.getPreference("Ignore", 1); break;
+            case 2: preference = strings.getPreference("Kill", 2); break;
+        }
+        first = false;
+    }
+    if (dialogueStage > 3) {
+        return;
+    }
+    drawChadGirlBox();
+    sf::Text dialogue;
+    dialogue.setFont(font);  
+    dialogue.setString(preference);
+    dialogue.setFillColor(sf::Color::Magenta);
+    dialogue.setPosition(width / 8, height / 2);
+    display.draw(dialogue);
+    display.display();
 }
 
 void HumanView::drawEndLevelDialogue() {
-
+    if (first) {
+        switch (dialogueStage) {
+            //eventually change to be appropriate based on score
+            case 0: response = strings.getResponse("DateYes"); break;
+            case 1: response = strings.getResponse("Rejections"); break;
+        }
+        first = false;
+    }
+    if (dialogueStage > 2) {
+        return;
+    }
+    drawChadGirlBox();
+    sf::Text dialogue;
+    dialogue.setFont(font);
+    dialogue.setString(response);
+    dialogue.setFillColor(sf::Color::Red);
+    dialogue.setPosition(width / 8, height / 2);
+    display.draw(dialogue);
+    display.display();
 
 }
 
@@ -140,8 +187,35 @@ void HumanView::checkKeyPressed(sf::Keyboard::Key key) {
     }
 }
 
-void HumanView::checkKeyboardDialogue() {
+void HumanView::checkKeyboardDialogue(float time) {
+    if (dialogueStage > 2 ) {
+        dialogueStage = 0;
+        logic.setGameState(1);
+        logic.setLevel(currentLevel);
+        first = true;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
+        dialogueStage++;
+        first = true;
+        startTime = time;
+        currTime = time;
+    }
+    currTime += time;
+}
 
+void HumanView::checkKeyboardEndDialogue(float time) {
+    if (dialogueStage > 1) {
+        dialogueStage = 0;
+        logic.setGameState(2);
+        first = true;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
+        dialogueStage++;
+        first = true;
+        startTime = time;
+        currTime = time;
+    }
+    currTime += time;
 }
 
 void HumanView::drawEndLevel() {
@@ -151,13 +225,24 @@ void HumanView::drawEndLevel() {
     {
         // error...
     }
-    sf::Text end("You completed the level", font, 50);
+    sf::Text end(strings.getString("EndLevel") + std::to_string(logic.getScore(currentLevel)), font, 50);
     end.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
     view.setCenter(width/2,height/2);
     display.setView(view);
     display.display();
+}
+
+void HumanView::drawFinalScore() {
+
+
+}
+
+void HumanView::checkKeyboardFinal() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
+        logic.setGameState(0);
+    }
 }
 
 void HumanView::drawObjects() {
@@ -178,11 +263,13 @@ void HumanView::drawObjects() {
     display.display();
 }
 
-void HumanView::checkKeyboardStart() {
+void HumanView::checkKeyboardStart(float time) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-        //set gameState to running
-        logic.setGameState(1);
-        logic.setLevel(currentLevel);
+        //set gameState to levelDialogue
+        logic.setGameState(4);
+        startTime = time;
+        currTime = time;
+        first = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //set gameState to settings
@@ -230,8 +317,15 @@ void HumanView::checkKeyboardStart() {
     }
 }
 
-void HumanView::checkKeyboardEndLevel() {
-
+void HumanView::checkKeyboardEndLevel(float time) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
+        logic.setGameState(4);
+        currentLevel++;
+        startTime = time;
+        currTime = time;
+        first = true;
+    }
+    currTime += time;
 }
 
 void HumanView::checkKeyboard(float time) {
@@ -264,3 +358,5 @@ void HumanView::checkKeyboard(float time) {
         display.close();
     }
 }
+
+

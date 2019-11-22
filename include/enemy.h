@@ -18,7 +18,6 @@ class Enemy : public Shooter {
         float stepSize;
         void checkMaxDistance();
 		Projectile projectile;
-        bool isOffScreen;
 		bool direction;
     
     public:
@@ -37,7 +36,6 @@ class Enemy : public Shooter {
         void setMaxLeftDistance(float dist);
         void updateMovement();
         bool trackPlayer(Player& player, float timeS);
-        void setOffScreen();
 		Projectile& getProjectile();
 		bool getDirection();
 		void setDirection(bool pDirection);

@@ -32,7 +32,8 @@ void GameLogic::init(int wWidth, int wHeight) {
     spike2.init(1.f,1.f,1200.f, 320.f);
     spike3.init(1.f,1.f,1550.f, 320.f);
     spike4.init(1.f,1.f,2100.f, 320.f);
-	girl.init(3600, 250);
+	//girl.init(3600, 250);
+    girl.init(500, 250);
 
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
@@ -147,7 +148,7 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
 void GameLogic::updatePlayerCollisionGirl() {
     if (player.getSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
         {
-            gameState = 2;
+            gameState = 5;
         }          
 }
 
@@ -190,13 +191,17 @@ bool GameLogic::removeFromActors(Actor& actor) {
 }
 
 void GameLogic::increaseScore(int level, int increase) {
-    level--;
+    //only if using level 1 not 0 level--;
     if ( level >= 0 && level <= 9 ) {
         scores[level] = scores[level] + increase;
     }
     else {
         //invalid level
     }
+}
+
+int GameLogic::getScore(int level) {
+    return scores[level];
 }
 
 Player& GameLogic::getPlayer() {

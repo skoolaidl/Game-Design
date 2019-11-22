@@ -25,7 +25,6 @@ void Enemy::init() {
     maxLeftDistance = 100.f;
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
-    isOffScreen = false;
 }
 
 void Enemy::init(float x, float y, int color) {
@@ -50,7 +49,6 @@ void Enemy::init(float x, float y, int color) {
     maxLeftDistance = 100.f;
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
-    isOffScreen = false;
 }
 
 void Enemy::setVelocityX(float velX)
@@ -100,9 +98,6 @@ void Enemy::setMaxLeftDistance(float dist)
 
 void Enemy::updateMovement() 
 {
-    if (isOffScreen) {
-        return;
-    }
     checkMaxDistance();
     xpos += velocityX;
     ypos += velocityY;
@@ -145,11 +140,6 @@ bool Enemy::trackPlayer(Player& player, float timeS)
 void Enemy::shoot()
 {
 
-}
-
-void Enemy::setOffScreen() {
-    getSprite().setPosition(400, 650);
-    isOffScreen = true;
 }
 
 Projectile& Enemy::getProjectile() {

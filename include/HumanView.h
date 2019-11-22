@@ -16,16 +16,20 @@ class HumanView : public View {
         Strings& strings;
         void drawMenu();
         void checkKeyboard(float time);
-        void checkKeyboardStart();
-        void checkKeyboardEndLevel();
+        void checkKeyboardStart(float time);
+        void checkKeyboardEndLevel(float time);
         void drawEndLevel();
         void drawSettingsMenu();
         void drawLevelDialogue();
         void drawEndLevelDialogue();
+        void drawFinalScore();
         void checkKeyboardSettings();
-        void checkKeyboardDialogue();
+        void checkKeyboardDialogue(float time);
+        void checkKeyboardEndDialogue(float time);
+        void checkKeyboardFinal();
         sf::Font font;
         sf::Texture texture;
+        sf::Texture chadText;
         sf::Texture girlText;
         sf::Texture titleText;
         sf::Sprite background;
@@ -38,6 +42,13 @@ class HumanView : public View {
         sf::Keyboard::Key shoot;
         int waitingForKey;
         int currentLevel;
+        int dialogueStage;
+        void drawChadGirlBox();
+        float startTime;
+        float currTime;
+        bool first;
+        std::string response;
+        std::string preference;
     
     public: 
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};

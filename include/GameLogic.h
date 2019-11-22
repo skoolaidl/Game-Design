@@ -70,6 +70,7 @@ class GameLogic {
         void update(float timeS);
                 
         void increaseScore(int level, int increase);
+        int getScore(int level);
 
         Player& getPlayer();
         Actor& getGirl();

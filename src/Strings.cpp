@@ -18,6 +18,11 @@ Strings::Strings() {
     strings.insert({ "Shoot", "Shoot(Spacebar): " });
     strings.insert({ "NewLine", "\n" });
     strings.insert({ "ChangeLevel", "\nTo change the currently \nselected level, press 0-9, \nthe first level is 0" });
+    strings.insert({ "PressEnter", "Press enter to advance dialogue" });
+    strings.insert({ "ChadRejected", "You were supposed to say yes, but I will move on" });
+    strings.insert({ "EndLevel", "You completed the level\nYour score was: " });
+    strings.insert({ "WonLevel", "You successfully rejected the date" });
+    strings.insert({ "LostLevel", "You failed and got rejected by the girl" });
 
     responses.insert({"Rejections", { "Sorry babe, it's not me, it's you.",
         "This isn't gonna work out between us, but I'm sure you've got a great personality.",
@@ -69,7 +74,7 @@ Strings::Strings() {
         "My favorite character in my TV show just died. He was a _ demon with the perfect balance of cynicism and ruthlessness.",
         "When I was in college, my professor, Dr. _ Demon, inspired me to pursure a double major in Sadism and Witchcraft. Absolutely no regrets.",
         "My best friend was always there for me. If it wasn't for that amazing _ demon, Hell would be the absolute worst.",
-        "If it wasn't for Yolanda the _ Torturer's inluence on my life on Earth, I might have ended up in Heaven.That would have been absolute torture!"} });
+        "If it wasn't for Yolanda the _ Torturer's inluence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
 
     tierList.push_back("Hopeless Mortal");
     tierList.push_back("Permanent Resident of the Friend Zone (aka Hell)");
@@ -109,7 +114,11 @@ std::string Strings::getString(std::string key) {
 }
 
 std::string Strings::getResponse(std::string key) {
-    return (responses[key])[(std::rand() % 10)];
+    std::string response = (responses[key])[(std::rand() % 10)];
+    for (int x = 49; x < response.size(); x += 52) {
+        response.insert(x, "\n");
+    }
+    return response;
 }
 
 std::string Strings::getTier(int rank) {
@@ -127,6 +136,9 @@ std::string Strings::getPreference(std::string key, int color) {
     pref = preferences[key][(std::rand() % 10)];
     int index = pref.find("_");
     pref.insert(index, colText);
+    for (int x = 49; x < pref.size(); x += 52) {
+        pref.insert(x, "\n");
+    }
     return pref;
 
 }
