@@ -1,5 +1,7 @@
 #include "enemy.h"
 #include <string>
+#include <time.h> 
+#include <iostream>
 
 /*
 Basic enemy class that has actions and holds information for the
@@ -11,7 +13,9 @@ Enemy::Enemy() {
 }
 
 void Enemy::init() {
-    if (!texture.loadFromFile("../res/demon_red_sprite_resized.png"))
+    leftTexture = "../res/demon_red_sprite_resized_0.png";
+    rightTexture = "../res/demon_red_sprite_resized_1.png";
+    if (!texture.loadFromFile(leftTexture))
     {
         // error...
     }
@@ -26,17 +30,16 @@ void Enemy::init() {
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
     isOffScreen = false;
+    paused = false;
 }
 
 void Enemy::init(float x, float y, int color) {
-    std::string text = "";
     switch (color) {
-        case 0: text = "../res/demon_red_sprite_resized.png"; break;
-        case 1: text = "../res/demon_blue_sprite_resized.png"; break;
-        case 2: text = "../res/demon_green_sprite_resized.png"; break;
+        case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
+        case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
+        case 2: leftTexture = "../res/demon_green_sprite_resized_0.png"; rightTexture = "../res/demon_green_sprite_resized_1.png"; break;
     }
-        
-    if (!texture.loadFromFile(text))
+    if (!texture.loadFromFile(leftTexture))
     {
         // error...
     }
@@ -51,10 +54,24 @@ void Enemy::init(float x, float y, int color) {
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
     isOffScreen = false;
+    paused = false;
+}
+
+void Enemy::updateTexture(float velX)
+{
+    if(velocityX < velocityX + velX && texture.loadFromFile(rightTexture))
+    {
+        getSprite().setTexture(texture);
+    }
+    else if(velocityX > velocityX + velX && texture.loadFromFile(leftTexture))
+    {
+        getSprite().setTexture(texture);
+    }
 }
 
 void Enemy::setVelocityX(float velX)
 {
+    updateTexture(velX);
     velocityX = velX;
 }
 
@@ -100,7 +117,10 @@ void Enemy::setMaxLeftDistance(float dist)
 
 void Enemy::updateMovement(float timeS) 
 {
-    if (isOffScreen) {
+    if(isOffScreen) {
+        return;
+    }
+    if(paused) {
         return;
     }
     checkMaxDistance();
@@ -114,27 +134,28 @@ void Enemy::checkMaxDistance()
     if(xpos + velocityX >= startXPos + maxRightDistance 
         || xpos + velocityX <= startXPos - maxLeftDistance)
     {
-        velocityX *= -1;
+        setVelocityX(-1 * velocityX);
     }
 }
 
 void Enemy::trackPlayer(Player player, float timeS)
 {
-    if(player.isInAir())
+    float velX = stepSize * timeS;
+    if(player.isInAir() || (xpos > player.getSprite().getPosition().x - velX && xpos < player.getSprite().getPosition().x + velX))
     {
-        velocityX = 0.f;
+        setPaused(true);
     }
     else if(xpos < player.getSprite().getPosition().x)
     {
-        velocityX = stepSize * timeS;
+        setVelocityX(velX);
     }
     else if(xpos > player.getSprite().getPosition().x)
     {
-        velocityX = -1*stepSize * timeS;
+        setVelocityX(-1 * velX);
     }
     else
     {
-        velocityX = 0.f;
+        setPaused(true);
     }
 }
 
@@ -148,11 +169,8 @@ void Enemy::setOffScreen() {
     isOffScreen = true;
 }
 
-/*void Enemy::checkCollision(Bullet bullet){
-    if (bullet.getRight()>enemy.getPosition().x &&
-        bullet.getTop()<enemy.getPosition().y+enemy.getSize().y &&
-        bullet.getDown()>enemy.getPosition().y){
-    enemy.setPosition(sf::Vector2f(4234432,4234423));
+void Enemy::setPaused(bool b)
+{
+    paused = b;
 }
-}*/
 

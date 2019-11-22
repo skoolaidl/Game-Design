@@ -10,7 +10,7 @@ Player::Player() {
 }
 
 void Player::init() {
-    if (!texture.loadFromFile("../res/chad_sized.png"))
+    if (!texture.loadFromFile("../res/chad_resized_1.png"))
     {
         // error...
     }
@@ -34,8 +34,21 @@ void Player::resetPosition() {
     getSprite().setPosition(xpos, ypos);
 }
 
+void Player::updateTexture(float velX)
+{
+    if(velocityX < velocityX + velX && texture.loadFromFile("../res/chad_resized_1.png"))
+    {
+        getSprite().setTexture(texture);
+    }
+    else if(velocityX > velocityX + velX && texture.loadFromFile("../res/chad_resized_0.png"))
+    {
+        getSprite().setTexture(texture);
+    }
+}
+
 void Player::setVelocityX(float velX)
 {
+    updateTexture(velX);
     velocityX = velX;
 }
 

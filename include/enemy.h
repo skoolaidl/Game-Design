@@ -17,8 +17,11 @@ class Enemy : public Shooter {
         float maxLeftDistance;
         float stepSize;
         void checkMaxDistance();
-        
         bool isOffScreen;
+        bool paused;
+        std::string leftTexture;
+        std::string rightTexture;
+        void updateTexture(float velX);
     
     public:
         Enemy();
@@ -40,6 +43,7 @@ class Enemy : public Shooter {
         void setPos(sf::Vector2f newPos);
         void checkCollision(Bullet bullet);
         void setOffScreen();
+        void setPaused(bool b);
 
 };
 

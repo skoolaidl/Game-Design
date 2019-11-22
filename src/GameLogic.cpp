@@ -323,6 +323,7 @@ void GameLogic::enemySetBounds(Enemy& enemy)
 
 void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
     //if player within range, move towards him
+    enemy.setPaused(false); 
     if (player.getSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
         && player.getSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
      {
@@ -331,12 +332,13 @@ void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
 }
 
 void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
+    // randomizes direction of enemy once he is created
     if(enemy.getVelocityX() == 0.f)
     {
         srand(time(NULL));
         int dir = rand() % 2;
-        float currVelX = ( ((dir == 0) ? (-1*enemy.getStepSize()) : enemy.getStepSize()) * timeS );
-        enemy.setVelocityX(currVelX);
+        float curVelX = ( ((dir == 0) ? (-1*enemy.getStepSize()) : enemy.getStepSize()) * timeS );
+        enemy.setVelocityX(curVelX);
     }
     enemyFall(enemy, timeS);
     enemyTrack(enemy, timeS);

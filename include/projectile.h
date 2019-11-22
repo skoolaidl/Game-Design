@@ -5,8 +5,8 @@
 
 class Projectile : public Moveable {
     private:
-        const float move_speed = 100.f;
-        const float max_distance = 500.f;
+        const float move_speed = 400.f;
+        const float max_distance = 150.f;
         bool direction;
         sf::Texture texture;
         float startX;

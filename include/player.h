@@ -19,6 +19,7 @@ class Player : public Shooter {
         float stepSizeY;
         //true is facing right, false is left
         bool direction;
+        void updateTexture(float velX);
     public:
         Player();
         void init();
