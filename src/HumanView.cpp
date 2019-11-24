@@ -55,6 +55,10 @@ void HumanView::update(float time) {
         //final score screen
         case 6: if (first) { drawFinalScore(); } checkKeyboardFinal(); break;
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+        display.close();
+    }
 
 }
 
@@ -349,10 +353,6 @@ void HumanView::checkKeyboard(float time) {
         logic.playerShoot();
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    {
-        display.close();
-    }
 }
 
 
