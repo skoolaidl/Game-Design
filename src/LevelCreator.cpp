@@ -37,27 +37,52 @@ std::vector<Actor> LevelCreator::LoadMap(int level){
             std::cout << e->Value() << std::endl;
 
             if (std::strncmp(e->Value(), "Platform", 9) == 0) {
-                std::string scaleX = e->FirstChildElement("scaleX")->GetText();
-                std::string scaleY = e->FirstChildElement("scaleY")->GetText();
-                std::string locX = e->FirstChildElement("x")->GetText();
-                std::string locY = e->FirstChildElement("y")->GetText();
+
+                std::string stringScaleX = e->FirstChildElement("scaleX")->GetText();
+                std::string stringScaleY = e->FirstChildElement("scaleY")->GetText();
+                std::string stringLocX = e->FirstChildElement("x")->GetText();
+                std::string stringLocY = e->FirstChildElement("y")->GetText();
+
+                float scaleX = std::stof(stringScaleX);
+                float scaleY = std::stof(stringScaleY);
+                float x = std::stof(stringLocX);
+                float y = std::stof(stringLocY);
+
+                Platform platform;
+                platform.init(scaleX, scaleY, x, y);
+                actorsVector.push_back(platform);
+
             }
 
             else if (std::strncmp(e->Value(), "Spike", 6) == 0) {
-                std::string scaleX = e->FirstChildElement("scaleX")->GetText();
-                std::string scaleY = e->FirstChildElement("scaleY")->GetText();
-                std::string locX = e->FirstChildElement("x")->GetText();
-                std::string locY = e->FirstChildElement("y")->GetText();
+                std::string stringScaleX = e->FirstChildElement("scaleX")->GetText();
+                std::string stringScaleY = e->FirstChildElement("scaleY")->GetText();
+                std::string stringLocX = e->FirstChildElement("x")->GetText();
+                std::string stringLocY = e->FirstChildElement("y")->GetText();
+
+                float scaleX = std::stof(stringScaleX);
+                float scaleY = std::stof(stringScaleY);
+                float x = std::stof(stringLocX);
+                float y = std::stof(stringLocY);
+
+                
+
+
             }
 
             else if (std::strncmp(e->Value(), "Enemy", 6) == 0) {
-                std::string scaleX = e->FirstChildElement("scaleX")->GetText();
-                std::string scaleY = e->FirstChildElement("scaleY")->GetText();
-                std::string color = e->FirstChildElement("color")->GetText();
+                std::string stringLocX = e->FirstChildElement("x")->GetText();
+                std::string stringLocY = e->FirstChildElement("y")->GetText();
+                std::string stringColor = e->FirstChildElement("color")->GetText();
+
+                float x = std::stof(stringLocX);
+                float y = std::stof(stringLocY);
+                float color = strd::stof(stringColor);
+
             }
         }
     }
-    return actorsVector
+    return actorsVector;
 }
 
 std::vector<Actor> LevelCreator::SetMap() {

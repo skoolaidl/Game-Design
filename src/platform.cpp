@@ -7,14 +7,19 @@ Platform::Platform() {
 
 }
 
-void Platform::init(const float w, const float h, const float x, const float y, sf::IntRect rect, sf::Texture tiles) {
+void Platform::init(const float w, const float h, const float x, const float y) {
     scaleWidth = w;
     scaleHeight = h;
     xpos = x;
     ypos = y;
+    
+    if (!texture.loadFromFile("../res/cave_floor.jpg"))
+    {
+        // error...
+    }
 
-    setSprite(sf::Sprite(tiles));
-    getSprite().setTextureRect(rect);
-    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    texture.setRepeated(true);
+    setSprite(sf::Sprite(texture));
+    getSprite().setTextureRect({ 0, 0, (texture.getSize().x) * scaleWidth, (texture.getSize().y) * scaleHeight });
     getSprite().setPosition(xpos, ypos);
 }

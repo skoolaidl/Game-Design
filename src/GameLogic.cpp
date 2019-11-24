@@ -20,8 +20,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     
     loader.init();
     //TODO: change logic for level select
-    loader.LoadMap(0);
-    // actorsVector = loader.SetMap();
+    actorsVector = loader.LoadMap(0);
 
 }
 
