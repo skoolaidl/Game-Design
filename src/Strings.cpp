@@ -57,26 +57,26 @@ Strings::Strings() {
         "Sorry, you're just not my type. My type is someone who wears even tighter leather and is a little more douchey than you.",
         "Gross, you don't have nearly enough abs or hairspray to date me. I can't believe you've wasted my time."} });
 
-    preferences.insert({ "Kill", {"My stupid ex was a _ demon. Honestly, I hope he burns in Hell.",
-        "My mom was a _ demon. She always babied me and never let me do anything!",
-        "Those dumb and ugly _ demons have always annoyed me! Like why do they even exist?",
-        "There was this group of _ demons in my highschool that constantly harassed me and totally ruined my chances of being popular!",
-        "My obnoxious neighbor is part of a band called Satanic Vibes and the _ Demons,and I can never sleep because of their deafening heavy metal music.",
-        "I can't believe Lexi the _ demon won Bachelorette in Hell. She was such a two-faced skank!",
-        "Ugh, it seems like all _ demons are the same, they're all just hotheads.",
-        "This one time, I was on a date and he would not stop checking out other girls. Never gonna trust a _ demon ever again.",
-        "My _ demon stepsister always wants what she can't have. She is a minx who has repeatedly tried to steal my previous boyfriends.",
-        "This one time, I was at Alexander the Amazing _ Demon's show and he made all my friends disappear. I've had no one to talk to ever since."} });
-    preferences.insert({ "Ignore", {"My daddy was a _ demon.He always spoiled me and called me Daddy’s Little Princess.",
-        "I miss my highschool clique of _ demons. We were some of the baddest mama jamas in all of Hell.",
-        "My favorite musician is Chance the _ Demon Rapper. His singing pierces the soul I don't have.",
-        "My big brother was a _ demon and he taught me everything I know. He even helped me possess my first porcelain doll.",
-        "When I was younger, I always wanted to become like Draco the _ Demon. Legend has it, he single handedly caused the Chernobyl meltdown.",
-        "I idolize my tough-skinned _ Grandpa. He fought in the legendary Demons and Angels War and obliterated an entire battalion of cherubs.",
-        "My favorite character in my TV show just died. He was a _ demon with the perfect balance of cynicism and ruthlessness.",
-        "When I was in college, my professor, Dr. _ Demon, inspired me to pursure a double major in Sadism and Witchcraft. Absolutely no regrets.",
-        "My best friend was always there for me. If it wasn't for that amazing _ demon, Hell would be the absolute worst.",
-        "If it wasn't for Yolanda the _ Torturer's influence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
+    preferences.insert({ "Kill", {"My stupid ex was a * demon. Honestly, I hope he burns in Hell.",
+        "My mom was a * demon. She always babied me and never let me do anything!",
+        "Those dumb and ugly * demons have always annoyed me! Like why do they even exist?",
+        "There was this group of * demons in my highschool that constantly harassed me and totally ruined my chances of being popular!",
+        "My obnoxious neighbor is part of a band called Satanic Vibes and the * Demons,and I can never sleep because of their deafening heavy metal music.",
+        "I can't believe Lexi the * demon won Bachelorette in Hell. She was such a two-faced skank!",
+        "Ugh, it seems like all * demons are the same, they're all just hotheads.",
+        "This one time, I was on a date and he would not stop checking out other girls. Never gonna trust a * demon ever again.",
+        "My * demon stepsister always wants what she can't have. She is a minx who has repeatedly tried to steal my previous boyfriends.",
+        "This one time, I was at Alexander the Amazing * Demon's show and he made all my friends disappear. I've had no one to talk to ever since."} });
+    preferences.insert({ "Ignore", {"My daddy was a * demon.He always spoiled me and called me Daddy’s Little Princess.",
+        "I miss my highschool clique of * demons. We were some of the baddest mama jamas in all of Hell.",
+        "My favorite musician is Chance the * Demon Rapper. His singing pierces the soul I don't have.",
+        "My big brother was a * demon and he taught me everything I know. He even helped me possess my first porcelain doll.",
+        "When I was younger, I always wanted to become like Draco the * Demon. Legend has it, he single handedly caused the Chernobyl meltdown.",
+        "I idolize my tough-skinned * Grandpa. He fought in the legendary Demons and Angels War and obliterated an entire battalion of cherubs.",
+        "My favorite character in my TV show just died. He was a * demon with the perfect balance of cynicism and ruthlessness.",
+        "When I was in college, my professor, Dr. * Demon, inspired me to pursure a double major in Sadism and Witchcraft. Absolutely no regrets.",
+        "My best friend was always there for me. If it wasn't for that amazing * demon, Hell would be the absolute worst.",
+        "If it wasn't for Yolanda the * Torturer's influence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
 
     tierList.push_back("Hopeless Mortal");
     tierList.push_back("Permanent Resident of the Friend Zone (aka Hell)");
@@ -136,7 +136,8 @@ std::string Strings::getPreference(std::string key, int color) {
     }
     std::string pref;
     pref = preferences[key][(std::rand() % 10)];
-    int index = pref.find("_");
+    int index = pref.find("*");
+    pref.erase(index, 1);
     pref.insert(index, colText);
     for (int x = 49; x < pref.size(); x += 52) {
         pref.insert(x, "\n");

@@ -43,7 +43,7 @@ class HumanView : public View {
         int waitingForKey;
         int currentLevel;
         int dialogueStage;
-        void drawChadGirlBox();
+        void drawDialogueBox();
         float startTime;
         float currTime;
         bool first;
@@ -57,7 +57,7 @@ class HumanView : public View {
         void init();
 
         void update(float time);
-        void checkKeyPressed(sf::Keyboard::Key key);
+        void checkRebindingKeyPressed(sf::Keyboard::Key key);
         
         
 
