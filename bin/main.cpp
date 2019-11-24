@@ -10,15 +10,17 @@ int main(int argc, char** argv)
   int windowHeight = 600;
   sf::Clock clock;
   sf::RenderWindow App(sf::VideoMode(windowWidth,windowHeight,32), "Match Made in Hell", sf::Style::Titlebar | sf::Style::Close);
+  sf::View view;
   
   // create GameLogic, player view, and AI view
   GameLogic logic;
-  HumanView human(App, logic);
+  HumanView human(App, logic, view);
   AIView ai(logic);
   
   //init GameLogic and views
   logic.init(windowWidth, windowHeight);
   human.init();
+  ai.init();
   App.setVerticalSyncEnabled(true);
   
   bool focused = true;
@@ -45,7 +47,7 @@ int main(int argc, char** argv)
     }
     if (focused) {
         float deltaS = clock.restart().asSeconds();
-        deltaS = (deltaS < 1.f) ? 1.f : deltaS;
+        //deltaS = (deltaS < 1.f) ? 1.f : deltaS;
     
         logic.update(deltaS);
         human.update(deltaS);

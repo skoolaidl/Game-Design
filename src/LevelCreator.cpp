@@ -47,6 +47,7 @@ std::vector<Actor> LevelCreator::LoadMap(int level){
                 float scaleY = std::stof(stringScaleY);
                 float x = std::stof(stringLocX);
                 float y = std::stof(stringLocY);
+                
 
                 Platform platform;
                 platform.init(scaleX, scaleY, x, y);
@@ -65,8 +66,6 @@ std::vector<Actor> LevelCreator::LoadMap(int level){
                 float x = std::stof(stringLocX);
                 float y = std::stof(stringLocY);
 
-                
-
 
             }
 
@@ -77,7 +76,7 @@ std::vector<Actor> LevelCreator::LoadMap(int level){
 
                 float x = std::stof(stringLocX);
                 float y = std::stof(stringLocY);
-                float color = strd::stof(stringColor);
+                float color = std::stof(stringColor);
 
             }
         }

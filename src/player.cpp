@@ -17,11 +17,20 @@ void Player::init() {
     setSprite(sf::Sprite(texture));
     velocityX = 0.f;
     velocityY = 0.f;
-    xpos = 400.f;
+    xpos = 200.f;
     ypos = 300.f;
-    maxJumpHeight = ypos - 100.f;
+    maxJumpHeight = ypos - 150.f;
     inAir = false;
     falling = false;
+    stepSizeX = 300.f;
+    stepSizeY = 500.f;
+    direction = true;
+    getSprite().setPosition(xpos, ypos);
+}
+
+void Player::resetPosition() {
+    xpos = 200.f;
+    ypos = 300.f;
     getSprite().setPosition(xpos, ypos);
 }
 
@@ -55,7 +64,7 @@ bool Player::atMaxJumpHeight()
 
 void Player::setMaxJumpHeight()
 {
-    maxJumpHeight = ypos - 100.f;
+    maxJumpHeight = ypos - 150.f;
 }
 
 bool Player::isInAir()
@@ -78,7 +87,37 @@ void Player::setFalling(bool b)
     falling = b;
 }
 
-void Player::shoot()
+float Player::getStepSizeX()
 {
+    return stepSizeX;
+}
 
+float Player::getStepSizeY()
+{
+    return stepSizeY;
+}
+
+bool Player::getDirection() {
+    return direction;
+}
+
+void Player::setDirection(bool pDirection) {
+    direction = pDirection;
+}
+
+float Player::getBulletOffsetX() {
+    if (direction) {
+        return bulletOffsetX;
+    }
+    else {
+        return - bulletOffsetX;
+    }
+}
+
+float Player::getBulletOffsetY() {
+    return bulletOffsetY;
+}
+
+int Player::getClassType() {
+    return 4;
 }

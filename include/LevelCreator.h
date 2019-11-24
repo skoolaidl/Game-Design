@@ -13,26 +13,7 @@
 
 class LevelCreator {
     private:
-        // struct Platform {
-        //     std::int locX;
-        //     std::int locY;
-        //     std::int scaleX;
-        //     std::int scaleY;
-        // };
 
-        // struct Spike {
-        //     std::int locX;
-        //     std::int locY;
-        //     std::int color;
-        // };
-
-        // struct Enemy {
-        //     std::int locX;
-        //     std::int locY;
-        //     std::int color;
-        // };
-
-        
         sf::Sprite tiles;
         sf::Vector2i loadCounter = sf::Vector2i(0, 0);
         std::vector<Actor> actorsVector;

@@ -1,9 +1,9 @@
-#ifndef PLATFORM_H
-#define PLATFORM_H
+#ifndef SPIKE_H
+#define SPIKE_H
 #include <SFML/Graphics.hpp>
 #include "actor.h"
 
-class Platform : public Actor {
+class Spike : public Actor {
     private:
         float scaleWidth;
         float scaleHeight;
@@ -12,7 +12,7 @@ class Platform : public Actor {
         sf::Texture texture;
 
     public:
-        Platform();
+        Spike();
         void init(const float width, const float height, const float xpos, const float ypos);
         int getClassType();
 };

@@ -12,14 +12,16 @@ void Platform::init(const float w, const float h, const float x, const float y) 
     scaleHeight = h;
     xpos = x;
     ypos = y;
-    
-    if (!texture.loadFromFile("../res/cave_floor.jpg"))
+    if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/cave_floor.jpg"))
     {
         // error...
     }
-
     texture.setRepeated(true);
     setSprite(sf::Sprite(texture));
-    getSprite().setTextureRect({ 0, 0, (texture.getSize().x) * scaleWidth, (texture.getSize().y) * scaleHeight });
+    getSprite().setTextureRect({ 0, 0, int((texture.getSize().x) * scaleWidth), int((texture.getSize().y) * scaleHeight)});
     getSprite().setPosition(xpos, ypos);
+}
+
+int Platform::getClassType() {
+    return 0;
 }
