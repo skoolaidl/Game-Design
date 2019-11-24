@@ -2,10 +2,11 @@
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "shooter.h"
+#include "moveable.h"
 #include "platform.h"
+#include "projectile.h"
 
-class Player : public Shooter {
+class Player : public Moveable {
     private:
         sf::Texture texture;
         float velocityX;
@@ -20,13 +21,16 @@ class Player : public Shooter {
         //true is facing right, false is left
         bool direction;
         void updateTexture(float velX);
+        Projectile bullet;
+        float bulletOffsetX = 20.f;
+        float bulletOffsetY = 15.f;
+
     public:
         Player();
         void init();
-        void shoot();
         void setVelocityX(float velX);
         void setVelocityY(float velY);
-        void updateMovement(float timeS);
+        void updateMovement();
         bool atMaxJumpHeight();
         void setMaxJumpHeight();
         bool isInAir();
@@ -38,6 +42,9 @@ class Player : public Shooter {
         float getStepSizeY();
         bool getDirection();
         void setDirection(bool pDirection);
+        Projectile& getBullet() { return bullet; }
+        float getBulletOffsetX();
+        float getBulletOffsetY();
 };
 
 #endif

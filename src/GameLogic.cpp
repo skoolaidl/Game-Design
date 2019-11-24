@@ -1,6 +1,7 @@
 #include "GameLogic.h"
 #include <iostream>
 #include <time.h> 
+#include <algorithm>
 
 /*
 GameLogic class that holds all of the game objects and detects collisions
@@ -31,6 +32,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     spike2.init(1.f,1.f,1200.f, 320.f);
     spike3.init(1.f,1.f,1550.f, 320.f);
     spike4.init(1.f,1.f,2100.f, 320.f);
+	girl.init(3600, 250);
 
     actorsVector.push_back(floor);
     actorsVector.push_back(platformA);
@@ -47,7 +49,6 @@ void GameLogic::init(int wWidth, int wHeight) {
     actorsVector.push_back(spike3);
     actorsVector.push_back(spike4);
     actorsVector.push_back(girl);
-    actorsVector.push_back(projectile);
     platforms.push_back(platformB);
     platforms.push_back(floor);
     platforms.push_back(platformA);
@@ -63,8 +64,8 @@ void GameLogic::init(int wWidth, int wHeight) {
     spikes.push_back(spike2);
     spikes.push_back(spike3);
     spikes.push_back(spike4);
-    projectiles.push_back(projectile);
     
+
 }
 
 
@@ -72,18 +73,21 @@ void GameLogic::update(float timeS) {
     if (gameState == 1) {
         //perform game logic
         updatePlayerCollision(timeS);
-        player.updateMovement(timeS);
+        player.updateMovement();
         for(int e = 0; e < enemies.size(); ++e)
         {
             updateEnemyMovement(enemies[e].get(), timeS);
         }
         for(int p = 0; p < projectiles.size(); ++p) {
             if ( !projectiles[p].get().checkDistance()) {
-                projectiles[p].get().setOffScreen();
-                playerFired = false;
+                projectiles[p].get().setAvailable();
+                removeFromActorsVector(projectiles[p].get());
+                projectiles.erase(projectiles.begin() + p);
+                
             }
             else {
-                projectiles[p].get().updateMovement(timeS);
+				projectiles[p].get().setVelocity(timeS);
+                projectiles[p].get().updateMovement();
             }
         }
        
@@ -146,13 +150,38 @@ void GameLogic::updateProjectileCollisions() {
     //does nothing yet, eventually loop through projectiles and 
     //check if they are hitting the player or an enemy
     for(int p = 0; p < projectiles.size(); ++p) {
-            for(int e = 0; e < enemies.size(); ++e) {
-                if (projectiles[p].get().getSprite().getGlobalBounds().intersects( enemies[e].get().getSprite().getGlobalBounds())) {
-                    enemies[e].get().setOffScreen();
+        if (projectiles[p].get().getType() == 0) {
+            if (projectiles[p].get().getSprite().getGlobalBounds().intersects(player.getSprite().getGlobalBounds())) {
+                softReset();
+                projectiles[p].get().setAvailable();
+                removeFromActorsVector(projectiles[p].get());
+                projectiles.erase(projectiles.begin() + p);
+
+            }
+        }
+        else if (projectiles[p].get().getType() == 1) { //must be bullet, type is 1
+            for (int e = 0; e < enemies.size(); ++e) {
+                if (projectiles[p].get().getSprite().getGlobalBounds().intersects(enemies[e].get().getSprite().getGlobalBounds())) {
+                    projectiles[p].get().setAvailable();
+                    removeFromActorsVector(enemies[e].get());
+                    enemies.erase(enemies.begin() + e);
+                    removeFromActorsVector(projectiles[p].get());
+                    projectiles.erase(projectiles.begin() + p);
                     //eventually update score
-                }    
-            }            
+                }
+            }
+        }
     }
+}
+
+void GameLogic::removeFromActorsVector(Actor& actor) {
+    for (int i = 0; i < actorsVector.size(); ++i) {
+        if (actor == actorsVector[i].get()) {
+            actorsVector.erase(actorsVector.begin() + i);
+            return;
+        }
+    }
+    return;
 }
 
 void GameLogic::increaseScore(int level, int increase) {
@@ -327,7 +356,9 @@ void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
     if (player.getSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
         && player.getSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
      {
-        enemy.trackPlayer(player, timeS);
+		if (enemy.trackPlayer(player, timeS)) {
+			enemyShoot(enemy);
+		}
      }
 }
 
@@ -337,19 +368,29 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
     {
         srand(time(NULL));
         int dir = rand() % 2;
-        float curVelX = ( ((dir == 0) ? (-1*enemy.getStepSize()) : enemy.getStepSize()) * timeS );
-        enemy.setVelocityX(curVelX);
+        float currVelX = ( ((dir == 0) ? (-1*enemy.getStepSize()) : enemy.getStepSize()) * timeS );
+        enemy.setVelocityX(currVelX);
+		    enemy.setDirection(dir);
     }
     enemyFall(enemy, timeS);
     enemyTrack(enemy, timeS);
-    enemy.updateMovement(timeS);
+    enemy.updateMovement();
 }
 
-void GameLogic::playerShoot(float timeS){
-    if ( ! playerFired ) {
-        playerFired = true;
-        projectile.init(1,player.getSprite().getPosition().x+20,player.getSprite().getPosition().y + 15, player.getDirection());
-        //projectiles.push_back(projectile);
-        //actorsVector.push_back(projectile);
+void GameLogic::playerShoot(){
+    if ( player.getBullet().getIsAvailable() ) {
+		sf::Vector2f pos = player.getSprite().getPosition();
+        player.getBullet().init(1,pos.x+player.getBulletOffsetX(),pos.y + player.getBulletOffsetY(), player.getDirection());
+        projectiles.push_back(player.getBullet());
+        actorsVector.push_back(player.getBullet());
     }
+}
+
+void GameLogic::enemyShoot(Enemy& enemy) {
+	if (enemy.getProjectile().getIsAvailable()) {
+		sf::Vector2f pos = enemy.getSprite().getPosition();
+		enemy.getProjectile().init(0, pos.x + enemy.getProjectileOffsetX(), pos.y + enemy.getProjectileOffsetY(), enemy.getDirection());
+		projectiles.push_back(enemy.getProjectile());
+		actorsVector.push_back(enemy.getProjectile());
+	}
 }

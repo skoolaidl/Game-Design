@@ -1,11 +1,11 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-#include "shooter.h"
+#include "moveable.h"
 #include "player.h"
-#include "Bullet.h"
+#include "projectile.h"
 #include <SFML/System.hpp>
 
-class Enemy : public Shooter {
+class Enemy : public Moveable {
     private:
         sf::Texture texture;
         float velocityX;
@@ -22,12 +22,14 @@ class Enemy : public Shooter {
         std::string leftTexture;
         std::string rightTexture;
         void updateTexture(float velX);
+		    bool direction;
+        float projectileOffsetX;
+        float projectileOffsetY;
     
     public:
         Enemy();
         void init();
         void init(float x, float y, int color=0);
-        void shoot();
         void setVelocityX(float velX);
         void setVelocityY(float velY);
         float getVelocityX();
@@ -37,13 +39,15 @@ class Enemy : public Shooter {
         float getMaxLeftDistance();
         void setMaxRightDistance(float dist);
         void setMaxLeftDistance(float dist);
-        void updateMovement(float timeS);
-        void trackPlayer(Player player, float timeS);
-        void trackActor(Actor actor, float timeS);
-        void setPos(sf::Vector2f newPos);
-        void checkCollision(Bullet bullet);
+        void updateMovement();
+        void trackPlayer(Player& player, float timeS);
         void setOffScreen();
         void setPaused(bool b);
+		    Projectile& getProjectile();
+		    bool getDirection();
+		    void setDirection(bool pDirection);
+        float getProjectileOffsetX();
+        float getProjectileOffsetY();
 
 };
 
