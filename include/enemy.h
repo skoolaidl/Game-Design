@@ -17,9 +17,13 @@ class Enemy : public Moveable {
         float maxLeftDistance;
         float stepSize;
         void checkMaxDistance();
-		Projectile projectile;
+        Projectile projectile;
         bool isOffScreen;
-		bool direction;
+        bool paused;
+        std::string leftTexture;
+        std::string rightTexture;
+        void updateTexture(float velX);
+        bool direction;
         float projectileOffsetX;
         float projectileOffsetY;
     
@@ -39,9 +43,10 @@ class Enemy : public Moveable {
         void updateMovement();
         bool trackPlayer(Player& player, float timeS);
         void setOffScreen();
-		Projectile& getProjectile();
-		bool getDirection();
-		void setDirection(bool pDirection);
+        void setPaused(bool b);
+        Projectile& getProjectile();
+        bool getDirection();
+        void setDirection(bool pDirection);
         float getProjectileOffsetX();
         float getProjectileOffsetY();
 

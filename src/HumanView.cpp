@@ -23,7 +23,6 @@ void HumanView::init() {
     texture.setRepeated(true);
     background = sf::Sprite(texture);
     background.setTextureRect({ 0, 0, 4000, height});
-    //drawObjects();
 }
 
 void HumanView::update(float time) {
