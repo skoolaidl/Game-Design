@@ -17,7 +17,7 @@ Strings::Strings() {
     strings.insert({ "Jump", "Jump(UpArrow): " });
     strings.insert({ "Shoot", "Shoot(Spacebar): " });
     strings.insert({ "NewLine", "\n" });
-    strings.insert({ "ChangeLevel", "\nTo change the currently \nselected level, press 0-9, \nthe first level is 0" });
+    strings.insert({ "ChangeLevel", "\nTo load progress press R" });
     strings.insert({ "PressEnter", "Press enter to advance dialogue" });
     strings.insert({ "ChadRejected", "You were supposed to say yes, but I will move on" });
     strings.insert({ "EndLevel", "You completed the level\nYour score was: " });

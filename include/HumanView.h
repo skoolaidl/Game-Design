@@ -50,6 +50,7 @@ class HumanView : public View {
         std::string response;
         std::string preference;
         int levelsWon;
+        void readSaveFile();
     
     public: 
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};

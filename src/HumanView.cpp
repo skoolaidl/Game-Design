@@ -3,6 +3,7 @@
 #include <SFML/System.hpp>
 #include <string>
 #include <iostream>
+#include <fstream>
 
 /*
 HumanView handles the drawing of the game to the screen, user input, and sound
@@ -198,7 +199,6 @@ void HumanView::checkKeyboardDialogue(float time) {
     if (dialogueStage > 2 ) {
         dialogueStage = 0;
         logic.setGameState(1);
-        logic.setLevel(currentLevel);
         first = true;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
@@ -289,51 +289,34 @@ void HumanView::checkKeyboardStart(float time) {
         startTime = time;
         currTime = time;
         first = true;
+        logic.setLevel(currentLevel);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //set gameState to settings
         logic.setGameState(3);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)) {
-        //change currentLevel to 0
-        currentLevel = 0;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+        //set up info from save file
+        readSaveFile();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-        //change currentLevel to 1
-        currentLevel = 1;
+}
+
+void HumanView::readSaveFile() {
+    std::ifstream file;
+    file.open("../res/save.txt");
+    int x;
+    if (file.is_open()) {
+        file >> x;
+        currentLevel = x;
+        for (int i = 0; i < 10; i++) {
+            file >> x;
+            logic.setScore(i, x);
+        }
+        file >> x;
+        levelsWon = x;
+
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
-        //change currentLevel to 2
-        currentLevel = 2;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
-        //change currentLevel to 3
-        currentLevel = 3;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
-        //change currentLevel to 4
-        currentLevel = 4;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) {
-        //change currentLevel to 5
-        currentLevel = 5;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) {
-        //change currentLevel to 6
-        currentLevel = 6;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) {
-        //change currentLevel to 1
-        currentLevel = 7;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) {
-        //change currentLevel to 8
-        currentLevel = 8;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)) {
-        //change currentLevel to 9
-        currentLevel = 9;
-    }
+    file.close();
 }
 
 void HumanView::checkKeyboardEndLevel(float time) {
