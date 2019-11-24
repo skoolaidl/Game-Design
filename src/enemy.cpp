@@ -25,8 +25,8 @@ void Enemy::init() {
     xpos = 0.f;
     ypos = 0.f;
     startXPos = xpos;
-    maxRightDistance = 100.f;
-    maxLeftDistance = 100.f;
+    maxRightDistance = 200.f;
+    maxLeftDistance = 200.f;
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
     isOffScreen = false;
@@ -49,8 +49,8 @@ void Enemy::init(float x, float y, int color) {
     xpos = x;
     ypos = y;
     startXPos = xpos;
-    maxRightDistance = 100.f;
-    maxLeftDistance = 100.f;
+    maxRightDistance = 200.f;
+    maxLeftDistance = 200.f;
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
     isOffScreen = false;

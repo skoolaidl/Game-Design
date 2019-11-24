@@ -62,26 +62,16 @@ class GameLogic {
 
         int getGameState();
         void setGameState(int newState);
-        
         void init(int wWidth, int wHeight);
-        
         void update(float timeS);
-                
         void increaseScore(int level, int increase);
-
         Player& getPlayer();
         Actor& getGirl();
-
         std::vector<std::reference_wrapper<Actor>>& getActors();
-
         void playerMoveRight(float timeS);
-
         void playerMoveLeft(float timeS);
-        
         void playerShoot(float timeS);
-        
         void playerJump(float timeS);
-        
         void playerFall(float time);
 
 };
