@@ -13,66 +13,69 @@ void LevelCreator::init(){
 
 }
 
-void LevelCreator::LoadMap(int level){
+std::vector<Actor> LevelCreator::LoadMap(int level){
     //This line will change based on "level", for now just using MapTest
     // std::ifstream openfile("/Users/Seth/Desktop/Game-Design/res/MapTest.txt");
 
     //This line will change based on "level", for now just using Sample Level XML
     tinyxml2::XMLDocument map;
-    tinyxml2::XMLError eResult = map.Loadfile("/Users/Seth/Desktop/Game-Design/res/practice_level.xml");
+    tinyxml2::XMLError eResult = map.LoadFile("/Users/Seth/Desktop/Game-Design/res/practice_level.xml");
     if (eResult != tinyxml2::XML_SUCCESS) {
-        //ERROR LOADING XML
+        std::cout << "error loading file" << std::endl;
     };
 
-    
+    tinyxml2::XMLHandle docHandle(&map);
 
-    
-
-
+    tinyxml2::XMLElement *entry = docHandle.FirstChildElement("Actors").ToElement();
 
 
-    // if (openfile.is_open()){
-    //     // std::string tileLocation;
-    //     // openfile >> tileLocation;
+    if (entry) {
+        for (tinyxml2::XMLNode *node = entry->FirstChildElement(); node; node = node->NextSibling()){
 
-    //     if (!tileTexture.loadFromFile(mapTiles))
-    //     {
-    //         std::cout << "error" << std::endl;
-    //     }
-    //     //tiles.setTexture(tileTexture);
-    //     while(!openfile.eof()){
-    //         std::string tileLoc;
-    //         openfile >> tileLoc;
-    //         char x = tileLoc[0], y = tileLoc[2];
-    //         if (!isdigit(x) || !isdigit(y)) map[loadCounter.x][loadCounter.y] = sf::Vector2i(-1,-1);
-    //         else map[loadCounter.x][loadCounter.y] = sf::Vector2i(x - '0',y - '0');
+            tinyxml2::XMLElement *e = node->ToElement();
 
-    //         if (openfile.peek() == '\n'){ 
-    //             loadCounter.x = 0;
-    //             loadCounter.y++;
-    //         }     
-    //         else loadCounter.x++;
-    //     }
-    //     loadCounter.y++;
-    // }
+            std::cout << e->Value() << std::endl;
+
+            if (std::strncmp(e->Value(), "Platform", 9) == 0) {
+                std::string scaleX = e->FirstChildElement("scaleX")->GetText();
+                std::string scaleY = e->FirstChildElement("scaleY")->GetText();
+                std::string locX = e->FirstChildElement("x")->GetText();
+                std::string locY = e->FirstChildElement("y")->GetText();
+            }
+
+            else if (std::strncmp(e->Value(), "Spike", 6) == 0) {
+                std::string scaleX = e->FirstChildElement("scaleX")->GetText();
+                std::string scaleY = e->FirstChildElement("scaleY")->GetText();
+                std::string locX = e->FirstChildElement("x")->GetText();
+                std::string locY = e->FirstChildElement("y")->GetText();
+            }
+
+            else if (std::strncmp(e->Value(), "Enemy", 6) == 0) {
+                std::string scaleX = e->FirstChildElement("scaleX")->GetText();
+                std::string scaleY = e->FirstChildElement("scaleY")->GetText();
+                std::string color = e->FirstChildElement("color")->GetText();
+            }
+        }
+    }
+    return actorsVector
 }
 
 std::vector<Actor> LevelCreator::SetMap() {
-    for (int i = 0; i < loadCounter.x; i++){
-        for (int j = 0; j < loadCounter.y; j++){
-            std::cout << "map x is: " << map[i][j].x << std::endl;
-            std::cout << "map j is: " << map[i][j].y << std::endl;
-            std::cout << "i is: " << i << std::endl;
-            std::cout << "j is: " << j << std::endl;
-            if (map[i][j].x != -1 && map[i][j].y != -1){
-                std::cout << "in here" << std::endl;
-                Platform platform;
-                sf::IntRect rect = sf::IntRect(map[i][j].x * 40, map[i][j].y * 40, 40, 40);
-                platform.init(1, 1, 40 * i, 40 * j, rect, tileTexture);
-                actorsVector.push_back(platform);
-            } 
-        }
-    }
+    // for (int i = 0; i < loadCounter.x; i++){
+    //     for (int j = 0; j < loadCounter.y; j++){
+    //         std::cout << "map x is: " << map[i][j].x << std::endl;
+    //         std::cout << "map j is: " << map[i][j].y << std::endl;
+    //         std::cout << "i is: " << i << std::endl;
+    //         std::cout << "j is: " << j << std::endl;
+    //         if (map[i][j].x != -1 && map[i][j].y != -1){
+    //             std::cout << "in here" << std::endl;
+    //             Platform platform;
+    //             sf::IntRect rect = sf::IntRect(map[i][j].x * 40, map[i][j].y * 40, 40, 40);
+    //             platform.init(1, 1, 40 * i, 40 * j, rect, tileTexture);
+    //             actorsVector.push_back(platform);
+    //         } 
+    //     }
+    // }
     return actorsVector;
 }
 
