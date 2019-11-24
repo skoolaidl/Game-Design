@@ -1,10 +1,5 @@
 #include "LevelCreator.h"
-#include "platform.h"
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <fstream>
-#include <cctype>
-#include <string>
+
 
 /* 
 Level Creator class serves as an engine for reading in a specific level text file
@@ -20,31 +15,46 @@ void LevelCreator::init(){
 
 void LevelCreator::LoadMap(int level){
     //This line will change based on "level", for now just using MapTest
-    std::ifstream openfile("/Users/Seth/Desktop/Game-Design/res/MapTest.txt");
+    // std::ifstream openfile("/Users/Seth/Desktop/Game-Design/res/MapTest.txt");
 
-    if (openfile.is_open()){
-        // std::string tileLocation;
-        // openfile >> tileLocation;
-        if (!tileTexture.loadFromFile(mapTiles))
-        {
-            std::cout << "error" << std::endl;
-        }
-        //tiles.setTexture(tileTexture);
-        while(!openfile.eof()){
-            std::string tileLoc;
-            openfile >> tileLoc;
-            char x = tileLoc[0], y = tileLoc[2];
-            if (!isdigit(x) || !isdigit(y)) map[loadCounter.x][loadCounter.y] = sf::Vector2i(-1,-1);
-            else map[loadCounter.x][loadCounter.y] = sf::Vector2i(x - '0',y - '0');
+    //This line will change based on "level", for now just using Sample Level XML
+    tinyxml2::XMLDocument map;
+    tinyxml2::XMLError eResult = map.Loadfile("/Users/Seth/Desktop/Game-Design/res/practice_level.xml");
+    if (eResult != tinyxml2::XML_SUCCESS) {
+        //ERROR LOADING XML
+    };
 
-            if (openfile.peek() == '\n'){ 
-                loadCounter.x = 0;
-                loadCounter.y++;
-            }     
-            else loadCounter.x++;
-        } 
-        loadCounter.y++;
-    }
+    
+
+    
+
+
+
+
+    // if (openfile.is_open()){
+    //     // std::string tileLocation;
+    //     // openfile >> tileLocation;
+
+    //     if (!tileTexture.loadFromFile(mapTiles))
+    //     {
+    //         std::cout << "error" << std::endl;
+    //     }
+    //     //tiles.setTexture(tileTexture);
+    //     while(!openfile.eof()){
+    //         std::string tileLoc;
+    //         openfile >> tileLoc;
+    //         char x = tileLoc[0], y = tileLoc[2];
+    //         if (!isdigit(x) || !isdigit(y)) map[loadCounter.x][loadCounter.y] = sf::Vector2i(-1,-1);
+    //         else map[loadCounter.x][loadCounter.y] = sf::Vector2i(x - '0',y - '0');
+
+    //         if (openfile.peek() == '\n'){ 
+    //             loadCounter.x = 0;
+    //             loadCounter.y++;
+    //         }     
+    //         else loadCounter.x++;
+    //     }
+    //     loadCounter.y++;
+    // }
 }
 
 std::vector<Actor> LevelCreator::SetMap() {
