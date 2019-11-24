@@ -138,26 +138,30 @@ void Enemy::checkMaxDistance()
     }
 }
 
-void Enemy::trackPlayer(Player& player, float timeS)
+bool Enemy::trackPlayer(Player& player, float timeS)
 {
     float velX = stepSize * timeS;
     if(player.isInAir() || (xpos > player.getSprite().getPosition().x - velX && xpos < player.getSprite().getPosition().x + velX))
     {
         setPaused(true);
+        return false;
     }
     else if(xpos < player.getSprite().getPosition().x)
     {
         setVelocityX(velX);
         direction = true;
+        return true;
     }
     else if(xpos > player.getSprite().getPosition().x)
     {
         setVelocityX(-1 * velX);
         direction = false;
+        return true;
     }
     else
     {
         setPaused(true);
+        return false;
     }
 }
 

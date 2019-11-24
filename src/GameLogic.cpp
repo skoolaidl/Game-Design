@@ -370,7 +370,7 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
         int dir = rand() % 2;
         float currVelX = ( ((dir == 0) ? (-1*enemy.getStepSize()) : enemy.getStepSize()) * timeS );
         enemy.setVelocityX(currVelX);
-		    enemy.setDirection(dir);
+        enemy.setDirection(dir);
     }
     enemyFall(enemy, timeS);
     enemyTrack(enemy, timeS);
