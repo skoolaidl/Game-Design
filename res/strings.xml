@@ -4,6 +4,9 @@
 	<LevelSelect>Level Select</LevelSelect>
 	<Level>Level </Level>
 	<Settings>Settings</Settings>
+    <MenuText>Welcome to Match Made in Hell!\nPress s to go to the settings menu\nPress enter to start</MenuText>
+    <SettingsText>Settings Menu\nPress Backspace to return to the main menu\nPress the key you wish to change and then press the key you want\n\n\nThe current keys are:\n</SettingsText>
+    
 	<Volume>Volume</Volume>
 	<Controls>Controls</Controls>
 	<RebindKeys>Rebind Keys</RebindKeys>

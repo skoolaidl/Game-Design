@@ -20,6 +20,7 @@ class Player : public Moveable {
         float stepSizeY;
         //true is facing right, false is left
         bool direction;
+        void updateTexture(float velX);
         Projectile bullet;
         float bulletOffsetX = 20.f;
         float bulletOffsetY = 15.f;

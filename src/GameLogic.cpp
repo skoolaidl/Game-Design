@@ -17,32 +17,8 @@ void GameLogic::init(int wWidth, int wHeight) {
     height = wHeight;
     gravity = 300.f;
     gameState = 0;
-    player.init();
-    
+    player.init();  
     loader.init();
-    //TODO: change logic for level select
-    loader.LoadLevel(0);
-    platVector = loader.getPlatforms();
-    spikeVector = loader.getSpikes();
-    enemyVector = loader.getEnemies();
-    girl = loader.getGirl();
-
-    for (int i = 0; i < platVector.size(); i++) {
-        platVector[i].setTexture();
-        actorsVector.push_back(platVector[i]);
-        platforms.push_back(platVector[i]);
-    }
-    for (int i = 0; i < spikeVector.size(); i++) {
-        spikeVector[i].setTexture();
-        actorsVector.push_back(spikeVector[i]);
-        spikes.push_back(spikeVector[i]);
-    }
-    for (int i = 0; i < enemyVector.size(); i++) {
-        enemyVector[i].setTexture();
-        actorsVector.push_back(enemyVector[i]);
-        enemies.push_back(enemyVector[i]);
-    }
-    actorsVector.push_back(girl);
 
 }
 
@@ -74,6 +50,33 @@ void GameLogic::update(float timeS) {
         updatePlayerCollisionGirl();
     }
 
+}
+
+void GameLogic::setLevel(int level) {
+    currentLevel = level;
+    //load specified level
+    loader.LoadLevel(level);
+    platVector = loader.getPlatforms();
+    spikeVector = loader.getSpikes();
+    enemyVector = loader.getEnemies();
+    girl = loader.getGirl();
+
+    for (int i = 0; i < platVector.size(); i++) {
+        platVector[i].setTexture();
+        actorsVector.push_back(platVector[i]);
+        platforms.push_back(platVector[i]);
+    }
+    for (int i = 0; i < spikeVector.size(); i++) {
+        spikeVector[i].setTexture();
+        actorsVector.push_back(spikeVector[i]);
+        spikes.push_back(spikeVector[i]);
+    }
+    for (int i = 0; i < enemyVector.size(); i++) {
+        enemyVector[i].setTexture();
+        actorsVector.push_back(enemyVector[i]);
+        enemies.push_back(enemyVector[i]);
+    }
+    actorsVector.push_back(girl);
 }
 
 Actor& GameLogic::getGirl(){
@@ -120,7 +123,7 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
 void GameLogic::updatePlayerCollisionGirl() {
     if (player.getSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
         {
-            gameState = 2;
+            gameState = 5;
         }          
 }
 
@@ -163,12 +166,30 @@ void GameLogic::removeFromActorsVector(Actor& actor) {
 }
 
 void GameLogic::increaseScore(int level, int increase) {
-    level--;
+    //only if using level 1 not 0 level--;
     if ( level >= 0 && level <= 9 ) {
         scores[level] = scores[level] + increase;
     }
     else {
         //invalid level
+    }
+}
+
+int GameLogic::getScore(int level) {
+    return scores[level];
+}
+
+bool GameLogic::setScore(int level, int score) {
+    if (level < 0 || level > 9) {
+        return false;
+    }
+    scores[level] = score;
+    return true;
+}
+
+void GameLogic::resetScores() {
+    for (int i = 0; i < scores.size(); i++) {
+        scores[i] = 0;
     }
 }
 
@@ -330,6 +351,7 @@ void GameLogic::enemySetBounds(Enemy& enemy)
 
 void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
     //if player within range, move towards him
+    enemy.setPaused(false); 
     if (player.getSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
         && player.getSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
      {
@@ -340,13 +362,20 @@ void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
 }
 
 void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
+    //randomizes direction of enemy once he is created
     if(enemy.getVelocityX() == 0.f)
     {
         srand(time(NULL));
         int dir = rand() % 2;
-        float currVelX = ( ((dir == 0) ? (-1*enemy.getStepSize()) : enemy.getStepSize()) * timeS );
+        float currVelX = ((dir == 0) ? -1 : 1) * enemy.getStepSize() * timeS;
         enemy.setVelocityX(currVelX);
-		enemy.setDirection(dir);
+        enemy.setDirection(dir);
+    }
+    //sets velocity to normal velocity if the delta time was unusually slow
+    if(std::abs(enemy.getVelocityX()) <= enemy.getStepSize() * timeS)
+    {
+        float normVelX = ((enemy.getDirection() == true) ? 1 : -1) * enemy.getStepSize() * timeS;
+        enemy.setVelocityX(normVelX);
     }
     enemyFall(enemy, timeS);
     enemyTrack(enemy, timeS);

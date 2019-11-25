@@ -4,10 +4,9 @@ void AIView::init() {
     
 }
 
-void AIView::update(float time) {
+void AIView::update(float timeS) {
     //only active if game is running
     switch (logic.getGameState()) {
-        //error, game not initialized
         case 0: break;
         //running
         case 1: break;
