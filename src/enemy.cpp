@@ -11,7 +11,7 @@ Enemy::Enemy() {
 }
 
 void Enemy::init() {
-    // if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/demon_red_sprite_resized.png"))
+    // if (!texture.loadFromFile("../res/demon_red_sprite_resized.png"))
     if (!texture.loadFromFile("../res/demon_red_sprite_resized.png"))
     {
         // error...
@@ -31,10 +31,11 @@ void Enemy::init() {
 
 void Enemy::init(float x, float y, int color) {
     std::string text = "";
+    colorType = color;
     switch (color) {
-        // case 0: text = "/Users/Seth/Desktop/Game-Design/res/demon_red_sprite_resized.png"; break;
-        // case 1: text = "/Users/Seth/Desktop/Game-Design/res/demon_blue_sprite_resized.png"; break;
-        // case 2: text = "/Users/Seth/Desktop/Game-Design/res/demon_green_sprite_resized.png"; break;
+        // case 0: text = "../res/demon_red_sprite_resized.png"; break;
+        // case 1: text = "../res/demon_blue_sprite_resized.png"; break;
+        // case 2: text = "../res/demon_green_sprite_resized.png"; break;
         case 0: text = "../res/demon_red_sprite_resized.png"; break;
         case 1: text = "../res/demon_blue_sprite_resized.png"; break;
         case 2: text = "../res/demon_green_sprite_resized.png"; break;
@@ -176,4 +177,23 @@ float Enemy::getProjectileOffsetX() {
 
 float Enemy::getProjectileOffsetY() {
     return projectileOffsetY;
+}
+
+void Enemy::setTexture() {
+    std::string text = "";
+    switch (colorType) {
+        // case 0: text = "../res/demon_red_sprite_resized.png"; break;
+        // case 1: text = "../res/demon_blue_sprite_resized.png"; break;
+        // case 2: text = "../res/demon_green_sprite_resized.png"; break;
+        case 0: text = "../res/demon_red_sprite_resized.png"; break;
+        case 1: text = "../res/demon_blue_sprite_resized.png"; break;
+        case 2: text = "../res/demon_green_sprite_resized.png"; break;
+    }
+
+    if (!texture.loadFromFile(text))
+    {
+        // error...
+    }
+    setSprite(sf::Sprite(texture));
+    getSprite().setPosition(xpos, ypos);
 }

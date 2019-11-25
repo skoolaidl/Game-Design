@@ -21,22 +21,28 @@ void GameLogic::init(int wWidth, int wHeight) {
     
     loader.init();
     //TODO: change logic for level select
-    nestedActors = loader.LoadMap(0);
+    loader.LoadLevel(0);
+    platVector = loader.getPlatforms();
+    spikeVector = loader.getSpikes();
+    enemyVector = loader.getEnemies();
+    girl = loader.getGirl();
 
-    for(int i = 0; i < nestedActors.size(); i++){
-        //if it is a platform
-        if (i == 0) {
-            for (int j = 0; j < nestedActors[i].size(); j++){
-                actorsVector.push_back(nestedActors[i][j]);
-                platforms.push_back((Platform&)nestedActors[i][j]);
-            }
-        }
-        //if it is a spike
-
-        //if it is an enemy
-
-        //if it is a girl
+    for (int i = 0; i < platVector.size(); i++) {
+        platVector[i].setTexture();
+        actorsVector.push_back(platVector[i]);
+        platforms.push_back(platVector[i]);
     }
+    for (int i = 0; i < spikeVector.size(); i++) {
+        spikeVector[i].setTexture();
+        actorsVector.push_back(spikeVector[i]);
+        spikes.push_back(spikeVector[i]);
+    }
+    for (int i = 0; i < enemyVector.size(); i++) {
+        enemyVector[i].setTexture();
+        actorsVector.push_back(enemyVector[i]);
+        enemies.push_back(enemyVector[i]);
+    }
+    actorsVector.push_back(girl);
 
 }
 
@@ -170,15 +176,15 @@ Player& GameLogic::getPlayer() {
     return player;
 }
 
-std::vector<Actor>& GameLogic::getActors() {
+std::vector<std::reference_wrapper<Actor>>& GameLogic::getActors() {
     return actorsVector;
 }
 
-bool GameLogic::collides(Actor actor, std::vector<Actor> objVector)
+bool GameLogic::collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector)
 {
     for(int i = 0; i < objVector.size(); ++i)
     {
-        if (actor.getSprite().getGlobalBounds().intersects( objVector[i].getSprite().getGlobalBounds() ) )
+        if (actor.getSprite().getGlobalBounds().intersects( objVector[i].get().getSprite().getGlobalBounds() ) )
         {
             return true;
         }

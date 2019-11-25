@@ -17,8 +17,8 @@ void Projectile::init(int pType, float x, float y, bool pDirection) {
     switch (type) {
         case 0: text = (pDirection ? "../res/fireball_resized_1.png" : "../res/fireball_resized_0.png") ; break;
         case 1: text = (pDirection ? "../res/bullet_1.png" : "../res/bullet_0.png"); break;
-        // case 0: text = (pDirection ? "/Users/Seth/Desktop/Game-Design/res/fireball_resized_1.png" : "/Users/Seth/Desktop/Game-Design/res/fireball_resized_0.png") ; break;
-        // case 1: text = (pDirection ? "/Users/Seth/Desktop/Game-Design/res/bullet_1.png" : "/Users/Seth/Desktop/Game-Design/res/bullet_0.png"); break;
+        // case 0: text = (pDirection ? "../res/fireball_resized_1.png" : "../res/fireball_resized_0.png") ; break;
+        // case 1: text = (pDirection ? "../res/bullet_1.png" : "../res/bullet_0.png"); break;
     }
     if (!texture.loadFromFile(text))
     {

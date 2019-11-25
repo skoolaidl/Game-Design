@@ -31,8 +31,11 @@ class GameLogic {
 
         LevelCreator loader;
 
-        std::vector<Actor> actorsVector;
+        std::vector<std::reference_wrapper<Actor>> actorsVector;
         std::vector<std::vector<Actor>> nestedActors;
+        std::vector<Platform> platVector;
+        std::vector<Spike> spikeVector;
+        std::vector<Enemy> enemyVector;
         std::vector<std::reference_wrapper<Platform>> platforms;
         std::vector<std::reference_wrapper<Spike>> spikes;
         std::vector<std::reference_wrapper<Projectile>> projectiles;
@@ -40,7 +43,7 @@ class GameLogic {
         
         void softReset();
         void reset();
-        bool collides(Actor actor, std::vector<Actor> objVector);
+        bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
         void updatePlayerCollision(float timeS);
         void updatePlayerCollisionSpikesEnemy();
         void updatePlayerCollisionGirl();
@@ -70,7 +73,7 @@ class GameLogic {
         Player& getPlayer();
         Actor& getGirl();
 
-        std::vector<Actor>& getActors();
+        std::vector<std::reference_wrapper<Actor>>& getActors();
 
         void playerMoveRight(float timeS);
 

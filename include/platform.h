@@ -1,6 +1,7 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include "actor.h"
 
 class Platform : public Actor {
@@ -14,6 +15,8 @@ class Platform : public Actor {
     public:
         Platform();
         void init(const float width, const float height, const float xpos, const float ypos);
+        void setTexture();
+
 };
 
 #endif

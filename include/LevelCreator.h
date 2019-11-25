@@ -10,6 +10,9 @@
 #include <utility>
 #include "platform.h"
 #include "tinyxml2.h"
+#include "spike.h"
+#include "enemy.h"
+#include "girl.h"
 
 class LevelCreator {
     private:
@@ -17,16 +20,20 @@ class LevelCreator {
         sf::Sprite tiles;
         sf::Vector2i loadCounter = sf::Vector2i(0, 0);
 
-        std::vector<std::vector<Actor>> actorsVector;
-        std::vector<Actor> platforms;
-        std::vector<Actor> spikes;
-        std::vector<Actor> projectiles;
-        std::vector<Actor> enemies;
+        std::vector<Platform> platforms;
+        std::vector<Spike> spikes;
+        std::vector<Enemy> enemies;
+        Girl girl;
 
     public:
         LevelCreator();
         void init();
-        std::vector<std::vector<Actor>> LoadMap(int level);
+        void LoadLevel(int level);
+        std::vector<Platform> getPlatforms();
+        std::vector<Spike> getSpikes();
+        std::vector<Enemy> getEnemies();
+        Girl getGirl();
+        
 };
 
 #endif

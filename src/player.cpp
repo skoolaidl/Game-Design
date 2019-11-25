@@ -10,7 +10,7 @@ Player::Player() {
 }
 
 void Player::init() {
-    // if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/chad_sized.png"))
+    // if (!texture.loadFromFile("../res/chad_sized.png"))
     if (!texture.loadFromFile("../res/chad_sized.png"))
     {
         // error...

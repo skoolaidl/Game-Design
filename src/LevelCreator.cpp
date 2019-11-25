@@ -13,13 +13,13 @@ void LevelCreator::init(){
 
 }
 
-std::vector<std::vector<Actor>> LevelCreator::LoadMap(int level){
+void LevelCreator::LoadLevel(int level){
     //This line will change based on "level", for now just using MapTest
-    // std::ifstream openfile("/Users/Seth/Desktop/Game-Design/res/MapTest.txt");
+    // std::ifstream openfile("../res/MapTest.txt");
 
     //This line will change based on "level", for now just using Sample Level XML
     tinyxml2::XMLDocument map;
-    // tinyxml2::XMLError eResult = map.LoadFile("/Users/Seth/Desktop/Game-Design/res/practice_level.xml");
+    // tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
     tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
     if (eResult != tinyxml2::XML_SUCCESS) {
         std::cout << "error loading file" << std::endl;
@@ -67,6 +67,10 @@ std::vector<std::vector<Actor>> LevelCreator::LoadMap(int level){
                 float x = std::stof(stringLocX);
                 float y = std::stof(stringLocY);
 
+                Spike spike;
+                spike.init(scaleX, scaleY, x, y);
+                spikes.push_back(spike);
+
             }
 
             else if (std::strncmp(e->Value(), "Enemy", 6) == 0) {
@@ -76,12 +80,36 @@ std::vector<std::vector<Actor>> LevelCreator::LoadMap(int level){
 
                 float x = std::stof(stringLocX);
                 float y = std::stof(stringLocY);
-                float color = std::stof(stringColor);
+                int color = std::stoi(stringColor);
 
+                Enemy enemy;
+                enemy.init(x, y, color);
+                enemies.push_back(enemy);
+            }
+            else if (std::strncmp(e->Value(), "Girl", 4) == 0) {
+                std::string stringLocX = e->FirstChildElement("x")->GetText();
+                std::string stringLocY = e->FirstChildElement("y")->GetText();
+
+                float x = std::stof(stringLocX);
+                float y = std::stof(stringLocY);
+                girl.init(x, y);
             }
         }
-        actorsVector.push_back(platforms);
     }
-    return actorsVector;
 }
 
+std::vector<Platform> LevelCreator::getPlatforms() {
+    return platforms;
+}
+
+std::vector<Spike> LevelCreator::getSpikes() {
+    return spikes;
+}
+
+std::vector<Enemy> LevelCreator::getEnemies() {
+    return enemies;
+}
+
+Girl LevelCreator::getGirl() {
+    return girl;
+}

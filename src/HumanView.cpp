@@ -16,7 +16,7 @@ void HumanView::init() {
     height = size.y;
     view.reset(sf::FloatRect(0,0,width,height));
     view.setViewport(sf::FloatRect(0,0,1.f,1.f));
-    if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/background_resized.gif"))
+    if (!texture.loadFromFile("../res/background_resized.gif"))
     {
         // error...
     }
@@ -52,7 +52,7 @@ void HumanView::update(float time) {
 void HumanView::drawMenu() {
     display.clear();
     //load font
-    // if (!font.loadFromFile("/Users/Seth/Desktop/Game-Design/res/times.ttf"))
+    // if (!font.loadFromFile("../res/times.ttf"))
     if (!font.loadFromFile("../res/times.ttf"))
     {
         // error...
@@ -60,7 +60,7 @@ void HumanView::drawMenu() {
     sf::Text start("Welcome to Match Made in Hell!\nPress enter to start", font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     start.setFillColor(sf::Color::Red);
-    // titleText.loadFromFile("/Users/Seth/Desktop/Game-Design/res/title_resized.png");
+    // titleText.loadFromFile("../res/title_resized.png");
     titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
     display.draw(title);
@@ -71,7 +71,7 @@ void HumanView::drawMenu() {
 void HumanView::drawEndLevel() {
     display.clear();
     //load font
-    // if (!font.loadFromFile("/Users/Seth/Desktop/Game-Design/res/times.ttf"))
+    // if (!font.loadFromFile("../res/times.ttf"))
     if (!font.loadFromFile("../res/times.ttf"))
     {
         // error...
@@ -97,7 +97,7 @@ void HumanView::drawObjects() {
     display.setView(view);
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
-        display.draw(logic.getActors()[i].getSprite());
+        display.draw(logic.getActors()[i].get().getSprite());
     }
     display.draw(logic.getPlayer().getSprite());
     display.display();
