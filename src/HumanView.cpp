@@ -64,6 +64,11 @@ void HumanView::update(float time) {
 }
 
 void HumanView::drawMenu() {
+    if (first) {
+        currentLevel = 0;
+        logic.resetScores();
+        first = false;
+    }
     display.clear();
     sf::Text start(strings.getString("MenuText"), font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
@@ -331,6 +336,18 @@ void HumanView::readSaveFile() {
     file.close();
 }
 
+void HumanView::writeSaveFile() {
+    std::ofstream file("../res/save.txt", std::ios::trunc);
+    if (file.is_open()) {
+        file << std::to_string(currentLevel) + " ";
+        for (int i = 0; i < 10; i++) {
+            file << std::to_string(logic.getScore(i)) + " ";            
+        }
+        file << std::to_string(levelsWon);
+    }
+    file.close();
+}
+
 void HumanView::checkKeyboardEndLevel(float time) {
     //after 1 second, advance to next level when enter pressed
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
@@ -343,9 +360,15 @@ void HumanView::checkKeyboardEndLevel(float time) {
         if (currentLevel > 9) {
             logic.setGameState(6);
         }
+        else {
+            writeSaveFile();
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         //go back to main menu if backspace pressed
+        currentLevel++;
+        writeSaveFile();
+        first = true;
         logic.setGameState(0);
     }
     currTime += time;

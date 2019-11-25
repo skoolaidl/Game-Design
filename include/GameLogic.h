@@ -69,6 +69,7 @@ class GameLogic {
         void increaseScore(int level, int increase);
         int getScore(int level);
         bool setScore(int level, int score);
+        void resetScores();
 
         Player& getPlayer();
         Actor& getGirl();
