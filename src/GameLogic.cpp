@@ -204,6 +204,20 @@ int GameLogic::getScore(int level) {
     return scores[level];
 }
 
+bool GameLogic::setScore(int level, int score) {
+    if (level < 0 || level > 9) {
+        return false;
+    }
+    scores[level] = score;
+    return true;
+}
+
+void GameLogic::resetScores() {
+    for (int i = 0; i < scores.size(); i++) {
+        scores[i] = 0;
+    }
+}
+
 Player& GameLogic::getPlayer() {
     return player;
 }

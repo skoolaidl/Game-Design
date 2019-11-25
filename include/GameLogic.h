@@ -68,6 +68,9 @@ class GameLogic {
         void update(float timeS);
         void increaseScore(int level, int increase);
         int getScore(int level);
+        bool setScore(int level, int score);
+        void resetScores();
+
         Player& getPlayer();
         Actor& getGirl();
         std::vector<std::reference_wrapper<Actor>>& getActors();

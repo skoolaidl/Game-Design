@@ -17,8 +17,9 @@ Strings::Strings() {
     strings.insert({ "Jump", "Jump(UpArrow): " });
     strings.insert({ "Shoot", "Shoot(Spacebar): " });
     strings.insert({ "NewLine", "\n" });
+    strings.insert({ "LoadLevel", "\nTo load progress press L" });
     strings.insert({ "PressEnter", "Press enter to advance dialogue" });
-    strings.insert({ "ChadRejected", "You were supposed to say yes, but I will move on" });
+    strings.insert({ "ChadRejected", "Pffft, I don't need you anyway! You made the biggest \nmistake of your life, and you're gonna regret \nturning down THE Chad Chamberlain!" });
     strings.insert({ "EndLevel", "You completed the level\nYour score was: " });
     strings.insert({ "WonLevel", "You successfully rejected the date" });
     strings.insert({ "LostLevel", "You failed and got rejected by the girl" });
@@ -49,7 +50,7 @@ Strings::Strings() {
         "If you wanted to win me over, you're gonna have to do a lot better than that. Pathetic.",
         "Geez,and I thought Hell was bad enough as is, but now I've got this weak excuse for a man hitting on me? No thanks.",
         "Wow, Satan was right, you don't have any shot down here.You should probably just give up now.",
-        "You really thought that was gonna be enough to impress me ? I should have just told you at the dating screen that I wasn�t interested.",
+        "You really thought that was gonna be enough to impress me? I should have just told you at the dating screen that I wasn't interested.",
         "Are you kidding me? How about you try to be a semi-decent demon killer before you try to be a lady killer.",
         "Yikes, you're about 10 pixels too short for me. Maybe you should grow a little before trying to take on a woman like me.",
         "Hmmm... You don't seem genuine at all. So no thanks, cause you look like you'll just reject me or something if I liked you.",

@@ -3,6 +3,7 @@
 #include <SFML/System.hpp>
 #include <string>
 #include <iostream>
+#include <fstream>
 
 /*
 HumanView handles the drawing of the game to the screen, user input, and sound
@@ -63,12 +64,21 @@ void HumanView::update(float time) {
 }
 
 void HumanView::drawMenu() {
+    if (first) {
+        currentLevel = 0;
+        logic.resetScores();
+        first = false;
+    }
     display.clear();
     sf::Text start(strings.getString("MenuText"), font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
+    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1) + strings.getString("LoadLevel"), font, 40);	    
+    current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
+    current.setFillColor(sf::Color::Red);
     start.setFillColor(sf::Color::Red);
     titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
+    display.draw(current);
     display.draw(title);
     display.draw(start);
     display.display();
@@ -141,8 +151,8 @@ void HumanView::drawEndLevelDialogue() {
     if (first) {
         switch (dialogueStage) {
             //eventually change to be appropriate based on score
-            case 0: response = strings.getResponse("DateYes"); break;
-            case 1: response = strings.getResponse("Rejections"); break;
+            case 0: response = strings.getResponse("DateNo"); break;
+            case 1: response = strings.getString("ChadRejected"); break;
         }
         first = false;
     }
@@ -204,7 +214,6 @@ void HumanView::checkKeyboardDialogue(float time) {
     if (dialogueStage > 2 ) {
         dialogueStage = 0;
         logic.setGameState(1);
-        logic.setLevel(currentLevel);
         first = true;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
@@ -298,11 +307,46 @@ void HumanView::checkKeyboardStart(float time) {
         startTime = time;
         currTime = time;
         first = true;
+        logic.setLevel(currentLevel);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //set gameState to settings
         logic.setGameState(3);
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+        //set up info from save file
+        readSaveFile();
+    }
+}
+
+void HumanView::readSaveFile() {
+    std::ifstream file;
+    file.open("../res/save.txt");
+    int x;
+    if (file.is_open()) {
+        file >> x;
+        currentLevel = x;
+        for (int i = 0; i < 10; i++) {
+            file >> x;
+            logic.setScore(i, x);
+        }
+        file >> x;
+        levelsWon = x;
+
+    }
+    file.close();
+}
+
+void HumanView::writeSaveFile() {
+    std::ofstream file("../res/save.txt", std::ios::trunc);
+    if (file.is_open()) {
+        file << std::to_string(currentLevel) + " ";
+        for (int i = 0; i < 10; i++) {
+            file << std::to_string(logic.getScore(i)) + " ";            
+        }
+        file << std::to_string(levelsWon);
+    }
+    file.close();
 }
 
 void HumanView::checkKeyboardEndLevel(float time) {
@@ -317,9 +361,15 @@ void HumanView::checkKeyboardEndLevel(float time) {
         if (currentLevel > 9) {
             logic.setGameState(6);
         }
+        else {
+            writeSaveFile();
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         //go back to main menu if backspace pressed
+        currentLevel++;
+        writeSaveFile();
+        first = true;
         logic.setGameState(0);
     }
     currTime += time;
