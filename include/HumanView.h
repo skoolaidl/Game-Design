@@ -42,16 +42,20 @@ class HumanView : public View {
         sf::Keyboard::Key shoot;
         int waitingForKey;
         int currentLevel;
+        //keeps track of which part of the dialogue the screen is in
         int dialogueStage;
         void drawDialogueBox();
+        //time used for delay between dialogue screens
         float startTime;
         float currTime;
+        //first used for dialogues and endLevel when scene only needs to be drawn once
         bool first;
         std::string response;
         std::string preference;
         int levelsWon;
         void readSaveFile();
         void writeSaveFile();
+        bool checkDuplicateKeys(sf::Keyboard::Key);
     
     public: 
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};

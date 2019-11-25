@@ -68,6 +68,10 @@ void HumanView::drawMenu() {
         currentLevel = 0;
         logic.resetScores();
         first = false;
+        left = sf::Keyboard::Left;
+        right = sf::Keyboard::Right;
+        up = sf::Keyboard::Up;
+        shoot = sf::Keyboard::Space;
     }
     display.clear();
     sf::Text start(strings.getString("MenuText"), font, 50);
@@ -125,15 +129,13 @@ void HumanView::drawDialogueBox() {
 }
 
 void HumanView::drawLevelDialogue() {
-    if (first) {
-        switch (dialogueStage) {
-            //eventually change to be appropriate color based on 
-            case 0: preference = strings.getPreference("Kill", 0); break;
-            case 1: preference = strings.getPreference("Ignore", 1); break;
-            case 2: preference = strings.getPreference("Kill", 2); break;
-        }
-        first = false;
+    switch (dialogueStage) {
+        //eventually change to be appropriate color based on 
+        case 0: preference = strings.getPreference("Kill", 0); break;
+        case 1: preference = strings.getPreference("Ignore", 1); break;
+        case 2: preference = strings.getPreference("Kill", 2); break;
     }
+    first = false;
     if (dialogueStage > 3) {
         return;
     }
@@ -148,14 +150,12 @@ void HumanView::drawLevelDialogue() {
 }
 
 void HumanView::drawEndLevelDialogue() {
-    if (first) {
-        switch (dialogueStage) {
-            //eventually change to be appropriate based on score
-            case 0: response = strings.getResponse("DateNo"); break;
-            case 1: response = strings.getString("ChadRejected"); break;
-        }
-        first = false;
+    switch (dialogueStage) {
+        //eventually change to be appropriate based on score
+        case 0: response = strings.getResponse("DateNo"); break;
+        case 1: response = strings.getString("ChadRejected"); break;
     }
+    first = false;
     view.setCenter(width / 2, height / 2);
     display.setView(view);
     if (dialogueStage > 2) {
@@ -199,13 +199,17 @@ void HumanView::checkRebindingKeyPressed(sf::Keyboard::Key key) {
     }
     else if (waitingForKey > 0) {
         switch (waitingForKey) {
-            case 1: right = key; break;
-            case 2: left = key; break;
-            case 3: up = key; break;
-            case 4: shoot = key; break;
+            case 1: if (checkDuplicateKeys(key)) { right = key; }  break;
+            case 2: if (checkDuplicateKeys(key)) { left = key; }  break;
+            case 3: if (checkDuplicateKeys(key)) { up = key; }  break;
+            case 4: if (checkDuplicateKeys(key)) { shoot = key; }  break;
         }
         waitingForKey = 0;
     }
+}
+
+bool HumanView::checkDuplicateKeys(sf::Keyboard::Key newKey) {
+    return newKey != right && newKey != left && newKey != up && newKey != shoot;
 }
 
 void HumanView::checkKeyboardDialogue(float time) {
@@ -243,6 +247,7 @@ void HumanView::checkKeyboardEndDialogue(float time) {
 }
 
 void HumanView::drawEndLevel() {
+    first = false;
     display.clear();
     sf::Text end(strings.getString("EndLevel") + std::to_string(logic.getScore(currentLevel)), font, 50);
     end.setPosition(display.getSize().x / 8, display.getSize().y - 200);
@@ -254,6 +259,7 @@ void HumanView::drawEndLevel() {
 }
 
 void HumanView::drawFinalScore() {
+    first = false;
     display.clear();
     sf::Text score;
     score.setFillColor(sf::Color::Red);
@@ -332,9 +338,17 @@ void HumanView::readSaveFile() {
         }
         file >> x;
         levelsWon = x;
-
+        file >> x;
+        right = (sf::Keyboard::Key)x;
+        file >> x;
+        left = (sf::Keyboard::Key)x;
+        file >> x;
+        up = (sf::Keyboard::Key)x;
+        file >> x;
+        shoot = (sf::Keyboard::Key)x;
     }
     file.close();
+    std::cout << "right" << right << " left" << left << " up" << up << " shoot" << shoot << std::endl;
 }
 
 void HumanView::writeSaveFile() {
@@ -344,7 +358,11 @@ void HumanView::writeSaveFile() {
         for (int i = 0; i < 10; i++) {
             file << std::to_string(logic.getScore(i)) + " ";            
         }
-        file << std::to_string(levelsWon);
+        file << std::to_string(levelsWon) + " ";
+        file << std::to_string(right) + " ";
+        file << std::to_string(left) + " ";
+        file << std::to_string(up) + " ";
+        file << std::to_string(shoot);
     }
     file.close();
 }
