@@ -42,7 +42,6 @@ class Enemy : public Moveable {
         void setMaxLeftDistance(float dist);
         void updateMovement();
         bool trackPlayer(Player& player, float timeS);
-        void setOffScreen();
         void setPaused(bool b);
         Projectile& getProjectile();
         bool getDirection();

@@ -18,6 +18,7 @@ class GameLogic {
         int height;
         float bulletSpeed;
         float gravity;
+        int currentLevel = 0;
         Player player;
         Girl girl;
         Enemy enemy1;
@@ -66,6 +67,7 @@ class GameLogic {
         void init(int wWidth, int wHeight);
         void update(float timeS);
         void increaseScore(int level, int increase);
+        int getScore(int level);
         Player& getPlayer();
         Actor& getGirl();
         std::vector<std::reference_wrapper<Actor>>& getActors();
@@ -75,6 +77,8 @@ class GameLogic {
         void enemyShoot(Enemy& enemy);
         void playerJump(float timeS);
         void playerFall(float time);
+
+        void setLevel(int level);
 
 
 };
