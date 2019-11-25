@@ -130,6 +130,7 @@ void Enemy::checkMaxDistance()
         || xpos + velocityX <= startXPos - maxLeftDistance)
     {
         setVelocityX(-1 * velocityX);
+        direction = !direction;
     }
 }
 
