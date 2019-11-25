@@ -12,7 +12,8 @@ void Spike::init(const float w, const float h, const float x, const float y) {
     scaleHeight = h;
     xpos = x;
     ypos = y;
-    if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/spike_trap.png"))
+    // if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/spike_trap.png"))
+    if (!texture.loadFromFile("../res/spike_trap.png"))
     {
         // error...
     }
@@ -20,3 +21,4 @@ void Spike::init(const float w, const float h, const float x, const float y) {
     getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
     getSprite().setPosition(xpos, ypos);
 }
+

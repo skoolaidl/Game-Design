@@ -26,9 +26,9 @@ void GameLogic::init(int wWidth, int wHeight) {
     for(int i = 0; i < nestedActors.size(); i++){
         //if it is a platform
         if (i == 0) {
-            for (int j = 0; i < nestedActors[i].size(); i++){
+            for (int j = 0; j < nestedActors[i].size(); j++){
                 actorsVector.push_back(nestedActors[i][j]);
-                platforms.push_back(nestedActors[i][j]);
+                platforms.push_back((Platform&)nestedActors[i][j]);
             }
         }
         //if it is a spike

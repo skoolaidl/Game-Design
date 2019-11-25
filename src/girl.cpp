@@ -10,7 +10,8 @@ Girl::Girl() {
 void Girl::init(const float x, const float y) {
 	xpos = x;
 	ypos = y;
-	if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/girl_resized.png"))
+	// if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/girl_resized.png"))
+	if (!texture.loadFromFile("../res/girl_resized.png"))
 	{
 		// error...
 	}

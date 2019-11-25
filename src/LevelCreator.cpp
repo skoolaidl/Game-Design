@@ -19,7 +19,8 @@ std::vector<std::vector<Actor>> LevelCreator::LoadMap(int level){
 
     //This line will change based on "level", for now just using Sample Level XML
     tinyxml2::XMLDocument map;
-    tinyxml2::XMLError eResult = map.LoadFile("/Users/Seth/Desktop/Game-Design/res/practice_level.xml");
+    // tinyxml2::XMLError eResult = map.LoadFile("/Users/Seth/Desktop/Game-Design/res/practice_level.xml");
+    tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
     if (eResult != tinyxml2::XML_SUCCESS) {
         std::cout << "error loading file" << std::endl;
     };
@@ -79,27 +80,8 @@ std::vector<std::vector<Actor>> LevelCreator::LoadMap(int level){
 
             }
         }
-        actorsVector.push_back(platforms)
+        actorsVector.push_back(platforms);
     }
-    return actorsVector;
-}
-
-std::vector<Actor> LevelCreator::SetMap() {
-    // for (int i = 0; i < loadCounter.x; i++){
-    //     for (int j = 0; j < loadCounter.y; j++){
-    //         std::cout << "map x is: " << map[i][j].x << std::endl;
-    //         std::cout << "map j is: " << map[i][j].y << std::endl;
-    //         std::cout << "i is: " << i << std::endl;
-    //         std::cout << "j is: " << j << std::endl;
-    //         if (map[i][j].x != -1 && map[i][j].y != -1){
-    //             std::cout << "in here" << std::endl;
-    //             Platform platform;
-    //             sf::IntRect rect = sf::IntRect(map[i][j].x * 40, map[i][j].y * 40, 40, 40);
-    //             platform.init(1, 1, 40 * i, 40 * j, rect, tileTexture);
-    //             actorsVector.push_back(platform);
-    //         } 
-    //     }
-    // }
     return actorsVector;
 }
 
