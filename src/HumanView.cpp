@@ -73,12 +73,8 @@ void HumanView::drawMenu() {
     sf::Text start(strings.getString("MenuText"), font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     start.setFillColor(sf::Color::Red);
-    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1) + strings.getString("ChangeLevel"), font, 40);
-    current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
-    current.setFillColor(sf::Color::Red);
     titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
-    display.draw(current);
     display.draw(title);
     display.draw(start);
     display.display();
@@ -107,12 +103,13 @@ void HumanView::drawDialogueBox() {
     display.clear();
     chadText.loadFromFile("../res/chad.png");
     sf::Sprite chad(chadText);
-    chad.setPosition(0, 400);
+    chad.setScale(1.4f, 1.4f);
+    chad.setPosition(20, 375);
     girlText.loadFromFile("../res/girl_example_sprite.png");
     sf::Sprite girl(girlText);
-    girl.setPosition(width - 400, 300);
-    sf::RectangleShape textBox(sf::Vector2f(650, 300));
-    textBox.setPosition(width / 9, 0);
+    girl.setPosition(width - 250, 360);
+    sf::RectangleShape textBox(sf::Vector2f(700, 300));
+    textBox.setPosition(width / 9, 30);
     textBox.setOutlineColor(sf::Color::Red);
     sf::Text instruct(strings.getString("PressEnter"), font, 20);
     instruct.setPosition(width / 5, 300);
@@ -141,7 +138,7 @@ void HumanView::drawLevelDialogue() {
     dialogue.setFont(font);  
     dialogue.setString(preference);
     dialogue.setFillColor(sf::Color::Magenta);
-    dialogue.setPosition(width / 8, 20);
+    dialogue.setPosition(width / 8, 40);
     display.draw(dialogue);
     display.display();
 }
@@ -165,7 +162,7 @@ void HumanView::drawEndLevelDialogue() {
     dialogue.setFont(font);
     dialogue.setString(response);
     dialogue.setFillColor(sf::Color::Red);
-    dialogue.setPosition(width / 8, 20);
+    dialogue.setPosition(width / 8, 40);
     display.draw(dialogue);
     display.display();
 
@@ -225,7 +222,7 @@ void HumanView::checkKeyboardDialogue(float time) {
 }
 
 void HumanView::checkKeyboardEndDialogue(float time) {
-    ////advance to next dialogue after 1 second delay and enter is pressed,
+    //advance to next dialogue after 1 second delay and enter is pressed,
     //if last dialogue stage, go to end level screen after enter pressed
     if (dialogueStage > 1) {
         dialogueStage = 0;

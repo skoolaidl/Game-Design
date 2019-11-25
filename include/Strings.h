@@ -12,6 +12,7 @@ class Strings{
         std::map<std::string, std::vector<std::string>> preferences;
         std::vector<std::string> tierList;
         std::vector<std::string> keys;
+        std::string insertNewLines(const std::string &in, const size_t every_n);
 
     public:
         Strings();
