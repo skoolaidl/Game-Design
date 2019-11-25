@@ -348,7 +348,6 @@ void HumanView::readSaveFile() {
         shoot = (sf::Keyboard::Key)x;
     }
     file.close();
-    std::cout << "right" << right << " left" << left << " up" << up << " shoot" << shoot << std::endl;
 }
 
 void HumanView::writeSaveFile() {
