@@ -13,7 +13,7 @@ class AIView : public View {
 		
 		void init();
 		
-		void update(float time);                      
+		void update(float timeS);                      
               
 };
 

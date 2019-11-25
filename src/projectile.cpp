@@ -11,12 +11,20 @@ Projectile::Projectile(){
 
 void Projectile::init(int pType, float x, float y, bool pDirection) {
     direction = pDirection;
-	type = pType;
+    type = pType;
     //set sprite according to type (fireball 0 or bullet 1)
     std::string text = "";
     switch (type) {
-        case 0: text = (pDirection ? "../res/fireball_resized_1.png" : "../res/fireball_resized_0.png") ; break;
-        case 1: text = (pDirection ? "../res/bullet_1.png" : "../res/bullet_0.png"); break;
+        case 0: 
+            text = (pDirection ? "../res/fireball_resized_1.png" : "../res/fireball_resized_0.png");
+            stepSize = 300.f;
+            maxDistance = 350.f;
+            break;
+        case 1: 
+            text = (pDirection ? "../res/bullet_1.png" : "../res/bullet_0.png");
+            stepSize = 350.f;
+            maxDistance = 200.f;
+            break;
     }
     if (!texture.loadFromFile(text))
     {
@@ -30,7 +38,7 @@ void Projectile::init(int pType, float x, float y, bool pDirection) {
 
 void Projectile::setVelocity(float timeS)
 {
-	velocity = move_speed * timeS;
+    velocity = stepSize * timeS;
 }
 
 void Projectile::updateMovement() {
@@ -47,11 +55,11 @@ void Projectile::updateMovement() {
 
 bool Projectile::checkDistance() {
     if (direction) {
-        if ( getSprite().getPosition().x > (startX + max_distance) ) {
+        if ( getSprite().getPosition().x > (startX + maxDistance) ) {
             return false;
         }
     }
-    else if ( getSprite().getPosition().x < (startX - max_distance)) {
+    else if ( getSprite().getPosition().x < (startX - maxDistance)) {
         return false;
     }
     return true;
@@ -62,9 +70,9 @@ void Projectile::setAvailable() {
 }
 
 bool Projectile::getIsAvailable() {
-	return isAvailable;
+    return isAvailable;
 }
 
 int Projectile::getType() {
-	return type;
+    return type;
 }

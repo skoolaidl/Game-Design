@@ -44,15 +44,15 @@ int main(int argc, char** argv)
           focused = true;
       }
       else if (Event.type == sf::Event::KeyReleased) {
-          human.checkKeyPressed(Event.key.code);
+          //this is needed because sf::Keyboard can only check if a key is down, not if
+          //it is released and changing keybindings won't work without this
+          human.checkRebindingKeyPressed(Event.key.code);
       }
     
       
     }
     if (focused) {
-        float deltaS = clock.restart().asSeconds();
-        //deltaS = (deltaS < 1.f) ? 1.f : deltaS;
-    
+        float deltaS = clock.restart().asSeconds();    
         logic.update(deltaS);
         human.update(deltaS);
         ai.update(deltaS);

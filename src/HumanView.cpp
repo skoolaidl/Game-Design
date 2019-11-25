@@ -56,6 +56,10 @@ void HumanView::update(float time) {
         //final score screen
         case 6: if (first) { drawFinalScore(); } checkKeyboardFinal(); break;
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+        display.close();
+    }
 
 }
 
@@ -64,7 +68,7 @@ void HumanView::drawMenu() {
     sf::Text start(strings.getString("MenuText"), font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
     start.setFillColor(sf::Color::Red);
-    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel) + strings.getString("ChangeLevel"), font, 40);
+    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1) + strings.getString("ChangeLevel"), font, 40);
     current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     current.setFillColor(sf::Color::Red);
     titleText.loadFromFile("../res/title_resized.png");
@@ -94,18 +98,19 @@ void HumanView::drawSettingsMenu() {
 
 }
 
-void HumanView::drawChadGirlBox() {
+void HumanView::drawDialogueBox() {
     display.clear();
     chadText.loadFromFile("../res/chad.png");
     sf::Sprite chad(chadText);
+    chad.setPosition(0, 400);
     girlText.loadFromFile("../res/girl_example_sprite.png");
     sf::Sprite girl(girlText);
-    girl.setPosition(width - 400, 0);
+    girl.setPosition(width - 400, 300);
     sf::RectangleShape textBox(sf::Vector2f(650, 300));
-    textBox.setPosition(width / 9, height / 2);
+    textBox.setPosition(width / 9, 0);
     textBox.setOutlineColor(sf::Color::Red);
     sf::Text instruct(strings.getString("PressEnter"), font, 20);
-    instruct.setPosition(width / 5, 250);
+    instruct.setPosition(width / 5, 300);
     instruct.setFillColor(sf::Color::White);
     display.draw(girl);
     display.draw(chad);
@@ -126,12 +131,12 @@ void HumanView::drawLevelDialogue() {
     if (dialogueStage > 3) {
         return;
     }
-    drawChadGirlBox();
+    drawDialogueBox();
     sf::Text dialogue;
     dialogue.setFont(font);  
     dialogue.setString(preference);
     dialogue.setFillColor(sf::Color::Magenta);
-    dialogue.setPosition(width / 8, height / 2);
+    dialogue.setPosition(width / 8, 20);
     display.draw(dialogue);
     display.display();
 }
@@ -150,18 +155,19 @@ void HumanView::drawEndLevelDialogue() {
     if (dialogueStage > 2) {
         return;
     }
-    drawChadGirlBox();
+    drawDialogueBox();
     sf::Text dialogue;
     dialogue.setFont(font);
     dialogue.setString(response);
     dialogue.setFillColor(sf::Color::Red);
-    dialogue.setPosition(width / 8, height / 2);
+    dialogue.setPosition(width / 8, 20);
     display.draw(dialogue);
     display.display();
 
 }
 
 void HumanView::checkKeyboardSettings() {
+    //in settings menu, only check for backspace key to go back to menu
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         //go back to main menu
         logic.setGameState(0);
@@ -169,7 +175,8 @@ void HumanView::checkKeyboardSettings() {
     
 }
 
-void HumanView::checkKeyPressed(sf::Keyboard::Key key) {
+void HumanView::checkRebindingKeyPressed(sf::Keyboard::Key key) {
+    //waitingForKey checks which key should be bound to which action
     if (logic.getGameState() == 3 && waitingForKey == 0) {
         if (key == sf::Keyboard::Right) {
             waitingForKey = 1;
@@ -196,6 +203,8 @@ void HumanView::checkKeyPressed(sf::Keyboard::Key key) {
 }
 
 void HumanView::checkKeyboardDialogue(float time) {
+    //advance to next dialogue after 1 second delay and enter is pressed,
+    //if last dialogue stage, go to playing state and current level and reset dialogue variables
     if (dialogueStage > 2 ) {
         dialogueStage = 0;
         logic.setGameState(1);
@@ -211,6 +220,8 @@ void HumanView::checkKeyboardDialogue(float time) {
 }
 
 void HumanView::checkKeyboardEndDialogue(float time) {
+    ////advance to next dialogue after 1 second delay and enter is pressed,
+    //if last dialogue stage, go to end level screen after enter pressed
     if (dialogueStage > 1) {
         dialogueStage = 0;
         logic.setGameState(2);
@@ -259,6 +270,7 @@ void HumanView::drawFinalScore() {
 }
 
 void HumanView::checkKeyboardFinal() {
+    //only options are backspace to go back to menu
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         logic.setGameState(0);
     }
@@ -320,15 +332,21 @@ void HumanView::readSaveFile() {
 }
 
 void HumanView::checkKeyboardEndLevel(float time) {
+    //after 1 second, advance to next level when enter pressed
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
         logic.setGameState(4);
         currentLevel++;
         startTime = time;
         currTime = time;
         first = true;
+        //if last level, go to final end game state
         if (currentLevel > 9) {
             logic.setGameState(6);
         }
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
+        //go back to main menu if backspace pressed
+        logic.setGameState(0);
     }
     currTime += time;
 }
@@ -358,10 +376,6 @@ void HumanView::checkKeyboard(float time) {
         logic.playerShoot();
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    {
-        display.close();
-    }
 }
 
 
