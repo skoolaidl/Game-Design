@@ -10,7 +10,6 @@ Player::Player() {
 }
 
 void Player::init() {
-
     if (!texture.loadFromFile("../res/chad_resized_1.png"))
     {
         // error...

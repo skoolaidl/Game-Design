@@ -12,7 +12,6 @@ void Platform::init(const float w, const float h, const float x, const float y) 
     scaleHeight = h;
     xpos = x;
     ypos = y;
-    // if (!texture.loadFromFile("../res/cave_floor.jpg"))
     if (!texture.loadFromFile("../res/cave_floor.jpg"))
     {
         // error...

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <time.h> 
 #include <algorithm>
+#include <cmath>
 
 /*
 GameLogic class that holds all of the game objects and detects collisions

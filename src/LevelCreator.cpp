@@ -19,7 +19,6 @@ void LevelCreator::LoadLevel(int level){
 
     //This line will change based on "level", for now just using Sample Level XML
     tinyxml2::XMLDocument map;
-    // tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
     tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
     if (eResult != tinyxml2::XML_SUCCESS) {
         std::cout << "error loading file" << std::endl;

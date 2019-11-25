@@ -76,7 +76,6 @@ void HumanView::drawMenu() {
     current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     current.setFillColor(sf::Color::Red);
     start.setFillColor(sf::Color::Red);
-    // titleText.loadFromFile("../res/title_resized.png");
     titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
     display.draw(current);
