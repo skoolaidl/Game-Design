@@ -72,9 +72,13 @@ void HumanView::drawMenu() {
     display.clear();
     sf::Text start(strings.getString("MenuText"), font, 50);
     start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
+    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1) + strings.getString("LoadLevel"), font, 40);	    
+    current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
+    current.setFillColor(sf::Color::Red);
     start.setFillColor(sf::Color::Red);
     titleText.loadFromFile("../res/title_resized.png");
     sf::Sprite title(titleText);
+    display.draw(current);
     display.draw(title);
     display.draw(start);
     display.display();
@@ -147,8 +151,8 @@ void HumanView::drawEndLevelDialogue() {
     if (first) {
         switch (dialogueStage) {
             //eventually change to be appropriate based on score
-            case 0: response = strings.getResponse("DateYes"); break;
-            case 1: response = strings.getResponse("Rejections"); break;
+            case 0: response = strings.getResponse("DateNo"); break;
+            case 1: response = strings.getString("ChadRejected"); break;
         }
         first = false;
     }
@@ -309,7 +313,7 @@ void HumanView::checkKeyboardStart(float time) {
         //set gameState to settings
         logic.setGameState(3);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
         //set up info from save file
         readSaveFile();
     }
