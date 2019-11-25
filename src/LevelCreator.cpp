@@ -13,7 +13,7 @@ void LevelCreator::init(){
 
 }
 
-std::vector<Actor> LevelCreator::LoadMap(int level){
+std::vector<std::vector<Actor>> LevelCreator::LoadMap(int level){
     //This line will change based on "level", for now just using MapTest
     // std::ifstream openfile("/Users/Seth/Desktop/Game-Design/res/MapTest.txt");
 
@@ -51,7 +51,7 @@ std::vector<Actor> LevelCreator::LoadMap(int level){
 
                 Platform platform;
                 platform.init(scaleX, scaleY, x, y);
-                actorsVector.push_back(platform);
+                platforms.push_back(platform);
 
             }
 
@@ -66,7 +66,6 @@ std::vector<Actor> LevelCreator::LoadMap(int level){
                 float x = std::stof(stringLocX);
                 float y = std::stof(stringLocY);
 
-
             }
 
             else if (std::strncmp(e->Value(), "Enemy", 6) == 0) {
@@ -80,6 +79,7 @@ std::vector<Actor> LevelCreator::LoadMap(int level){
 
             }
         }
+        actorsVector.push_back(platforms)
     }
     return actorsVector;
 }

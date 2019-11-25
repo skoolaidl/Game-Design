@@ -69,6 +69,3 @@ int Projectile::getType() {
     return type;
 }
 
-int Projectile::getClassType(){
-    return 5;
-}

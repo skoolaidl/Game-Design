@@ -25,7 +25,6 @@ class Projectile : public Moveable {
         void setVelocity(float timeS);
         bool getIsAvailable();
         int getType();
-        int getClassType();
         
 };
 

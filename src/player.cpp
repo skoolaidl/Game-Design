@@ -117,7 +117,3 @@ float Player::getBulletOffsetX() {
 float Player::getBulletOffsetY() {
     return bulletOffsetY;
 }
-
-int Player::getClassType() {
-    return 4;
-}

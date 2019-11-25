@@ -21,13 +21,21 @@ void GameLogic::init(int wWidth, int wHeight) {
     
     loader.init();
     //TODO: change logic for level select
-    actorsVector = loader.LoadMap(0);
+    nestedActors = loader.LoadMap(0);
 
-    for(int i = 0; i < actorsVector.size(); i++){
-        std::cout << actorsVector[i].getClassType() << std::endl;
-        if (actorsVector[i].getClassType() == 0) {
-            std::cout << "hello" << std::endl;
+    for(int i = 0; i < nestedActors.size(); i++){
+        //if it is a platform
+        if (i == 0) {
+            for (int j = 0; i < nestedActors[i].size(); i++){
+                actorsVector.push_back(nestedActors[i][j]);
+                platforms.push_back(nestedActors[i][j]);
+            }
         }
+        //if it is a spike
+
+        //if it is an enemy
+
+        //if it is a girl
     }
 
 }

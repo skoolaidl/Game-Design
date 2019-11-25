@@ -44,7 +44,6 @@ class Enemy : public Moveable {
 		void setDirection(bool pDirection);
         float getProjectileOffsetX();
         float getProjectileOffsetY();
-        int getClassType();
 
 };
 

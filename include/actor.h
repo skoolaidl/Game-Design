@@ -10,7 +10,6 @@ class Actor {
         virtual sf::Sprite& getSprite() {return sprite;}
         virtual void setSprite(sf::Sprite s) {sprite = s;}
         bool operator==(const Actor &other);
-        virtual int getClassType() {return -1;}
         
     
 };

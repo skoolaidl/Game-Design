@@ -173,7 +173,3 @@ float Enemy::getProjectileOffsetX() {
 float Enemy::getProjectileOffsetY() {
     return projectileOffsetY;
 }
-
-int Enemy::getClassType() {
-    return 1;
-}

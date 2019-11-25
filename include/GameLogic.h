@@ -32,6 +32,7 @@ class GameLogic {
         LevelCreator loader;
 
         std::vector<Actor> actorsVector;
+        std::vector<std::vector<Actor>> nestedActors;
         std::vector<std::reference_wrapper<Platform>> platforms;
         std::vector<std::reference_wrapper<Spike>> spikes;
         std::vector<std::reference_wrapper<Projectile>> projectiles;
@@ -55,7 +56,7 @@ class GameLogic {
 
 
 	public:
-		GameLogic();
+	GameLogic();
 
         int getGameState();
         void setGameState(int newState);

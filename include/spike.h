@@ -14,7 +14,6 @@ class Spike : public Actor {
     public:
         Spike();
         void init(const float width, const float height, const float xpos, const float ypos);
-        int getClassType();
 };
 
 #endif

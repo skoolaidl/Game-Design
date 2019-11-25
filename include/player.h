@@ -44,7 +44,6 @@ class Player : public Moveable {
         Projectile& getBullet() { return bullet; }
         float getBulletOffsetX();
         float getBulletOffsetY();
-        int getClassType();
 };
 
 #endif

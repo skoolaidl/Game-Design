@@ -22,6 +22,3 @@ void Platform::init(const float w, const float h, const float x, const float y) 
     getSprite().setPosition(xpos, ypos);
 }
 
-int Platform::getClassType() {
-    return 0;
-}

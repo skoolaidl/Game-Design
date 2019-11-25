@@ -11,5 +11,4 @@ private:
 public:
 	Girl();
 	void init(const float xpos, const float ypos);
-	int getClassType();
 };

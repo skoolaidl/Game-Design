@@ -17,7 +17,3 @@ void Girl::init(const float x, const float y) {
 	setSprite(sf::Sprite(texture));
 	getSprite().setPosition(xpos, ypos);
 }
-
-int Girl::getClassType() {
-	return 3;
-}
