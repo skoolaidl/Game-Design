@@ -20,6 +20,7 @@ void Enemy::init() {
         // error...
     }
     setSprite(sf::Sprite(texture));
+    type = 0;
     velocityX = 0.f;
     velocityY = 0.f;
     xpos = 0.f;
@@ -33,6 +34,7 @@ void Enemy::init() {
 }
 
 void Enemy::init(float x, float y, int color) {
+    //need to add case for last demon not yet created
     switch (color) {
         case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
         case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
@@ -43,6 +45,7 @@ void Enemy::init(float x, float y, int color) {
         // error...
     }
     setSprite(sf::Sprite(texture));
+    type = color;
     velocityX = 0.f;
     velocityY = 0.f;
     xpos = x;
@@ -189,4 +192,8 @@ float Enemy::getProjectileOffsetX() {
 
 float Enemy::getProjectileOffsetY() {
     return projectileOffsetY;
+}
+
+int Enemy::getType() {
+    return type;
 }

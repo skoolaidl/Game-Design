@@ -1,5 +1,4 @@
 #pragma once
-//#include "tinyxml2.h"
 #include <string>
 #include <map>
 #include <vector>
@@ -23,5 +22,6 @@ class Strings{
         std::string getPreference(std::string key, int color);
         std::string getKey(int key);
         std::string getLevelScoreString(int level, int score);
+        std::string getFinalScoreString(std::vector<unsigned int> scores);
 
 };

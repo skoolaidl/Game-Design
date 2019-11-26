@@ -13,6 +13,7 @@ GameLogic::GameLogic() {
 }
 
 void GameLogic::init(int wWidth, int wHeight) {
+    srand(time(NULL));
     width = wWidth;
     height = wHeight;
     gravity = 300.f;
@@ -112,6 +113,7 @@ void GameLogic::softReset() {
     //return player character to beginning of level
     player.resetPosition();
     //reset score multiplier
+    scoreMultiplier = 1;
 }
 
 void GameLogic::reset() {
@@ -153,8 +155,7 @@ void GameLogic::updatePlayerCollisionGirl() {
 }
 
 void GameLogic::updateProjectileCollisions() {
-    //does nothing yet, eventually loop through projectiles and 
-    //check if they are hitting the player or an enemy
+    //loop through projectiles and check if they are hitting the player or an enemy
     for(int p = 0; p < projectiles.size(); ++p) {
         if (projectiles[p].get().getType() == 0) {
             if (projectiles[p].get().getSprite().getGlobalBounds().intersects(player.getSprite().getGlobalBounds())) {
@@ -162,18 +163,26 @@ void GameLogic::updateProjectileCollisions() {
                 projectiles[p].get().setAvailable();
                 removeFromActorsVector(projectiles[p].get());
                 projectiles.erase(projectiles.begin() + p);
-
             }
         }
         else if (projectiles[p].get().getType() == 1) { //must be bullet, type is 1
             for (int e = 0; e < enemies.size(); ++e) {
                 if (projectiles[p].get().getSprite().getGlobalBounds().intersects(enemies[e].get().getSprite().getGlobalBounds())) {
                     projectiles[p].get().setAvailable();
+                    //update score
+                    if(std::find(prefsKill.begin(), prefsKill.end(), enemies[e].get().getType()) != prefsKill.end())
+                    {
+                        increaseScore(currentLevel, pointsPerKill * scoreMultiplier);
+                        scoreMultiplier++;
+                    }
+                    else if(std::find(prefsIgnore.begin(), prefsIgnore.end(), enemies[e].get().getType()) != prefsIgnore.end())
+                    {
+                        scoreMultiplier = 1;
+                    }
                     removeFromActorsVector(enemies[e].get());
                     enemies.erase(enemies.begin() + e);
                     removeFromActorsVector(projectiles[p].get());
-                    projectiles.erase(projectiles.begin() + p);
-                    //eventually update score
+                    projectiles.erase(projectiles.begin() + p);                    
                 }
             }
         }
@@ -190,7 +199,7 @@ void GameLogic::removeFromActorsVector(Actor& actor) {
     return;
 }
 
-void GameLogic::increaseScore(int level, int increase) {
+void GameLogic::increaseScore(int level, unsigned int increase) {
     //only if using level 1 not 0 level--;
     if ( level >= 0 && level <= 9 ) {
         scores[level] = scores[level] + increase;
@@ -200,11 +209,25 @@ void GameLogic::increaseScore(int level, int increase) {
     }
 }
 
-int GameLogic::getScore(int level) {
+unsigned int GameLogic::getScore(int level) {
+    if (level < 0 || level > 9) {
+        return 0;
+    }
     return scores[level];
 }
 
-bool GameLogic::setScore(int level, int score) {
+std::vector<unsigned int> GameLogic::getScoresVector() {
+    return scores;
+}
+
+unsigned int GameLogic::getGoalScore(int level) {
+    if (level < 0 || level > 9) {
+        return 0;
+    }
+    return goalScores[level];
+}
+
+bool GameLogic::setScore(int level, unsigned int score) {
     if (level < 0 || level > 9) {
         return false;
     }
@@ -213,7 +236,7 @@ bool GameLogic::setScore(int level, int score) {
 }
 
 void GameLogic::resetScores() {
-    for (int i = 0; i < scores.size(); i++) {
+    for (int i = 0; i < scores.size(); ++i) {
         scores[i] = 0;
     }
 }
@@ -390,7 +413,6 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
     //randomizes direction of enemy once he is created
     if(enemy.getVelocityX() == 0.f)
     {
-        srand(time(NULL));
         int dir = rand() % 2;
         float currVelX = ((dir == 0) ? -1 : 1) * enemy.getStepSize() * timeS;
         enemy.setVelocityX(currVelX);
@@ -423,4 +445,17 @@ void GameLogic::enemyShoot(Enemy& enemy) {
 		projectiles.push_back(enemy.getProjectile());
 		actorsVector.push_back(enemy.getProjectile());
 	}
+}
+
+
+void GameLogic::addPreference(std::string pref, int type)
+{
+    if(pref == "Kill")
+    {
+        prefsKill.push_back(type);
+    }
+    else if(pref == "Ignore")
+    {
+        prefsIgnore.push_back(type);
+    }
 }
