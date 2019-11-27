@@ -33,7 +33,7 @@ void LevelCreator::LoadLevel(int level){
 
             std::cout << e->Value() << std::endl;
 
-            if (std::strncmp(e->Value(), "Platform", 9) == 0) {
+            if (std::strcmp(e->Value(), "Platform") == 0) {
 
                 std::string stringScaleX = e->FirstChildElement("scaleX")->GetText();
                 std::string stringScaleY = e->FirstChildElement("scaleY")->GetText();
@@ -52,7 +52,7 @@ void LevelCreator::LoadLevel(int level){
 
             }
 
-            else if (std::strncmp(e->Value(), "Spike", 6) == 0) {
+            else if (std::strcmp(e->Value(), "Spike") == 0) {
                 std::string stringScaleX = e->FirstChildElement("scaleX")->GetText();
                 std::string stringScaleY = e->FirstChildElement("scaleY")->GetText();
                 std::string stringLocX = e->FirstChildElement("x")->GetText();
@@ -69,7 +69,7 @@ void LevelCreator::LoadLevel(int level){
 
             }
 
-            else if (std::strncmp(e->Value(), "Enemy", 6) == 0) {
+            else if (std::strcmp(e->Value(), "Enemy") == 0) {
                 std::string stringLocX = e->FirstChildElement("x")->GetText();
                 std::string stringLocY = e->FirstChildElement("y")->GetText();
                 std::string stringColor = e->FirstChildElement("color")->GetText();
@@ -82,7 +82,7 @@ void LevelCreator::LoadLevel(int level){
                 enemy.init(x, y, color);
                 enemies.push_back(enemy);
             }
-            else if (std::strncmp(e->Value(), "Girl", 5) == 0) {
+            else if (std::strcmp(e->Value(), "Girl") == 0) {
                 std::string stringLocX = e->FirstChildElement("x")->GetText();
                 std::string stringLocY = e->FirstChildElement("y")->GetText();
 
