@@ -20,14 +20,14 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         int currentLevel = 0;
-        
+
         Player player;
         Girl girl;
 
         LevelCreator loader;
 
         std::vector<std::reference_wrapper<Actor>> actorsVector;
-        std::vector<std::vector<Actor>> nestedActors;
+
         std::vector<Platform> platVector;
         std::vector<Spike> spikeVector;
         std::vector<Enemy> enemyVector;
