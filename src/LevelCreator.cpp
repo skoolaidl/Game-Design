@@ -14,9 +14,6 @@ void LevelCreator::init(){
 }
 
 void LevelCreator::LoadLevel(int level){
-    //This line will change based on "level", for now just using MapTest
-    // std::ifstream openfile("../res/MapTest.txt");
-
     //This line will change based on "level", for now just using Sample Level XML
     tinyxml2::XMLDocument map;
     tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
@@ -85,7 +82,7 @@ void LevelCreator::LoadLevel(int level){
                 enemy.init(x, y, color);
                 enemies.push_back(enemy);
             }
-            else if (std::strncmp(e->Value(), "Girl", 4) == 0) {
+            else if (std::strncmp(e->Value(), "Girl", 5) == 0) {
                 std::string stringLocX = e->FirstChildElement("x")->GetText();
                 std::string stringLocY = e->FirstChildElement("y")->GetText();
 

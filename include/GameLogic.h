@@ -20,14 +20,9 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         int currentLevel = 0;
+        
         Player player;
         Girl girl;
-        Enemy enemy1;
-        Enemy enemy2;
-        Enemy enemy3;
-        Enemy enemy4;
-        Platform floor;
-        Platform platformA;
 
         LevelCreator loader;
 

@@ -76,4 +76,3 @@ bool Projectile::getIsAvailable() {
 int Projectile::getType() {
     return type;
 }
-
