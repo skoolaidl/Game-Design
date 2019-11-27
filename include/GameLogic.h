@@ -28,7 +28,7 @@ class GameLogic {
 
         std::vector<std::reference_wrapper<Actor>> actorsVector;
 
-        std::vector<Platform> platVector;
+        std::vector<Platform> platformVector;
         std::vector<Spike> spikeVector;
         std::vector<Enemy> enemyVector;
         std::vector<std::reference_wrapper<Platform>> platforms;
