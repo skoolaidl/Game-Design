@@ -2,8 +2,8 @@
 
 
 /* 
-Level Creator class serves as an engine for reading in a specific level text file
-and loading the proper tiles for that level to display to the player.
+Level Creator class serves as an engine for reading in an XML file
+and loading the proper components for that level to display to the player.
 */
 
 LevelCreator::LevelCreator() {
@@ -19,6 +19,7 @@ void LevelCreator::LoadLevel(int level){
     tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
     if (eResult != tinyxml2::XML_SUCCESS) {
         std::cout << "error loading file" << std::endl;
+        return
     };
 
     tinyxml2::XMLHandle docHandle(&map);
@@ -30,8 +31,6 @@ void LevelCreator::LoadLevel(int level){
         for (tinyxml2::XMLNode *node = entry->FirstChildElement(); node; node = node->NextSibling()){
 
             tinyxml2::XMLElement *e = node->ToElement();
-
-            std::cout << e->Value() << std::endl;
 
             if (std::strcmp(e->Value(), "Platform") == 0) {
 
