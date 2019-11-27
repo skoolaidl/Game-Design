@@ -33,7 +33,7 @@ void Enemy::init() {
 }
 
 void Enemy::init(float x, float y, int color) {
-    colorType = color;
+    type = color;
     switch (color) {
         case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
         case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
@@ -193,7 +193,7 @@ float Enemy::getProjectileOffsetY() {
 }
 
 void Enemy::setTexture() {
-    switch (colorType) {
+    switch (type) {
     case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
     case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
     case 2: leftTexture = "../res/demon_green_sprite_resized_0.png"; rightTexture = "../res/demon_green_sprite_resized_1.png"; break;

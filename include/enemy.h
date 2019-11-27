@@ -12,7 +12,7 @@ class Enemy : public Moveable {
         float velocityY;
         float xpos;
         float ypos;
-        int colorType;
+        int type;
         float startXPos;
         float maxRightDistance;
         float maxLeftDistance;
