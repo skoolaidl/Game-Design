@@ -24,6 +24,7 @@ Strings::Strings() {
     strings.insert({ "WonLevel", "You successfully rejected the date" });
     strings.insert({ "LostLevel", "You failed and got rejected by the girl" });
     strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is:" });
+    strings.insert({ "FinalScore", "Your final score is: "});
     strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
 
     responses.insert({"Rejections", { "Sorry babe, it's not me, it's you.",
@@ -150,8 +151,26 @@ std::string Strings::getPreference(std::string key, int color) {
         case 2: colText = "GREEN"; break;
         case 3: colText = "YELLOW"; break;
     }
+    int randPref = std::rand() % preferences[key].size();
+    //checks that the same preference string is not used in the same prelevel dialogue
+    if(key == "Kill")
+    {
+        while(randPref == prevKillPref)
+        {
+            randPref = std::rand() % preferences[key].size();
+        }
+        prevKillPref = randPref;
+    }
+    else if(key == "Ignore")
+    {
+        while(randPref == prevIgnorePref)
+        {
+            randPref = std::rand() % preferences[key].size();
+        }
+        prevIgnorePref = randPref;
+    }
     std::string pref;
-    pref = preferences[key][(std::rand() % preferences[key].size())];
+    pref = preferences[key][randPref];
     int index = pref.find("***");
     pref.erase(index, 3);
     pref.insert(index, colText);
@@ -166,15 +185,3 @@ std::string Strings::getKey( int key ) {
     return keys[key];
 }
 
-std::string Strings::getLevelScoreString(int level, int score) {
-    return "Your score for level " + std::to_string(level+1) + " was: " + std::to_string(score) + "\n";
-}
-
-std::string Strings::getFinalScoreString(std::vector<unsigned int> scores) {
-    int sum = 0;
-    for(int s = 0; s < scores.size(); ++s)
-    {
-        sum += scores[s];
-    }
-    return "Your final score is " + std::to_string(sum);
-}

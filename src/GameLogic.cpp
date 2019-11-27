@@ -67,7 +67,6 @@ void GameLogic::init(int wWidth, int wHeight) {
     spikes.push_back(spike3);
     spikes.push_back(spike4);
     
-
 }
 
 
@@ -84,8 +83,7 @@ void GameLogic::update(float timeS) {
             if ( !projectiles[p].get().checkDistance()) {
                 projectiles[p].get().setAvailable();
                 removeFromActorsVector(projectiles[p].get());
-                projectiles.erase(projectiles.begin() + p);
-                
+                projectiles.erase(projectiles.begin() + p);   
             }
             else {
 				projectiles[p].get().setVelocity(timeS);
@@ -170,12 +168,12 @@ void GameLogic::updateProjectileCollisions() {
                 if (projectiles[p].get().getSprite().getGlobalBounds().intersects(enemies[e].get().getSprite().getGlobalBounds())) {
                     projectiles[p].get().setAvailable();
                     //update score
-                    if(std::find(prefsKill.begin(), prefsKill.end(), enemies[e].get().getType()) != prefsKill.end())
+                    if(enemies[e].get().getKillStatus())
                     {
                         increaseScore(currentLevel, pointsPerKill * scoreMultiplier);
                         scoreMultiplier++;
                     }
-                    else if(std::find(prefsIgnore.begin(), prefsIgnore.end(), enemies[e].get().getType()) != prefsIgnore.end())
+                    else if(!enemies[e].get().getKillStatus())
                     {
                         scoreMultiplier = 1;
                     }
@@ -214,10 +212,6 @@ unsigned int GameLogic::getScore(int level) {
         return 0;
     }
     return scores[level];
-}
-
-std::vector<unsigned int> GameLogic::getScoresVector() {
-    return scores;
 }
 
 unsigned int GameLogic::getGoalScore(int level) {
@@ -452,10 +446,22 @@ void GameLogic::addPreference(std::string pref, int type)
 {
     if(pref == "Kill")
     {
-        prefsKill.push_back(type);
+        for(int e = 0; e < enemies.size(); ++e)
+        {
+            if(enemies[e].get().getType() == type)
+            {
+                enemies[e].get().setKillStatus(true);
+            }
+        }
     }
     else if(pref == "Ignore")
     {
-        prefsIgnore.push_back(type);
+        for(int e = 0; e < enemies.size(); ++e)
+        {
+            if(enemies[e].get().getType() == type)
+            {
+                enemies[e].get().setKillStatus(false);
+            }
+        }
     }
 }

@@ -287,7 +287,12 @@ void HumanView::drawFinalScore() {
     score.setCharacterSize(40);
     score.setFont(font);
     float posY = height / 4;
-    score.setString(strings.getFinalScoreString(logic.getScoresVector()));
+    unsigned int finalScore = 0;
+    for(int i = 0; i < 10; ++i)
+    {
+        finalScore += logic.getScore(i);
+    }
+    score.setString(strings.getString("FinalScore") + std::to_string(finalScore));
     score.setPosition(width / 4, posY);
     display.draw(score);
     score.setCharacterSize(30);

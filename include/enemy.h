@@ -27,6 +27,7 @@ class Enemy : public Moveable {
         bool direction;
         float projectileOffsetX;
         float projectileOffsetY;
+        bool killStatus;
     
     public:
         Enemy();
@@ -50,6 +51,8 @@ class Enemy : public Moveable {
         float getProjectileOffsetX();
         float getProjectileOffsetY();
         int getType();
+        void setKillStatus(bool b);
+        bool getKillStatus();
 
 };
 

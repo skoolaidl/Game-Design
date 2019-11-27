@@ -23,8 +23,6 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         int currentLevel = 0;
-        std::vector<int> prefsKill = std::vector<int>();
-        std::vector<int> prefsIgnore = std::vector<int>();
         Player player;
         Girl girl;
         Enemy enemy1;
@@ -73,7 +71,6 @@ class GameLogic {
         void update(float timeS);
         void increaseScore(int level, unsigned int increase);
         unsigned int getScore(int level);
-        std::vector<unsigned int> getScoresVector();
         bool setScore(int level, unsigned int score);
         void resetScores();
         unsigned int getGoalScore(int level);
