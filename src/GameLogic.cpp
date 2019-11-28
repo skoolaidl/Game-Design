@@ -158,7 +158,7 @@ void GameLogic::updateProjectileCollisions() {
 
 void GameLogic::removeFromActorsVector(Actor& actor) {
     for (int i = 0; i < actorsVector.size(); ++i) {
-        if (actor == actorsVector[i]) {
+        if (actor == actorsVector[i].get()) {
             actorsVector.erase(actorsVector.begin() + i);
             return;
         }
