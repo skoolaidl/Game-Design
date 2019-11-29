@@ -23,7 +23,8 @@ Strings::Strings() {
     strings.insert({ "EndLevel", "You completed the level\nYour score was: " });
     strings.insert({ "WonLevel", "You successfully rejected the date" });
     strings.insert({ "LostLevel", "You failed and got rejected by the girl" });
-    strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is: " });
+    strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is:" });
+    strings.insert({ "FinalScore", "Your final score is: "});
     strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
 
     responses.insert({"Rejections", { "Sorry babe, it's not me, it's you.",
@@ -46,7 +47,7 @@ Strings::Strings() {
         "Finally, a man that can turn Hell into a romantic getaway. Where have you been all my life?",
         "OMG, you look like a guy who knows how to treat a lady. I've been waiting on my Romeo for all of eternity.",
         "Wow! I thought love at first sight only happened in fantasies. But I haven't been able to take my eyes off of you since you slaughtered that first demon."} });
-    responses.insert({ "DateNo", {"Yikes, you just come off as a blow hard.You would definitely not be able to handle me.",
+    responses.insert({ "DateNo", {"Yikes! You just come off as a blow hard.You would definitely not be able to handle me.",
         "If you wanted to win me over, you're gonna have to do a lot better than that. Pathetic.",
         "Geez,and I thought Hell was bad enough as is, but now I've got this weak excuse for a man hitting on me? No thanks.",
         "Wow, Satan was right, you don't have any shot down here.You should probably just give up now.",
@@ -67,7 +68,7 @@ Strings::Strings() {
         "This one time, I was on a date and he would not stop checking out other girls. Never gonna trust a *** demon ever again.",
         "My *** demon stepsister always wants what she can't have. She is a minx who has repeatedly tried to steal my previous boyfriends.",
         "This one time, I was at Alexander the Amazing *** Demon's show and he made all my friends disappear. I've had no one to talk to ever since."} });
-    preferences.insert({ "Ignore", {"My daddy was a *** demon.He always spoiled me and called me Daddy's Little Princess.",
+    preferences.insert({ "Ignore", {"My daddy was a *** demon. He always spoiled me and called me Daddy's Little Princess.",
         "I miss my highschool clique of *** demons. We were some of the baddest mammajamas in all of Hell.",
         "My favorite musician is Chance the *** Demon Rapper. His singing pierces the soul I don't have.",
         "My big brother was a *** demon and he taught me everything I know. He even helped me possess my first porcelain doll.",
@@ -79,7 +80,7 @@ Strings::Strings() {
         "If it wasn't for Yolanda the *** Torturer's influence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
 
     tierList.push_back("Hopeless Mortal");
-    tierList.push_back("Permanent Resident of the Friend Zone (aka Hell)");
+    tierList.push_back("Permanent Resident of the Friend Zone");
     tierList.push_back("Average Douche");
     tierList.push_back("Satan's Wingman");
     tierList.push_back("King of the Underworld");
@@ -134,12 +135,12 @@ std::string Strings::insertNewLines(const std::string &in, const size_t every_n)
 }
 
 std::string Strings::getResponse(std::string key) {
-    std::string response = (responses[key])[(std::rand() % 10)];
+    std::string response = (responses[key])[(std::rand() % responses[key].size())];
     return insertNewLines(response, 45);
 }
 
 std::string Strings::getTier(int rank) {
-    return tierList[rank];
+    return insertNewLines(tierList[rank], 25);
 }
 
 std::string Strings::getPreference(std::string key, int color) {
@@ -148,9 +149,28 @@ std::string Strings::getPreference(std::string key, int color) {
         case 0: colText = "RED"; break;
         case 1: colText = "BLUE"; break;
         case 2: colText = "GREEN"; break;
+        case 3: colText = "YELLOW"; break;
+    }
+    int randPref = std::rand() % preferences[key].size();
+    //checks that the same preference string is not used in the same prelevel dialogue
+    if(key == "Kill")
+    {
+        while(randPref == prevKillPref)
+        {
+            randPref = std::rand() % preferences[key].size();
+        }
+        prevKillPref = randPref;
+    }
+    else if(key == "Ignore")
+    {
+        while(randPref == prevIgnorePref)
+        {
+            randPref = std::rand() % preferences[key].size();
+        }
+        prevIgnorePref = randPref;
     }
     std::string pref;
-    pref = preferences[key][(std::rand() % 10)];
+    pref = preferences[key][randPref];
     int index = pref.find("***");
     pref.erase(index, 3);
     pref.insert(index, colText);
@@ -165,6 +185,3 @@ std::string Strings::getKey( int key ) {
     return keys[key];
 }
 
-std::string Strings::getLevelScoreString(int level, int score) {
-    return "Your score for level " + std::to_string(level+1) + " was: " + std::to_string(score) + "\n";
-}

@@ -13,7 +13,11 @@
 
 class GameLogic {
     private:
-        std::vector<int> scores = std::vector<int>(10, 0);
+        std::vector<unsigned int> scores = std::vector<unsigned int>(10, 0);
+        //temporarily set arbitrary amounts for the goal scores of each level
+        std::vector<unsigned int> goalScores = {400, 500, 600, 700, 800, 900, 1000, 1200, 1500, 1800};
+        unsigned int pointsPerKill = 100;
+        unsigned int scoreMultiplier = 1;
         int gameState = 0;
         int width;
         int height;
@@ -48,7 +52,6 @@ class GameLogic {
         void enemyFall(Enemy& enemy, float timeS);
         void enemySetBounds(Enemy& enemy);
         void enemyTrack(Enemy& enemy, float timeS);
-
         void removeFromActorsVector(Actor& actor);
 
 
@@ -60,10 +63,13 @@ class GameLogic {
         void setGameState(int newState);
         void init(int wWidth, int wHeight);
         void update(float timeS);
-        void increaseScore(int level, int increase);
-        int getScore(int level);
-        bool setScore(int level, int score);
+        void increaseScore(int level, unsigned int increase);
+        unsigned int getScore(int level);
+        bool setScore(int level, unsigned int score);
         void resetScores();
+        unsigned int getGoalScore(int level);
+        void setLevel(int level);
+        void addPreference(std::string pref, int type);
 
         Player& getPlayer();
         Actor& getGirl();
@@ -75,7 +81,6 @@ class GameLogic {
         void playerJump(float timeS);
         void playerFall(float time);
 
-        void setLevel(int level);
 
 
 };
