@@ -19,8 +19,8 @@ void LevelCreator::LoadLevel(int level){
     tinyxml2::XMLError eResult = map.LoadFile("../res/practice_level.xml");
     if (eResult != tinyxml2::XML_SUCCESS) {
         std::cout << "error loading file" << std::endl;
-        return
-    };
+        return;
+    }
 
     tinyxml2::XMLHandle docHandle(&map);
 
@@ -32,7 +32,7 @@ void LevelCreator::LoadLevel(int level){
 
             tinyxml2::XMLElement *e = node->ToElement();
 
-            if (std::strcmp(e->Value(), "Platform") == 0) {
+            if (std::string(e->Value()) == "Platform") {
 
                 std::string stringScaleX = e->FirstChildElement("scaleX")->GetText();
                 std::string stringScaleY = e->FirstChildElement("scaleY")->GetText();
@@ -51,7 +51,7 @@ void LevelCreator::LoadLevel(int level){
 
             }
 
-            else if (std::strcmp(e->Value(), "Spike") == 0) {
+            else if (std::string(e->Value()) == "Spike") {
                 std::string stringScaleX = e->FirstChildElement("scaleX")->GetText();
                 std::string stringScaleY = e->FirstChildElement("scaleY")->GetText();
                 std::string stringLocX = e->FirstChildElement("x")->GetText();
@@ -68,7 +68,7 @@ void LevelCreator::LoadLevel(int level){
 
             }
 
-            else if (std::strcmp(e->Value(), "Enemy") == 0) {
+            else if (std::string(e->Value()) == "Enemy") {
                 std::string stringLocX = e->FirstChildElement("x")->GetText();
                 std::string stringLocY = e->FirstChildElement("y")->GetText();
                 std::string stringColor = e->FirstChildElement("color")->GetText();
@@ -81,7 +81,7 @@ void LevelCreator::LoadLevel(int level){
                 enemy.init(x, y, color);
                 enemies.push_back(enemy);
             }
-            else if (std::strcmp(e->Value(), "Girl") == 0) {
+            else if (std::string(e->Value()) == "Girl") {
                 std::string stringLocX = e->FirstChildElement("x")->GetText();
                 std::string stringLocY = e->FirstChildElement("y")->GetText();
 
