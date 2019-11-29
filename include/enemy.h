@@ -8,6 +8,7 @@
 class Enemy : public Moveable {
     private:
         sf::Texture texture;
+        int type;
         float velocityX;
         float velocityY;
         float xpos;
@@ -26,6 +27,7 @@ class Enemy : public Moveable {
         bool direction;
         float projectileOffsetX;
         float projectileOffsetY;
+        bool killStatus;
     
     public:
         Enemy();
@@ -48,6 +50,9 @@ class Enemy : public Moveable {
         void setDirection(bool pDirection);
         float getProjectileOffsetX();
         float getProjectileOffsetY();
+        int getType();
+        void setKillStatus(bool b);
+        bool getKillStatus();
 
 };
 

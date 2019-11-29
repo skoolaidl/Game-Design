@@ -15,17 +15,17 @@ class HumanView : public View {
         sf::View& view;
         Strings& strings;
         void drawMenu();
-        void checkKeyboard(float time);
-        void checkKeyboardStart(float time);
-        void checkKeyboardEndLevel(float time);
+        void checkKeyboard(float timeS);
+        void checkKeyboardStart(float timeS);
+        void checkKeyboardEndLevel(float timeS);
         void drawEndLevel();
         void drawSettingsMenu();
         void drawLevelDialogue();
         void drawEndLevelDialogue();
         void drawFinalScore();
         void checkKeyboardSettings();
-        void checkKeyboardDialogue(float time);
-        void checkKeyboardEndDialogue(float time);
+        void checkKeyboardDialogue(float timeS);
+        void checkKeyboardEndDialogue(float timeS);
         void checkKeyboardFinal();
         sf::Font font;
         sf::Texture texture;
@@ -48,17 +48,23 @@ class HumanView : public View {
         float currTime;
         bool first;
         std::string response;
-        std::string preference;
+        std::string preferenceText;
+        std::vector<std::string> preferencesVector;
+        std::vector<int> enemyTypesVector;
         int levelsWon;
         void readSaveFile();
         void writeSaveFile();
+        std::string removeRandomString(std::vector<std::string>& vec);
+        int removeRandomInt(std::vector<int>& vec);
+        void resetPreferencesVector();
+        void resetEnemyTypesVector();
     
     public: 
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};
         
         void init();
 
-        void update(float time);
+        void update(float timeS);
         void checkRebindingKeyPressed(sf::Keyboard::Key key);
         
         
