@@ -13,6 +13,7 @@ class Enemy : public Moveable {
         float velocityY;
         float xpos;
         float ypos;
+        int type;
         float startXPos;
         float maxRightDistance;
         float maxLeftDistance;
@@ -50,9 +51,13 @@ class Enemy : public Moveable {
         void setDirection(bool pDirection);
         float getProjectileOffsetX();
         float getProjectileOffsetY();
+<<<<<<< HEAD
+        void setTexture();
+=======
         int getType();
         void setKillStatus(bool b);
         bool getKillStatus();
+>>>>>>> develop
 
 };
 

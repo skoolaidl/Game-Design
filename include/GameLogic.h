@@ -8,6 +8,7 @@
 #include "platform.h"
 #include "spike.h"
 #include "projectile.h"
+#include "LevelCreator.h"
 #include "girl.h"
 
 class GameLogic {
@@ -23,24 +24,17 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         int currentLevel = 0;
+
         Player player;
         Girl girl;
-        Enemy enemy1;
-        Enemy enemy2;
-        Enemy enemy3;
-        Enemy enemy4;
-        Platform floor;
-        Platform platformA;
-        Platform platformB;
-        Platform platformC;
-        Platform platformD;
-        Platform platformE;
-        Projectile projectile;
-        Spike spike1;
-        Spike spike2;
-        Spike spike3;
-        Spike spike4;
+
+        LevelCreator loader;
+
         std::vector<std::reference_wrapper<Actor>> actorsVector;
+
+        std::vector<Platform> platformVector;
+        std::vector<Spike> spikeVector;
+        std::vector<Enemy> enemyVector;
         std::vector<std::reference_wrapper<Platform>> platforms;
         std::vector<std::reference_wrapper<Spike>> spikes;
         std::vector<std::reference_wrapper<Projectile>> projectiles;
@@ -63,7 +57,7 @@ class GameLogic {
 
 
 	public:
-		GameLogic();
+	GameLogic();
 
         int getGameState();
         void setGameState(int newState);

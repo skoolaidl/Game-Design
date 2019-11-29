@@ -195,6 +195,19 @@ float Enemy::getProjectileOffsetY() {
     return projectileOffsetY;
 }
 
+void Enemy::setTexture() {
+    switch (type) {
+    case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
+    case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
+    case 2: leftTexture = "../res/demon_green_sprite_resized_0.png"; rightTexture = "../res/demon_green_sprite_resized_1.png"; break;
+    }
+    if (!texture.loadFromFile(leftTexture))
+    {
+        // error...
+    }
+    setSprite(sf::Sprite(texture));
+    getSprite().setPosition(xpos, ypos);
+}
 int Enemy::getType() {
     return type;
 }
