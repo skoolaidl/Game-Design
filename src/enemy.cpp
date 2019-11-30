@@ -20,6 +20,7 @@ void Enemy::init() {
         // error...
     }
     setSprite(sf::Sprite(texture));
+    type = 0;
     velocityX = 0.f;
     velocityY = 0.f;
     xpos = 0.f;
@@ -30,9 +31,11 @@ void Enemy::init() {
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
     paused = false;
+    killStatus = false;
 }
 
 void Enemy::init(float x, float y, int color) {
+    //need to add case for last demon not yet created
     switch (color) {
         case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
         case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
@@ -43,6 +46,7 @@ void Enemy::init(float x, float y, int color) {
         // error...
     }
     setSprite(sf::Sprite(texture));
+    type = color;
     velocityX = 0.f;
     velocityY = 0.f;
     xpos = x;
@@ -189,4 +193,29 @@ float Enemy::getProjectileOffsetX() {
 
 float Enemy::getProjectileOffsetY() {
     return projectileOffsetY;
+}
+
+void Enemy::setTexture() {
+    switch (type) {
+    case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
+    case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
+    case 2: leftTexture = "../res/demon_green_sprite_resized_0.png"; rightTexture = "../res/demon_green_sprite_resized_1.png"; break;
+    }
+    if (!texture.loadFromFile(leftTexture))
+    {
+        // error...
+    }
+    setSprite(sf::Sprite(texture));
+    getSprite().setPosition(xpos, ypos);
+}
+int Enemy::getType() {
+    return type;
+}
+
+void Enemy::setKillStatus(bool b) {
+    killStatus = b;
+}
+
+bool Enemy::getKillStatus() {
+    return killStatus;
 }

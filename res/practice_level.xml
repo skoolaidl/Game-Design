@@ -13,12 +13,6 @@
         <x>450</x> 
         <y>280</y>
     </Platform>
-    <Spike>
-        <scaleX>1</scaleX>
-        <scaleY>1</scaleY>
-        <x>650</x>
-        <y>350</y>
-    </Spike>
     <Enemy>
         <x>1000</x>
         <y>320</y>
@@ -87,4 +81,8 @@
     <x>2100</x>
     <y>320</y>
   </Spike>
+  <Girl>
+    <x>3600</x>
+    <y>250</y>
+  </Girl>
 </Actors>

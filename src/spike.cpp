@@ -20,3 +20,14 @@ void Spike::init(const float w, const float h, const float x, const float y) {
     getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
     getSprite().setPosition(xpos, ypos);
 }
+
+void Spike::setTexture() {
+    if (!texture.loadFromFile("../res/spike_trap.png"))
+    {
+        // error...
+    }
+    setSprite(sf::Sprite(texture));
+    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    getSprite().setPosition(xpos, ypos);
+}
+

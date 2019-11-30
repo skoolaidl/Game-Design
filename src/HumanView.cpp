@@ -4,12 +4,14 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <time.h> 
 
 /*
 HumanView handles the drawing of the game to the screen, user input, and sound
 */
 
 void HumanView::init() {
+    srand(time(NULL));
     currentLevel = 0;
     levelsWon = 0;
     left = sf::Keyboard::Left;
@@ -36,23 +38,25 @@ void HumanView::init() {
     {
         // error...
     }
+    resetPreferencesVector();
+    resetEnemyTypesVector();
 }
 
-void HumanView::update(float time) {
+void HumanView::update(float timeS) {
     
     switch (logic.getGameState()) {
         //error, game not initialized
-        case 0: drawMenu(); checkKeyboardStart(time); break;
+        case 0: drawMenu(); checkKeyboardStart(timeS); break;
         //running
-        case 1: drawObjects(); checkKeyboard(time); break;
+        case 1: drawObjects(); checkKeyboard(timeS); break;
         //end of level
-        case 2: if (first) { drawEndLevel(); } checkKeyboardEndLevel(time); break;
+        case 2: if (first) { drawEndLevel(); } checkKeyboardEndLevel(timeS); break;
         //settings screen
         case 3: drawSettingsMenu(); checkKeyboardSettings(); break;
         //starting dialogue
-        case 4: if (first) { drawLevelDialogue(); } checkKeyboardDialogue(time); break;
+        case 4: if (first) { drawLevelDialogue(); } checkKeyboardDialogue(timeS); break;
         //ending dialogue
-        case 5: if (first) { drawEndLevelDialogue(); } checkKeyboardEndDialogue(time); break;
+        case 5: if (first) { drawEndLevelDialogue(); } checkKeyboardEndDialogue(timeS); break;
         //final score screen
         case 6: if (first) { drawFinalScore(); } checkKeyboardFinal(); break;
     }
@@ -128,21 +132,40 @@ void HumanView::drawDialogueBox() {
     display.draw(instruct);
 }
 
+std::string HumanView::removeRandomString(std::vector<std::string>& vec)
+{
+    int n = rand() % vec.size();
+    std::swap(vec[n], vec.back());
+    std::string randElement = vec.back();
+    vec.pop_back();
+    return randElement;
+}
+
+int HumanView::removeRandomInt(std::vector<int>& vec)
+{
+    int n = rand() % vec.size();
+    std::swap(vec[n], vec.back());
+    int randElement = vec.back();
+    vec.pop_back();
+    return randElement;
+}
+
 void HumanView::drawLevelDialogue() {
-    switch (dialogueStage) {
-        //eventually change to be appropriate color based on 
-        case 0: preference = strings.getPreference("Kill", 0); break;
-        case 1: preference = strings.getPreference("Ignore", 1); break;
-        case 2: preference = strings.getPreference("Kill", 2); break;
-    }
-    first = false;
     if (dialogueStage > 3) {
         return;
+    }
+    if (first) {
+        //randomize enemies and their preference
+        std::string preference = removeRandomString(preferencesVector);
+        int type = removeRandomInt(enemyTypesVector);
+        preferenceText = strings.getPreference(preference, type); 
+        logic.addPreference(preference, type);
+        first = false;
     }
     drawDialogueBox();
     sf::Text dialogue;
     dialogue.setFont(font);  
-    dialogue.setString(preference);
+    dialogue.setString(preferenceText);
     dialogue.setFillColor(sf::Color::Magenta);
     dialogue.setPosition(width / 8, 40);
     display.draw(dialogue);
@@ -150,17 +173,24 @@ void HumanView::drawLevelDialogue() {
 }
 
 void HumanView::drawEndLevelDialogue() {
-    switch (dialogueStage) {
-        //eventually change to be appropriate based on score
-        case 0: response = strings.getResponse("DateNo"); break;
-        case 1: response = strings.getString("ChadRejected"); break;
+    if (dialogueStage > 1) {
+        return;
+    }
+    if (first) {
+        switch (dialogueStage) {
+            //eventually change to be appropriate based on score
+            case 0: 
+                response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
+                break;
+            case 1: 
+                response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
+                break;
+        }
+        first = false;
     }
     first = false;
     view.setCenter(width / 2, height / 2);
     display.setView(view);
-    if (dialogueStage > 2) {
-        return;
-    }
     drawDialogueBox();
     sf::Text dialogue;
     dialogue.setFont(font);
@@ -212,24 +242,26 @@ bool HumanView::checkDuplicateKeys(sf::Keyboard::Key newKey) {
     return newKey != right && newKey != left && newKey != up && newKey != shoot;
 }
 
-void HumanView::checkKeyboardDialogue(float time) {
+void HumanView::checkKeyboardDialogue(float timeS) {
     //advance to next dialogue after 1 second delay and enter is pressed,
     //if last dialogue stage, go to playing state and current level and reset dialogue variables
-    if (dialogueStage > 2 ) {
+    if (dialogueStage > 3 ) {
         dialogueStage = 0;
         logic.setGameState(1);
         first = true;
+        resetPreferencesVector();
+        resetEnemyTypesVector();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
         dialogueStage++;
         first = true;
-        startTime = time;
-        currTime = time;
+        startTime = timeS;
+        currTime = timeS;
     }
-    currTime += time;
+    currTime += timeS;
 }
 
-void HumanView::checkKeyboardEndDialogue(float time) {
+void HumanView::checkKeyboardEndDialogue(float timeS) {
     //advance to next dialogue after 1 second delay and enter is pressed,
     //if last dialogue stage, go to end level screen after enter pressed
     if (dialogueStage > 1) {
@@ -240,17 +272,17 @@ void HumanView::checkKeyboardEndDialogue(float time) {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
         dialogueStage++;
         first = true;
-        startTime = time;
-        currTime = time;
+        startTime = timeS;
+        currTime = timeS;
     }
-    currTime += time;
+    currTime += timeS;
 }
 
 void HumanView::drawEndLevel() {
     first = false;
     display.clear();
     sf::Text end(strings.getString("EndLevel") + std::to_string(logic.getScore(currentLevel)), font, 50);
-    end.setPosition(display.getSize().x / 8, display.getSize().y - 200);
+    end.setPosition(display.getSize().x / 8, display.getSize().y - 400);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
     view.setCenter(width/2,height/2);
@@ -263,20 +295,28 @@ void HumanView::drawFinalScore() {
     display.clear();
     sf::Text score;
     score.setFillColor(sf::Color::Red);
-    score.setCharacterSize(20);
+    score.setCharacterSize(40);
     score.setFont(font);
-    float posY = height / 8;
-    for (int x = 0; x < 9; x++) {
-        score.setString(strings.getLevelScoreString(x, logic.getScore(x)));
-        score.setPosition(width / 6, posY);
-        display.draw(score);
-        posY += 30;
+    float posY = height / 4;
+    unsigned int finalScore = 0;
+    for(int i = 0; i < 10; ++i)
+    {
+        finalScore += logic.getScore(i);
     }
-    score.setString(strings.getString("Tier") + strings.getTier((levelsWon-1)/2));
-    score.setPosition(width / 6, posY + 30);
+    score.setString(strings.getString("FinalScore") + std::to_string(finalScore));
+    score.setPosition(width / 4, posY);
     display.draw(score);
+    score.setCharacterSize(30);
+    score.setString(strings.getString("Tier"));
+    score.setPosition(width / 10, posY + 100);
+    display.draw(score);
+    score.setCharacterSize(50);
+    score.setString(strings.getTier((levelsWon-1)/2));
+    score.setPosition(width / 4, posY + 140);
+    display.draw(score);
+    score.setCharacterSize(20);
     score.setString(strings.getString("FinalInstruct"));
-    score.setPosition(width / 6, posY + 60);
+    score.setPosition(width / 5, posY + 400);
     display.draw(score);
     display.display();
 }
@@ -306,12 +346,12 @@ void HumanView::drawObjects() {
     display.display();
 }
 
-void HumanView::checkKeyboardStart(float time) {
+void HumanView::checkKeyboardStart(float timeS) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
         //set gameState to levelDialogue
         logic.setGameState(4);
-        startTime = time;
-        currTime = time;
+        startTime = timeS;
+        currTime = timeS;
         first = true;
         logic.setLevel(currentLevel);
     }
@@ -366,13 +406,13 @@ void HumanView::writeSaveFile() {
     file.close();
 }
 
-void HumanView::checkKeyboardEndLevel(float time) {
+void HumanView::checkKeyboardEndLevel(float timeS) {
     //after 1 second, advance to next level when enter pressed
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
         logic.setGameState(4);
         currentLevel++;
-        startTime = time;
-        currTime = time;
+        startTime = timeS;
+        currTime = timeS;
         first = true;
         //if last level, go to final end game state
         if (currentLevel > 9) {
@@ -389,27 +429,27 @@ void HumanView::checkKeyboardEndLevel(float time) {
         first = true;
         logic.setGameState(0);
     }
-    currTime += time;
+    currTime += timeS;
 }
 
-void HumanView::checkKeyboard(float time) {
+void HumanView::checkKeyboard(float timeS) {
     if (sf::Keyboard::isKeyPressed(right)) {
         //character moves right
-        logic.playerMoveRight(time);
+        logic.playerMoveRight(timeS);
     }
     if (sf::Keyboard::isKeyPressed(left)) {
         //character moves left
-        logic.playerMoveLeft(time);
+        logic.playerMoveLeft(timeS);
     }
 
     if (sf::Keyboard::isKeyPressed(up)) {
         //character jumps
-        logic.playerJump(time);
+        logic.playerJump(timeS);
     }
     else
     {
         //character falls if player has already let go of up key but does nothing if he is on the ground
-        logic.playerFall(time);
+        logic.playerFall(timeS);
     }
 
     if (sf::Keyboard::isKeyPressed(shoot)) {
@@ -419,4 +459,13 @@ void HumanView::checkKeyboard(float time) {
 
 }
 
+void HumanView::resetPreferencesVector()
+{
+    preferencesVector = {"Kill", "Kill", "Ignore", "Ignore"};
+}
+
+void HumanView::resetEnemyTypesVector()
+{
+    enemyTypesVector = {0, 1, 2, 3};
+}
 
