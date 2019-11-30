@@ -4,3 +4,4 @@
 bool Actor::operator==(const Actor &rhs) {
     return this == &rhs;
 }
+

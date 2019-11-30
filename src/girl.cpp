@@ -17,3 +17,12 @@ void Girl::init(const float x, const float y) {
 	setSprite(sf::Sprite(texture));
 	getSprite().setPosition(xpos, ypos);
 }
+
+void Girl::setTexture() {
+	if (!texture.loadFromFile("../res/girl_resized.png"))
+    {
+        // error...
+    }
+    setSprite(sf::Sprite(texture));
+    getSprite().setPosition(xpos, ypos);
+}

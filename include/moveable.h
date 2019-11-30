@@ -6,8 +6,6 @@ class Moveable : public Actor {
     
     public:
         virtual void updateMovement() = 0;
-        
-
 };
 
 #endif
