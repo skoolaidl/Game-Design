@@ -38,6 +38,10 @@ void HumanView::init() {
     {
         // error...
     }
+    if (!digitalFont.loadFromFile("../res/digital-7.ttf"))
+    {
+        // error...
+    }
     resetPreferencesVector();
     resetEnemyTypesVector();
 }
@@ -180,10 +184,10 @@ void HumanView::drawEndLevelDialogue() {
         switch (dialogueStage) {
             //eventually change to be appropriate based on score
             case 0: 
-                response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
+                response = (logic.getPlayerFail()) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
                 break;
             case 1: 
-                response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
+                response = (logic.getPlayerFail()) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
                 break;
         }
         first = false;
@@ -247,6 +251,7 @@ void HumanView::checkKeyboardDialogue(float timeS) {
     //if last dialogue stage, go to playing state and current level and reset dialogue variables
     if (dialogueStage > 3 ) {
         dialogueStage = 0;
+        logic.setLevel(currentLevel);
         logic.setGameState(1);
         first = true;
         resetPreferencesVector();
@@ -328,6 +333,24 @@ void HumanView::checkKeyboardFinal() {
     }
 }
 
+std::string HumanView::formatCountDown(int countDown)
+{
+    if(countDown / 10 == 0)
+    {
+        return "00" + std::to_string(countDown);
+    }
+    else if(countDown / 10 < 10)
+    {
+        return "0" + std::to_string(countDown);
+    }
+    else
+    {
+        return std::to_string(countDown);
+    }
+    
+
+}
+
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
@@ -335,13 +358,18 @@ void HumanView::drawObjects() {
     if ( x < width/2 ) {
         x = width/2;
     } 
-    
+
     view.setCenter(x,height/2);
     display.setView(view);
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
         display.draw(logic.getActors()[i].get().getSprite());
     }
+    sf::Text timerText("TIME\n " + formatCountDown(logic.getCountDown()), digitalFont, 40);
+    timerText.setLineSpacing(1.5f);
+    timerText.setPosition((view.getCenter().x + width/2) - timerText.getGlobalBounds().width - 30.f, view.getSize().y / 60);
+    timerText.setFillColor(sf::Color::White);
+    display.draw(timerText);
     display.draw(logic.getPlayer().getSprite());
     display.display();
 }
@@ -353,7 +381,6 @@ void HumanView::checkKeyboardStart(float timeS) {
         startTime = timeS;
         currTime = timeS;
         first = true;
-        logic.setLevel(currentLevel);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //set gameState to settings
