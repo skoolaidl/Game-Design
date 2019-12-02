@@ -58,7 +58,7 @@ void HumanView::update(float timeS) {
         //settings screen
         case 3: drawSettingsMenu(); checkKeyboardSettings(); break;
         //starting dialogue
-        case 4: if (first) { drawLevelDialogue(); } checkKeyboardDialogue(timeS); break;
+        case 4: if (first) { logic.setLevel(currentLevel); drawLevelDialogue(); } checkKeyboardDialogue(timeS); break;
         //ending dialogue
         case 5: if (first) { drawEndLevelDialogue(); } checkKeyboardEndDialogue(timeS); break;
         //final score screen
@@ -162,7 +162,7 @@ void HumanView::drawLevelDialogue() {
         //randomize enemies and their preference
         std::string preference = removeRandomString(preferencesVector);
         int type = removeRandomInt(enemyTypesVector);
-        preferenceText = strings.getPreference(preference, type); 
+        preferenceText = strings.getPreference(preference, type);
         logic.addPreference(preference, type);
         first = false;
     }
@@ -188,6 +188,10 @@ void HumanView::drawEndLevelDialogue() {
                 break;
             case 1: 
                 response = (logic.getPlayerFail()) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
+                if(!logic.getPlayerFail())
+                {
+                    levelsWon++;
+                }
                 break;
         }
         first = false;
@@ -251,7 +255,6 @@ void HumanView::checkKeyboardDialogue(float timeS) {
     //if last dialogue stage, go to playing state and current level and reset dialogue variables
     if (dialogueStage > 3 ) {
         dialogueStage = 0;
-        logic.setLevel(currentLevel);
         logic.setGameState(1);
         first = true;
         resetPreferencesVector();

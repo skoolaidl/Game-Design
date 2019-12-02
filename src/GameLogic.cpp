@@ -61,16 +61,17 @@ void GameLogic::setLevel(int level) {
     playerFail = false;
     player.init();
     loader.init();
+    actorsVector.clear();
+    platforms.clear();
+    spikes.clear();
+    enemies.clear();
+    
     loader.loadLevel(currentLevel);
     platformVector = loader.getPlatforms();
     spikeVector = loader.getSpikes();
     enemyVector = loader.getEnemies();
     girl = loader.getGirl();
 
-    actorsVector.clear();
-    platforms.clear();
-    spikes.clear();
-    enemies.clear();
     for (int i = 0; i < platformVector.size(); i++) {
         platformVector[i].setTexture();
         actorsVector.push_back(platformVector[i]);
