@@ -29,9 +29,10 @@ class HumanView : public View {
         void checkKeyboardFinal();
         sf::Font font;
         sf::Texture texture;
-        sf::Texture chadText;
-        sf::Texture girlText;
-        sf::Texture titleText;
+        sf::Texture chadTexture;
+        sf::Texture girlTexture;
+        sf::Texture titleTexture;
+        sf::Texture speechBubbleTexture;
         sf::Sprite background;
         void drawObjects();
         int width;
@@ -44,7 +45,7 @@ class HumanView : public View {
         int currentLevel;
         //keeps track of which part of the dialogue the screen is in
         int dialogueStage;
-        void drawDialogueBox();
+        void drawDialogueBox(int dir);
         //time used for delay between dialogue screens
         float startTime;
         float currTime;

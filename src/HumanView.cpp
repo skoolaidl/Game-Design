@@ -84,8 +84,8 @@ void HumanView::drawMenu() {
     current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     current.setFillColor(sf::Color::Red);
     start.setFillColor(sf::Color::Red);
-    titleText.loadFromFile("../res/title_resized.png");
-    sf::Sprite title(titleText);
+    titleTexture.loadFromFile("../res/title_resized.png");
+    sf::Sprite title(titleTexture);
     display.draw(current);
     display.draw(title);
     display.draw(start);
@@ -103,7 +103,7 @@ void HumanView::drawSettingsMenu() {
                         + strings.getString("Shoot") + strings.getKey(shoot), font, 30);
     keys.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     keys.setFillColor(sf::Color::Red);
-    sf::Sprite title(titleText);
+    sf::Sprite title(titleTexture);
     display.draw(keys);
     display.draw(title);
     display.draw(settings);
@@ -111,24 +111,32 @@ void HumanView::drawSettingsMenu() {
 
 }
 
-void HumanView::drawDialogueBox() {
+void HumanView::drawDialogueBox(int dir) {
     display.clear();
-    chadText.loadFromFile("../res/chad.png");
-    sf::Sprite chad(chadText);
+    chadTexture.loadFromFile("../res/chad.png");
+    sf::Sprite chad(chadTexture);
     chad.setScale(1.4f, 1.4f);
     chad.setPosition(20, 375);
-    girlText.loadFromFile("../res/girl_example_sprite.png");
-    sf::Sprite girl(girlText);
-    girl.setPosition(width - 250, 360);
-    sf::RectangleShape textBox(sf::Vector2f(700, 300));
-    textBox.setPosition(width / 9, 30);
-    textBox.setOutlineColor(sf::Color::Red);
+    girlTexture.loadFromFile("../res/girl_example_sprite.png");
+    sf::Sprite girl(girlTexture);
+    girl.setPosition(width - 230, 360);
+    if(dir == 0)
+    {
+        speechBubbleTexture.loadFromFile("../res/speech_bubble_left.png");
+    }
+    else
+    {
+        speechBubbleTexture.loadFromFile("../res/speech_bubble_right.png");
+    }
+    sf::Sprite speechBubble(speechBubbleTexture);
+    speechBubble.setScale(0.93f, 0.9f);
+    speechBubble.setPosition(80, 30);
     sf::Text instruct(strings.getString("PressEnter"), font, 20);
-    instruct.setPosition(width / 5, 300);
-    instruct.setFillColor(sf::Color::White);
+    instruct.setPosition(width / 3, 210);
+    instruct.setFillColor(sf::Color::Black);
     display.draw(girl);
     display.draw(chad);
-    display.draw(textBox);
+    display.draw(speechBubble);
     display.draw(instruct);
 }
 
@@ -162,7 +170,7 @@ void HumanView::drawLevelDialogue() {
         logic.addPreference(preference, type);
         first = false;
     }
-    drawDialogueBox();
+    drawDialogueBox(1);
     sf::Text dialogue;
     dialogue.setFont(font);  
     dialogue.setString(preferenceText);
@@ -176,22 +184,22 @@ void HumanView::drawEndLevelDialogue() {
     if (dialogueStage > 1) {
         return;
     }
+    view.setCenter(width / 2, height / 2);
+    display.setView(view);
     if (first) {
         switch (dialogueStage) {
             //eventually change to be appropriate based on score
-            case 0: 
+            case 0:
                 response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
+                drawDialogueBox(1);
                 break;
             case 1: 
                 response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
+                drawDialogueBox(0);
                 break;
         }
         first = false;
     }
-    first = false;
-    view.setCenter(width / 2, height / 2);
-    display.setView(view);
-    drawDialogueBox();
     sf::Text dialogue;
     dialogue.setFont(font);
     dialogue.setString(response);
