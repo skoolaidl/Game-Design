@@ -38,6 +38,10 @@ void HumanView::init() {
     {
         // error...
     }
+    if (!digitalFont.loadFromFile("../res/digital-7.ttf"))
+    {
+        // error...
+    }
     resetPreferencesVector();
     resetEnemyTypesVector();
 }
@@ -54,7 +58,7 @@ void HumanView::update(float timeS) {
         //settings screen
         case 3: drawSettingsMenu(); checkKeyboardSettings(); break;
         //starting dialogue
-        case 4: if (first) { drawLevelDialogue(); } checkKeyboardDialogue(timeS); break;
+        case 4: if (first) { logic.setLevel(currentLevel); drawLevelDialogue(); } checkKeyboardDialogue(timeS); break;
         //ending dialogue
         case 5: if (first) { drawEndLevelDialogue(); } checkKeyboardEndDialogue(timeS); break;
         //final score screen
@@ -216,13 +220,15 @@ void HumanView::drawEndLevelDialogue() {
     if (first) {
         switch (dialogueStage) {
             //eventually change to be appropriate based on score
-            case 0:
-                response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
-                drawDialogueBox(1);
+            case 0: 
+                response = (logic.getPlayerFail()) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
                 break;
             case 1: 
-                response = (logic.getScore(currentLevel) < logic.getGoalScore(currentLevel)) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
-                drawDialogueBox(0);
+                response = (logic.getPlayerFail()) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
+                if(!logic.getPlayerFail())
+                {
+                    levelsWon++;
+                }
                 break;
         }
         first = false;
@@ -363,6 +369,24 @@ void HumanView::checkKeyboardFinal() {
     }
 }
 
+std::string HumanView::formatCountDown(int countDown)
+{
+    if(countDown / 10 == 0)
+    {
+        return "00" + std::to_string(countDown);
+    }
+    else if(countDown / 10 < 10)
+    {
+        return "0" + std::to_string(countDown);
+    }
+    else
+    {
+        return std::to_string(countDown);
+    }
+    
+
+}
+
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
@@ -370,13 +394,18 @@ void HumanView::drawObjects() {
     if ( x < width/2 ) {
         x = width/2;
     } 
-    
+
     view.setCenter(x,height/2);
     display.setView(view);
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
         display.draw(logic.getActors()[i].get().getSprite());
     }
+    sf::Text timerText("TIME\n " + formatCountDown(logic.getCountDown()), digitalFont, 40);
+    timerText.setLineSpacing(1.5f);
+    timerText.setPosition((view.getCenter().x + width/2) - timerText.getGlobalBounds().width - 30.f, view.getSize().y / 60);
+    timerText.setFillColor(sf::Color::White);
+    display.draw(timerText);
     display.draw(logic.getPlayer().getSprite());
     display.display();
 }

@@ -19,7 +19,7 @@ Strings::Strings() {
     strings.insert({ "NewLine", "\n" });
     strings.insert({ "LoadLevel", "\nTo load progress press L" });
     strings.insert({ "PressEnter", "Press enter to advance dialogue" });
-    strings.insert({ "ChadRejected", "Pffft, I don't need you anyway! You made the biggest \nmistake of your life, and you're gonna regret \nturning down THE Chad Chamberlain!" });
+    strings.insert({ "ChadRejected", "Pffft, I don't need you anyway! You've made the biggest \nmistake of your life, and you're gonna regret \nturning down THE Chad Chamberlain!" });
     strings.insert({ "EndLevel", "You completed the level\nYour score was: " });
     strings.insert({ "WonLevel", "You successfully rejected the date" });
     strings.insert({ "LostLevel", "You failed and got rejected by the girl" });
@@ -43,7 +43,7 @@ Strings::Strings() {
         "Oh I see now. It must be girls like you that give Hell such a bad rap." }});
     responses.insert({ "DateYes", {"After much thought, I want to see what this relationship can evolve into!",
         "Ugh, you're the perfect guy and I can't see myself being with anyone else!",
-        "Wow, you are my dream guy.I would love to go on a date with a hunk such as yourself.",
+        "Wow, you are my dream guy. I would love to go on a date with a hunk such as yourself.",
         "I didn't think that I'd ever meet such a perfect guy, but here you are. I might be the luckiest demon in Hell.",
         "Wow, I can't believe you massacred all of those pathetic demons just to impress me! You've definitely won my heart over.",
         "OMG, my daddy definitely wouldn't approve of you. You're perfect!",
@@ -53,8 +53,8 @@ Strings::Strings() {
         "Wow! I thought love at first sight only happened in fantasies. But I haven't been able to take my eyes off of you since you slaughtered that first demon."} });
     responses.insert({ "DateNo", {"Yikes! You just come off as a blow hard.You would definitely not be able to handle me.",
         "If you wanted to win me over, you're gonna have to do a lot better than that. Pathetic.",
-        "Geez,and I thought Hell was bad enough as is, but now I've got this weak excuse for a man hitting on me? No thanks.",
-        "Wow, Satan was right, you don't have any shot down here.You should probably just give up now.",
+        "Geez, and I thought Hell was bad enough as is, but now I've got this weak excuse for a man hitting on me? No thanks.",
+        "Wow, Satan was right, you don't have any shot down here. You should probably just give up now.",
         "You really thought that was gonna be enough to impress me? I should have just told you at the dating screen that I wasn't interested.",
         "Are you kidding me? How about you try to be a semi-decent demon killer before you try to be a lady killer.",
         "Yikes, you're about 10 pixels too short for me. Maybe you should grow a little before trying to take on a woman like me.",

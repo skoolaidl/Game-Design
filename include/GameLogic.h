@@ -24,6 +24,10 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         int currentLevel = 0;
+        float startTime = 0.f;
+        float currTime = 0.f;
+        int countDown = 0;
+        bool playerFail = false;
 
         Player player;
         Girl girl;
@@ -53,6 +57,7 @@ class GameLogic {
         void enemySetBounds(Enemy& enemy);
         void enemyTrack(Enemy& enemy, float timeS);
         void removeFromActorsVector(Actor& actor);
+        void updateCountDown(float timeS);
 
 
 
@@ -80,8 +85,9 @@ class GameLogic {
         void enemyShoot(Enemy& enemy);
         void playerJump(float timeS);
         void playerFall(float time);
-
-
+        void setCountDown(int levelTime);
+        int getCountDown();
+        bool getPlayerFail();
 
 };
 
