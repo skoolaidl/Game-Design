@@ -26,6 +26,10 @@ Strings::Strings() {
     strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is:" });
     strings.insert({ "FinalScore", "Your final score is: "});
     strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
+    strings.insert({ "GoodLuck", "Good Luck Player!"});
+    context = std::string("You are THE Chad Chamberlain, and you've been sent to Hell for your playboy lifestyle on Earth. ") + 
+                        "Nonetheless, because of your lecherous way of living, a trip to Hell is not enough to deter you from pursuing nearby hotties. " +
+                        "You must fight your way through a variety of demons, in an attempt to impress your dates and win them over.";
 
     responses.insert({"Rejections", { "Sorry babe, it's not me, it's you.",
         "This isn't gonna work out between us, but I'm sure you've got a great personality.",
@@ -114,6 +118,11 @@ Strings::Strings() {
 
 std::string Strings::getString(std::string key) {
     return strings[key];
+}
+
+std::string Strings::getContext()
+{
+    return insertNewLines(context, 41);
 }
 
 std::string Strings::insertNewLines(const std::string &in, const size_t every_n)

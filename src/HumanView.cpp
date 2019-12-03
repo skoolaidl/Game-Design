@@ -162,21 +162,48 @@ void HumanView::drawLevelDialogue() {
     if (dialogueStage > 3) {
         return;
     }
-    if (first) {
-        //randomize enemies and their preference
-        std::string preference = removeRandomString(preferencesVector);
-        int type = removeRandomInt(enemyTypesVector);
-        preferenceText = strings.getPreference(preference, type); 
-        logic.addPreference(preference, type);
-        first = false;
+    if(dialogueStage == -1)
+    {
+        if(first)
+        {
+            display.clear();
+            sf::Text context(strings.getContext(), font, 38);
+            context.setFillColor(sf::Color::White);
+            sf::FloatRect contextRect = context.getLocalBounds();
+            context.setOrigin(contextRect.left + contextRect.width/2.f,
+                        contextRect.top  + contextRect.height/2.f);
+            context.setPosition(sf::Vector2f(width/2.f, height/2.f));
+
+            sf::Text goodLuckText(strings.getString("GoodLuck"), font, 38);
+            goodLuckText.setFillColor(sf::Color::White);
+            sf::FloatRect goodLuckRect = goodLuckText.getLocalBounds();
+            goodLuckText.setOrigin(goodLuckRect.left + goodLuckRect.width/2.f,
+                        goodLuckRect.top  + goodLuckRect.height/2.f);
+            goodLuckText.setPosition(sf::Vector2f(width/2.f, context.getGlobalBounds().top + context.getGlobalBounds().height + 30));
+
+            display.draw(context);
+            display.draw(goodLuckText);
+            first = false;
+        }
     }
-    drawDialogueBox(1);
-    sf::Text dialogue;
-    dialogue.setFont(font);  
-    dialogue.setString(preferenceText);
-    dialogue.setFillColor(sf::Color::Magenta);
-    dialogue.setPosition(width / 8, 40);
-    display.draw(dialogue);
+    else
+    {
+        if (first) {
+            //randomize enemies and their preference
+            std::string preference = removeRandomString(preferencesVector);
+            int type = removeRandomInt(enemyTypesVector);
+            preferenceText = strings.getPreference(preference, type); 
+            logic.addPreference(preference, type);
+            first = false;
+        }
+        drawDialogueBox(1);
+        sf::Text dialogue;
+        dialogue.setFont(font);  
+        dialogue.setString(preferenceText);
+        dialogue.setFillColor(sf::Color::Magenta);
+        dialogue.setPosition(width / 8, 40);
+        display.draw(dialogue);
+    }
     display.display();
 }
 
@@ -362,6 +389,11 @@ void HumanView::checkKeyboardStart(float timeS) {
         currTime = timeS;
         first = true;
         logic.setLevel(currentLevel);
+        //displays the context screen if a new playthrough
+        if(currentLevel == 0)
+        {
+            dialogueStage = -1;
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //set gameState to settings
