@@ -5,188 +5,190 @@
     <scaleX>2</scaleX>
     <scaleY>4</scaleY>
     <x>100</x>
-    <y>400</y>
+    <y>350</y>
   </Platform>
   <Platform>
     <scaleX>2</scaleX>
     <scaleY>4</scaleY>
-    <x>900</x>
+    <x>950</x>
     <y>350</y>
   </Platform>
   <Spike>
     <scaleX>1</scaleX>
     <scaleY>1</scaleY>
-    <x>1100</x>
+    <x>950</x>
     <y>330</y>
   </Spike>
   <Enemy>
-    <x>1500</x>
+    <x>1350</x>
     <y>320</y>
     <color>0</color>
   </Enemy>
+  <Spike>
+    <scaleX>1</scaleX>
+    <scaleY>1</scaleY>
+    <x>1720</x>
+    <y>330</y>
+  </Spike>
   <Platform>
-    <scaleX>0.75</scaleX>
+    <scaleX>1</scaleX>
     <scaleY>1</scaleY>
     <x>1800</x>
     <y>350</y>
   </Platform>
-  <Platform>
-    <scaleX>0.75</scaleX>
+  <Spike>
+    <scaleX>1</scaleX>
     <scaleY>1</scaleY>
-    <x>2200</x>
-    <y>350</y>
-  </Platform>
+    <x>1900</x>
+    <y>330</y>
+  </Spike>
   <Platform>
-    <scaleX>0.5</scaleX>
+    <scaleX>1</scaleX>
     <scaleY>1</scaleY>
     <x>2250</x>
-    <y>250</y>
-  </Platform>
-  <Platform>
-    <scaleX>0.5</scaleX>
-    <scaleY>1</scaleY>
-    <x>2500</x>
-    <y>200</y>
-  </Platform>
-  <Platform>
-    <scaleX>0.5</scaleX>
-    <scaleY>1</scaleY>
-    <x>2750</x>
-    <y>200</y>
-  </Platform>
-  <Platform>
-    <scaleX>0.5</scaleX>
-    <scaleY>1</scaleY>
-    <x>3000</x>
-    <y>200</y>
-  </Platform>
-  <Platform>
-    <scaleX>3</scaleX>
-    <scaleY>4</scaleY>
-    <x>2700</x>
-    <y>350</y>
+    <y>400</y>
   </Platform>
   <Spike>
     <scaleX>1</scaleX>
     <scaleY>1</scaleY>
+    <x>2250</x>
+    <y>380</y>
+  </Spike>
+  <Platform>
+    <scaleX>2</scaleX>
+    <scaleY>3</scaleY>
     <x>2700</x>
-    <y>330</y>
+    <y>450</y>
+  </Platform>
+  <Enemy>
+    <x>2950</x>
+    <y>420</y>
+    <color>0</color>
+  </Enemy>
+  <Platform>
+    <scaleX>0.5</scaleX>
+    <scaleY>1</scaleY>
+    <x>3300</x>
+    <y>300</y>
+  </Platform>
+  <Platform>
+    <scaleX>0.5</scaleX>
+    <scaleY>1</scaleY>
+    <x>3550</x>
+    <y>400</y>
+  </Platform>
+  <Platform>
+    <scaleX>0.5</scaleX>
+    <scaleY>1</scaleY>
+    <x>3600</x>
+    <y>250</y>
+  </Platform>
+  <Platform>
+    <scaleX>2</scaleX>
+    <scaleY>8</scaleY>
+    <x>3900</x>
+    <y>275</y>
+  </Platform>
+  <Enemy>
+    <x>4200</x>
+    <y>245</y>
+    <color>0</color>
+  </Enemy>
+  <Enemy>
+    <x>4450</x>
+    <y>245</y>
+    <color>0</color>
+  </Enemy>
+  <Platform>
+    <scaleX>2</scaleX>
+    <scaleY>4</scaleY>
+    <x>4750</x>
+    <y>400</y>
+  </Platform>
+  <Spike>
+    <scaleX>1</scaleX>
+    <scaleY>1</scaleY>
+    <x>4750</x>
+    <y>380</y>
   </Spike>
   <Enemy>
-    <x>3000</x>
+    <x>5250</x>
+    <y>370</y>
+    <color>0</color>
+  </Enemy>
+  <Platform>
+    <scaleX>2</scaleX>
+    <scaleY>4</scaleY>
+    <x>5650</x>
+    <y>400</y>
+  </Platform>
+  <Platform>
+    <scaleX>1.5</scaleX>
+    <scaleY>1</scaleY>
+    <x>5700</x>
+    <y>300</y>
+  </Platform>
+  <Enemy>
+    <x>6050</x>
+    <y>370</y>
+    <color>0</color>
+  </Enemy>
+  <Enemy>
+    <x>6050</x>
+    <y>270</y>
+    <color>0</color>
+  </Enemy>
+  <Platform>
+    <scaleX>2</scaleX>
+    <scaleY>4</scaleY>
+    <x>6500</x>
+    <y>350</y>
+  </Platform>
+  <Enemy>
+    <x>6900</x>
     <y>320</y>
     <color>0</color>
   </Enemy>
   <Platform>
-    <scaleX>4</scaleX>
-    <scaleY>4</scaleY>
-    <x>3900</x>
-    <y>400</y>
-  </Platform>
-  <Spike>
     <scaleX>1</scaleX>
     <scaleY>1</scaleY>
-    <x>3900</x>
-    <y>380</y>
-  </Spike>
-  <Spike>
-    <scaleX>1</scaleX>
-    <scaleY>1</scaleY>
-    <x>4300</x>
-    <y>380</y>
-  </Spike>
-  <Enemy>
-    <x>4600</x>
-    <y>370</y>
-    <color>0</color>
-  </Enemy>
-  <Spike>
-    <scaleX>1</scaleX>
-    <scaleY>1</scaleY>
-    <x>5400</x>
-    <y>380</y>
-  </Spike>
-  <Platform>
-    <scaleX>0.75</scaleX>
-    <scaleY>4</scaleY>
-    <x>5550</x>
+    <x>7400</x>
     <y>350</y>
   </Platform>
   <Platform>
     <scaleX>1</scaleX>
     <scaleY>1</scaleY>
-    <x>5900</x>
-    <y>300</y>
+    <x>7900</x>
+    <y>350</y>
   </Platform>
-  <Enemy>
-    <x>6100</x>
-    <y>270</y>
-    <color>0</color>
-  </Enemy>
-  <Platform>
-    <scaleX>3</scaleX>
-    <scaleY>4</scaleY>
-    <x>6350</x>
-    <y>300</y>
-  </Platform>
-  <Spike>
-    <scaleX>1</scaleX>
-    <scaleY>1</scaleY>
-    <x>6450</x>
-    <y>280</y>
-  </Spike>
-  <Enemy>
-    <x>6900</x>
-    <y>270</y>
-    <color>0</color>
-  </Enemy>
-  <Spike>
-    <scaleX>1</scaleX>
-    <scaleY>1</scaleY>
-    <x>7300</x>
-    <y>280</y>
-  </Spike>
-  <Platform>
-    <scaleX>2</scaleX>
-    <scaleY>4</scaleY>
-    <x>7550</x>
-    <y>400</y>
-  </Platform>
-  <Enemy>
-    <x>7950</x>
-    <y>370</y>
-    <color>0</color>
-  </Enemy>
   <Platform>
     <scaleX>2</scaleX>
     <scaleY>4</scaleY>
     <x>8400</x>
-    <y>400</y>
+    <y>350</y>
   </Platform>
   <Enemy>
-    <x>8800</x>
+    <x>2450</x>
     <y>370</y>
     <color>0</color>
   </Enemy>
-  <Spike>
-    <scaleX>1</scaleX>
-    <scaleY>1</scaleY>
-    <x>9000</x>
-    <y>380</y>
-  </Spike>
-  <Platform>
-    <scaleX>2</scaleX>
-    <scaleY>4</scaleY>
-    <x>9250</x>
-    <y>400</y>
-  </Platform>
   <Enemy>
-    <x>5000</x>
-    <y>370</y>
+    <x>3700</x>
+    <y>220</y>
+    <color>0</color>
+  </Enemy>
+  <Enemy>
+    <x>7600</x>
+    <y>320</y>
+    <color>0</color>
+  </Enemy>
+  <Enemy>
+    <x>8100</x>
+    <y>320</y>
     <color>0</color>
   </Enemy>
   <Girl>
-    <x>9650</x>
-    <y>370</y>
-  </Girl> 
+    <x>8800</x>
+    <y>320</y>
+  </Girl>
 </Actors>
