@@ -5,6 +5,7 @@
 #include "moveable.h"
 #include "platform.h"
 #include "projectile.h"
+#include "AnimatedSprite.h"
 
 class Player : public Moveable {
     private:
@@ -24,6 +25,10 @@ class Player : public Moveable {
         Projectile bullet;
         float bulletOffsetX = 20.f;
         float bulletOffsetY = 15.f;
+        Animation* currentAnimation;
+        Animation walkingAnimationRight;
+        Animation walkingAnimationLeft;
+        bool noKeyWasPressed = true;
 
     public:
         Player();

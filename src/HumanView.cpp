@@ -331,18 +331,17 @@ void HumanView::checkKeyboardFinal() {
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
-    float x = logic.getPlayer().getSprite().getPosition().x;
+    float x = logic.getPlayer().getAnimatedSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;
     } 
-    
     view.setCenter(x,height/2);
     display.setView(view);
     for(int i = 0; i < logic.getActors().size(); ++i)
     {
         display.draw(logic.getActors()[i].get().getSprite());
     }
-    display.draw(logic.getPlayer().getSprite());
+    display.draw(logic.getPlayer().getAnimatedSprite());
     display.display();
 }
 

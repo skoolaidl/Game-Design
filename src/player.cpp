@@ -10,11 +10,30 @@ Player::Player() {
 }
 
 void Player::init() {
-    if (!texture.loadFromFile("../res/chad_resized_1.png"))
+    if (!texture.loadFromFile("../res/Chad_Sprite_Sheet.png"))
     {
-        // error...
+        std::cout << "Failed to load player spritesheet!" << std::endl;
+        return 1;
     }
-    setSprite(sf::Sprite(texture));
+    //setSprite(sf::Sprite(texture));
+    setAnimatedSprite(AnimatedSprite::AnimatedSprite(sf::seconds(0.2), true, false));
+
+    walkingAnimationRight.setSpriteSheet(texture);
+    walkingAnimationRight.addFrame(sf::intRect(0,0,37,37));
+    walkingAnimationRight.addFrame(sf::intRect(37,0,37,37));
+    walkingAnimationRight.addFrame(sf::intRect(74,0,37,37));
+    walkingAnimationRight.addFrame(sf::intRect(111,0,37,37));
+    walkingAnimationRight.addFrame(sf::intRect(148,0,37,37));
+
+    walkingAnimationLeft.setSpriteSheet(texture);
+    walkingAnimationLeft.addFrame(sf::intRect(0,37,37,37));
+    walkingAnimationLeft.addFrame(sf::intRect(37,37,37,37));
+    walkingAnimationLeft.addFrame(sf::intRect(74,37,37,37));
+    walkingAnimationLeft.addFrame(sf::intRect(111,37,37,37));
+    walkingAnimationLeft.addFrame(sf::intRect(148,37,37,37));
+
+    currentAnimation = &walkingAnimationRight;
+
     velocityX = 0.f;
     velocityY = 0.f;
     xpos = 200.f;
@@ -25,25 +44,30 @@ void Player::init() {
     stepSizeX = 300.f;
     stepSizeY = 500.f;
     direction = true;
-    getSprite().setPosition(xpos, ypos);
+    getAnimatedSprite().setPosition(xpos, ypos);
 }
 
 void Player::resetPosition() {
     xpos = 200.f;
     ypos = 300.f;
-    getSprite().setPosition(xpos, ypos);
+    getAnimatedSprite().setPosition(xpos, ypos);
 }
 
 void Player::updateTexture(float velX)
 {
-    if(velocityX < velocityX + velX && texture.loadFromFile("../res/chad_resized_1.png"))
+    if(velocityX < velocityX + velX)
     {
-        getSprite().setTexture(texture);
+        //right
+        currentAnimation = &walkingAnimationRight;
+        noKeyWasPressed = false;
     }
-    else if(velocityX > velocityX + velX && texture.loadFromFile("../res/chad_resized_0.png"))
+    else if(velocityX > velocityX + velX)
     {
-        getSprite().setTexture(texture);
+        //left
+        currentAnimation = &walkingAnimationLeft;
+        noKeyWasPressed = false;
     }
+
 }
 
 void Player::setVelocityX(float velX)
@@ -59,11 +83,21 @@ void Player::setVelocityY(float velY)
 
 void Player::updateMovement() 
 {
+
+    animatedSprite.play(*currentAnimation);
+
+    if (noKeyWasPressed)
+        {
+            animatedSprite.stop();
+        }
+    noKeyWasPressed = true;
+
     xpos += velocityX;
     ypos += velocityY;
-    getSprite().setPosition(xpos, ypos);
+    getAnimatedSprite().setPosition(xpos, ypos);
     velocityX = 0.f;
     velocityY = 0.f;
+
 }
 
 bool Player::atMaxJumpHeight()
