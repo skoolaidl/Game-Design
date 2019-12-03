@@ -11,6 +11,7 @@ class Strings{
         std::map<std::string, std::vector<std::string>> preferences;
         std::vector<std::string> tierList;
         std::vector<std::string> keys;
+        std::string context;
         int prevKillPref = -1;
         int prevIgnorePref = -1;
         std::string insertNewLines(const std::string &in, const size_t every_n);
@@ -23,4 +24,5 @@ class Strings{
         std::string getTier(int rank);
         std::string getPreference(std::string key, int color);
         std::string getKey(int key);
+        std::string getContext();
 };

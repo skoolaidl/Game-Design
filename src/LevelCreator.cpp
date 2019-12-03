@@ -10,13 +10,48 @@ LevelCreator::LevelCreator() {
 }
 
 void LevelCreator::init(){
-
+    platforms.clear();
+    spikes.clear();
+    enemies.clear();
 }
 
-void LevelCreator::LoadLevel(int level){
+void LevelCreator::loadLevel(int level){
     //This line will change based on "level", for now just using Sample Level XML
     tinyxml2::XMLDocument map;
-    tinyxml2::XMLError eResult = map.LoadFile("../res/level1.xml");
+    tinyxml2::XMLError eResult; // = map.LoadFile("../res/practice_level.xml");
+    switch(level)
+    {
+        case 0:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 1:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 2:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 3:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 4:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 5:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 6:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 7:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 8:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+        case 9:
+            eResult = map.LoadFile("../res/practice_level.xml");
+            break;
+    }
     if (eResult != tinyxml2::XML_SUCCESS) {
         std::cout << "error loading file" << std::endl;
         return;
@@ -94,18 +129,18 @@ void LevelCreator::LoadLevel(int level){
     std::cout << "loaded successfully" << std::endl;
 }
 
-std::vector<Platform> LevelCreator::getPlatforms() {
+std::vector<Platform>& LevelCreator::getPlatforms() {
     return platforms;
 }
 
-std::vector<Spike> LevelCreator::getSpikes() {
+std::vector<Spike>& LevelCreator::getSpikes() {
     return spikes;
 }
 
-std::vector<Enemy> LevelCreator::getEnemies() {
+std::vector<Enemy>& LevelCreator::getEnemies() {
     return enemies;
 }
 
-Girl LevelCreator::getGirl() {
+Girl& LevelCreator::getGirl() {
     return girl;
 }

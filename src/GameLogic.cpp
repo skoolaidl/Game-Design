@@ -49,6 +49,7 @@ void GameLogic::update(float timeS) {
         updatePlayerCollisionSpikesEnemy();
         updateProjectileCollisions();
         updatePlayerCollisionGirl();
+        updateCountDown(timeS);
     }
 
 }
@@ -56,7 +57,17 @@ void GameLogic::update(float timeS) {
 void GameLogic::setLevel(int level) {
     currentLevel = level;
     //load specified level
-    loader.LoadLevel(level);
+    setCountDown(180);
+    playerFail = false;
+    scoreMultiplier = 1;
+    player.init();
+    loader.init();
+    actorsVector.clear();
+    platforms.clear();
+    spikes.clear();
+    enemies.clear();
+    
+    loader.loadLevel(currentLevel);
     platformVector = loader.getPlatforms();
     spikeVector = loader.getSpikes();
     enemyVector = loader.getEnemies();
@@ -80,6 +91,38 @@ void GameLogic::setLevel(int level) {
     actorsVector.push_back(girl);
 }
 
+void GameLogic::updateCountDown(float timeS)
+{
+    if(countDown <= 0)
+    {
+        playerFail = true;
+        gameState = 5;
+        return;
+    }
+    if(currTime - startTime > 1.f)
+    {
+        countDown--;
+        startTime = timeS;
+        currTime = timeS;
+    }
+    currTime+=timeS;
+}
+
+bool GameLogic::getPlayerFail()
+{
+    return playerFail;
+}
+
+void GameLogic::setCountDown(int levelTime)
+{
+    countDown = levelTime;
+}
+
+int GameLogic::getCountDown()
+{
+    return countDown;
+}
+
 Actor& GameLogic::getGirl(){
     return girl;
 }
@@ -89,10 +132,6 @@ void GameLogic::softReset() {
     player.resetPosition();
     //reset score multiplier
     scoreMultiplier = 1;
-}
-
-void GameLogic::reset() {
-    //restart level? or restart game?
 }
 
 int GameLogic::getGameState() {
@@ -124,9 +163,10 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
 
 void GameLogic::updatePlayerCollisionGirl() {
     if (player.getSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
-        {
-            gameState = 5;
-        }          
+    {
+        playerFail = (getScore(currentLevel) < getGoalScore(currentLevel));
+        gameState = 5;
+    }          
 }
 
 void GameLogic::updateProjectileCollisions() {
@@ -145,14 +185,18 @@ void GameLogic::updateProjectileCollisions() {
                 if (projectiles[p].get().getSprite().getGlobalBounds().intersects(enemies[e].get().getSprite().getGlobalBounds())) {
                     projectiles[p].get().setAvailable();
                     //update score
-                    if(enemies[e].get().getKillStatus())
+                    if(killPreferences[enemies[e].get().getType()])
                     {
-                        increaseScore(currentLevel, pointsPerKill * scoreMultiplier);
+                        changeScore(currentLevel, pointsPerKill * scoreMultiplier);
                         scoreMultiplier++;
                     }
-                    else if(!enemies[e].get().getKillStatus())
+                    else
                     {
                         scoreMultiplier = 1;
+                        if(scores[currentLevel] > 0)
+                        {
+                            changeScore(currentLevel, -1 * pointsPerKill);
+                        }
                     }
                     removeFromActorsVector(enemies[e].get());
                     enemies.erase(enemies.begin() + e);
@@ -174,7 +218,7 @@ void GameLogic::removeFromActorsVector(Actor& actor) {
     return;
 }
 
-void GameLogic::increaseScore(int level, unsigned int increase) {
+void GameLogic::changeScore(int level, int increase) {
     //only if using level 1 not 0 level--;
     if ( level >= 0 && level <= 9 ) {
         scores[level] = scores[level] + increase;
@@ -389,8 +433,8 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
         enemy.setVelocityX(currVelX);
         enemy.setDirection(dir);
     }
-    //sets velocity to normal velocity if the delta time was unusually slow
-    if(std::abs(enemy.getVelocityX()) <= enemy.getStepSize() * timeS)
+    //sets velocity to normal velocity if the delta time was unusually slow or fast
+    if(std::abs(enemy.getVelocityX()) <= enemy.getStepSize() * timeS / 2.f || std::abs(enemy.getVelocityX()) >= enemy.getStepSize() * timeS * 2.f)
     {
         float normVelX = ((enemy.getDirection() == true) ? 1 : -1) * enemy.getStepSize() * timeS;
         enemy.setVelocityX(normVelX);
@@ -423,22 +467,10 @@ void GameLogic::addPreference(std::string pref, int type)
 {
     if(pref == "Kill")
     {
-        for(int e = 0; e < enemies.size(); ++e)
-        {
-            if(enemies[e].get().getType() == type)
-            {
-                enemies[e].get().setKillStatus(true);
-            }
-        }
+        killPreferences[type] = true;
     }
     else if(pref == "Ignore")
     {
-        for(int e = 0; e < enemies.size(); ++e)
-        {
-            if(enemies[e].get().getType() == type)
-            {
-                enemies[e].get().setKillStatus(false);
-            }
-        }
+        killPreferences[type] = false;
     }
 }

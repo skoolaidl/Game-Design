@@ -24,6 +24,11 @@ class GameLogic {
         float bulletSpeed;
         float gravity;
         int currentLevel = 0;
+        float startTime = 0.f;
+        float currTime = 0.f;
+        int countDown = 0;
+        bool playerFail = false;
+        std::vector<bool> killPreferences = {false, false, false, false};
 
         Player player;
         Girl girl;
@@ -41,7 +46,6 @@ class GameLogic {
         std::vector<std::reference_wrapper<Enemy>> enemies;
         
         void softReset();
-        void reset();
         bool collides(Actor actor, std::vector<std::reference_wrapper<Actor>> objVector);
         void updatePlayerCollision(float timeS);
         void updatePlayerCollisionSpikesEnemy();
@@ -53,6 +57,7 @@ class GameLogic {
         void enemySetBounds(Enemy& enemy);
         void enemyTrack(Enemy& enemy, float timeS);
         void removeFromActorsVector(Actor& actor);
+        void updateCountDown(float timeS);
 
 
 
@@ -63,7 +68,7 @@ class GameLogic {
         void setGameState(int newState);
         void init(int wWidth, int wHeight);
         void update(float timeS);
-        void increaseScore(int level, unsigned int increase);
+        void changeScore(int level, int increase);
         unsigned int getScore(int level);
         bool setScore(int level, unsigned int score);
         void resetScores();
@@ -80,8 +85,9 @@ class GameLogic {
         void enemyShoot(Enemy& enemy);
         void playerJump(float timeS);
         void playerFall(float time);
-
-
+        void setCountDown(int levelTime);
+        int getCountDown();
+        bool getPlayerFail();
 
 };
 
