@@ -28,7 +28,7 @@ class LevelCreator {
     public:
         LevelCreator();
         void init();
-        void LoadLevel(int level);
+        void loadLevel(int level);
         std::vector<Platform> getPlatforms();
         std::vector<Spike> getSpikes();
         std::vector<Enemy> getEnemies();

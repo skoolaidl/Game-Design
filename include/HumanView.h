@@ -28,6 +28,7 @@ class HumanView : public View {
         void checkKeyboardEndDialogue(float timeS);
         void checkKeyboardFinal();
         sf::Font font;
+        sf::Font digitalFont;
         sf::Texture texture;
         sf::Texture chadText;
         sf::Texture girlText;
@@ -62,6 +63,7 @@ class HumanView : public View {
         int removeRandomInt(std::vector<int>& vec);
         void resetPreferencesVector();
         void resetEnemyTypesVector();
+        std::string formatCountDown(int countDown);
     
     public: 
         HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};

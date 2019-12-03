@@ -49,6 +49,7 @@ void GameLogic::update(float timeS) {
         updatePlayerCollisionSpikesEnemy();
         updateProjectileCollisions();
         updatePlayerCollisionGirl();
+        updateCountDown(timeS);
     }
 
 }
@@ -56,7 +57,16 @@ void GameLogic::update(float timeS) {
 void GameLogic::setLevel(int level) {
     currentLevel = level;
     //load specified level
-    loader.LoadLevel(level);
+    setCountDown(180);
+    playerFail = false;
+    player.init();
+    loader.init();
+    actorsVector.clear();
+    platforms.clear();
+    spikes.clear();
+    enemies.clear();
+    
+    loader.loadLevel(currentLevel);
     platformVector = loader.getPlatforms();
     spikeVector = loader.getSpikes();
     enemyVector = loader.getEnemies();
@@ -78,6 +88,38 @@ void GameLogic::setLevel(int level) {
         enemies.push_back(enemyVector[i]);
     }
     actorsVector.push_back(girl);
+}
+
+void GameLogic::updateCountDown(float timeS)
+{
+    if(countDown <= 0)
+    {
+        playerFail = true;
+        gameState = 5;
+        return;
+    }
+    if(currTime - startTime > 1.f)
+    {
+        countDown--;
+        startTime = timeS;
+        currTime = timeS;
+    }
+    currTime+=timeS;
+}
+
+bool GameLogic::getPlayerFail()
+{
+    return playerFail;
+}
+
+void GameLogic::setCountDown(int levelTime)
+{
+    countDown = levelTime;
+}
+
+int GameLogic::getCountDown()
+{
+    return countDown;
 }
 
 Actor& GameLogic::getGirl(){
@@ -124,9 +166,10 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
 
 void GameLogic::updatePlayerCollisionGirl() {
     if (player.getSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
-        {
-            gameState = 5;
-        }          
+    {
+        playerFail = (getScore(currentLevel) < getGoalScore(currentLevel));
+        gameState = 5;
+    }          
 }
 
 void GameLogic::updateProjectileCollisions() {
@@ -389,8 +432,8 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
         enemy.setVelocityX(currVelX);
         enemy.setDirection(dir);
     }
-    //sets velocity to normal velocity if the delta time was unusually slow
-    if(std::abs(enemy.getVelocityX()) <= enemy.getStepSize() * timeS)
+    //sets velocity to normal velocity if the delta time was unusually slow or fast
+    if(std::abs(enemy.getVelocityX()) <= enemy.getStepSize() * timeS / 2.f || std::abs(enemy.getVelocityX()) >= enemy.getStepSize() * timeS * 2.f)
     {
         float normVelX = ((enemy.getDirection() == true) ? 1 : -1) * enemy.getStepSize() * timeS;
         enemy.setVelocityX(normVelX);
