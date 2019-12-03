@@ -11,9 +11,9 @@ class Actor {
 
     public :
         virtual sf::Sprite& getSprite() {return sprite;}
-        virtual AnimatedSprite::AnimatedSprite& getAnimatedSprite() {return animatedSprite;}
+        virtual AnimatedSprite& getAnimatedSprite() {return animatedSprite;}
         virtual void setSprite(sf::Sprite s) {sprite = s;}
-        virtual void setAnimatedSprite(AnimatedSprite::AnimatedSprite aS) {animatedSprite = aS;}
+        virtual void setAnimatedSprite(AnimatedSprite aS) {animatedSprite = aS;}
         bool operator==(const Actor &other);
         void setAnimated(bool a) {animated = a;}
         bool isAnimated() {return animated;}

@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 #include "moveable.h"
 #include "platform.h"
 #include "projectile.h"

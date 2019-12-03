@@ -13,24 +13,24 @@ void Player::init() {
     if (!texture.loadFromFile("../res/Chad_Sprite_Sheet.png"))
     {
         std::cout << "Failed to load player spritesheet!" << std::endl;
-        return 1;
+        return;
     }
     //setSprite(sf::Sprite(texture));
-    setAnimatedSprite(AnimatedSprite::AnimatedSprite(sf::seconds(0.2), true, false));
+    setAnimatedSprite(AnimatedSprite(sf::seconds(0.2), true, false));
 
     walkingAnimationRight.setSpriteSheet(texture);
-    walkingAnimationRight.addFrame(sf::intRect(0,0,37,37));
-    walkingAnimationRight.addFrame(sf::intRect(37,0,37,37));
-    walkingAnimationRight.addFrame(sf::intRect(74,0,37,37));
-    walkingAnimationRight.addFrame(sf::intRect(111,0,37,37));
-    walkingAnimationRight.addFrame(sf::intRect(148,0,37,37));
+    walkingAnimationRight.addFrame(sf::IntRect(0,0,37,37));
+    walkingAnimationRight.addFrame(sf::IntRect(37,0,37,37));
+    walkingAnimationRight.addFrame(sf::IntRect(74,0,37,37));
+    walkingAnimationRight.addFrame(sf::IntRect(111,0,37,37));
+    walkingAnimationRight.addFrame(sf::IntRect(148,0,37,37));
 
     walkingAnimationLeft.setSpriteSheet(texture);
-    walkingAnimationLeft.addFrame(sf::intRect(0,37,37,37));
-    walkingAnimationLeft.addFrame(sf::intRect(37,37,37,37));
-    walkingAnimationLeft.addFrame(sf::intRect(74,37,37,37));
-    walkingAnimationLeft.addFrame(sf::intRect(111,37,37,37));
-    walkingAnimationLeft.addFrame(sf::intRect(148,37,37,37));
+    walkingAnimationLeft.addFrame(sf::IntRect(0,37,37,37));
+    walkingAnimationLeft.addFrame(sf::IntRect(37,37,37,37));
+    walkingAnimationLeft.addFrame(sf::IntRect(74,37,37,37));
+    walkingAnimationLeft.addFrame(sf::IntRect(111,37,37,37));
+    walkingAnimationLeft.addFrame(sf::IntRect(148,37,37,37));
 
     currentAnimation = &walkingAnimationRight;
 
@@ -84,11 +84,11 @@ void Player::setVelocityY(float velY)
 void Player::updateMovement() 
 {
 
-    animatedSprite.play(*currentAnimation);
+    getAnimatedSprite().play(*currentAnimation);
 
     if (noKeyWasPressed)
         {
-            animatedSprite.stop();
+            getAnimatedSprite().stop();
         }
     noKeyWasPressed = true;
 

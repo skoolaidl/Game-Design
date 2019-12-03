@@ -28,11 +28,11 @@ class LevelCreator {
     public:
         LevelCreator();
         void init();
-        void LoadLevel(int level);
-        std::vector<Platform> getPlatforms();
-        std::vector<Spike> getSpikes();
-        std::vector<Enemy> getEnemies();
-        Girl getGirl();
+        void loadLevel(int level);
+        std::vector<Platform>& getPlatforms();
+        std::vector<Spike>& getSpikes();
+        std::vector<Enemy>& getEnemies();
+        Girl& getGirl();
         
 };
 
