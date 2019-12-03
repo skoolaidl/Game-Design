@@ -20,9 +20,8 @@ Strings::Strings() {
     strings.insert({ "LoadLevel", "\nTo load progress press L" });
     strings.insert({ "PressEnter", "Press enter to advance dialogue" });
     strings.insert({ "ChadRejected", "Pffft, I don't need you anyway! You've made the biggest \nmistake of your life, and you're gonna regret \nturning down THE Chad Chamberlain!" });
-    strings.insert({ "EndLevel", "You completed the level\nYour score was: " });
-    strings.insert({ "WonLevel", "You successfully rejected the date" });
-    strings.insert({ "LostLevel", "You failed and got rejected by the girl" });
+    strings.insert({ "WonLevel", "You successfully rejected the date\nYour score was: " });
+    strings.insert({ "LostLevel", "You failed and got rejected by the girl\nYour score was: " });
     strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is:" });
     strings.insert({ "FinalScore", "Your final score is: "});
     strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
@@ -51,8 +50,8 @@ Strings::Strings() {
         "Finally, a man that can turn Hell into a romantic getaway. Where have you been all my life?",
         "OMG, you look like a guy who knows how to treat a lady. I've been waiting on my Romeo for all of eternity.",
         "Wow! I thought love at first sight only happened in fantasies. But I haven't been able to take my eyes off of you since you slaughtered that first demon."} });
-    responses.insert({ "DateNo", {"Yikes! You just come off as a blow hard.You would definitely not be able to handle me.",
-        "If you wanted to win me over, you're gonna have to do a lot better than that. Pathetic.",
+    responses.insert({ "DateNo", {"Yikes! You just come off as a blow hard. You would definitely not be able to handle me.",
+        "If you wanted to win me over, you're gonna have to do a lot better than that. Pathetic!",
         "Geez, and I thought Hell was bad enough as is, but now I've got this weak excuse for a man hitting on me? No thanks.",
         "Wow, Satan was right, you don't have any shot down here. You should probably just give up now.",
         "You really thought that was gonna be enough to impress me? I should have just told you at the dating screen that I wasn't interested.",
@@ -66,7 +65,7 @@ Strings::Strings() {
         "My mom was a *** demon. She always babied me and never let me do anything!",
         "Those dumb and ugly *** demons have always annoyed me! Like why do they even exist?",
         "There was this group of *** demons in my highschool that constantly harassed me and totally ruined my chances of being popular!",
-        "My obnoxious neighbor is part of a band called Satanic Vibes and the *** Demons,and I can never sleep because of their deafening heavy metal music.",
+        "My obnoxious neighbor is part of a band called Satanic Vibes and the *** Demons, and I can never sleep because of their deafening heavy metal music.",
         "I can't believe Lexi the *** demon won Bachelorette in Hell. She was such a two-faced skank!",
         "Ugh, it seems like all *** demons are the same, they're all just hotheads.",
         "This one time, I was on a date and he would not stop checking out other girls. Never gonna trust a *** demon ever again.",

@@ -133,7 +133,7 @@ void HumanView::drawDialogueBox(int dir) {
         speechBubbleTexture.loadFromFile("../res/speech_bubble_right.png");
     }
     sf::Sprite speechBubble(speechBubbleTexture);
-    speechBubble.setScale(0.93f, 0.9f);
+    speechBubble.setScale(0.94f, 0.9f);
     speechBubble.setPosition(80, 30);
     sf::Text instruct(strings.getString("PressEnter"), font, 20);
     instruct.setPosition(width / 3, 210);
@@ -220,10 +220,12 @@ void HumanView::drawEndLevelDialogue() {
     if (first) {
         switch (dialogueStage) {
             //eventually change to be appropriate based on score
-            case 0: 
+            case 0:
+                drawDialogueBox(1);
                 response = (logic.getPlayerFail()) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
                 break;
-            case 1: 
+            case 1:
+                drawDialogueBox(0);
                 response = (logic.getPlayerFail()) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
                 if(!logic.getPlayerFail())
                 {
@@ -322,8 +324,18 @@ void HumanView::checkKeyboardEndDialogue(float timeS) {
 void HumanView::drawEndLevel() {
     first = false;
     display.clear();
-    sf::Text end(strings.getString("EndLevel") + std::to_string(logic.getScore(currentLevel)), font, 50);
-    end.setPosition(display.getSize().x / 8, display.getSize().y - 400);
+    sf::Text end;
+    end.setFont(font);
+    end.setCharacterSize(45);
+    if(logic.getPlayerFail())
+    {
+        end.setString(strings.getString("LostLevel") + std::to_string(logic.getScore(currentLevel)));
+    }
+    else
+    {
+        end.setString(strings.getString("WonLevel") + std::to_string(logic.getScore(currentLevel)));
+    }
+    end.setPosition(display.getSize().x / 12, display.getSize().y - 400);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
     view.setCenter(width/2,height/2);
