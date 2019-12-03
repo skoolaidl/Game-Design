@@ -22,34 +22,19 @@ void LevelCreator::loadLevel(int level){
     switch(level)
     {
         case 0:
-            eResult = map.LoadFile("../res/practice_level.xml");
+            eResult = map.LoadFile("../res/level1.xml");
             break;
         case 1:
-            eResult = map.LoadFile("../res/practice_level.xml");
+            eResult = map.LoadFile("../res/level2.xml");
             break;
         case 2:
-            eResult = map.LoadFile("../res/practice_level.xml");
+            eResult = map.LoadFile("../res/level3.xml");
             break;
         case 3:
-            eResult = map.LoadFile("../res/practice_level.xml");
+            eResult = map.LoadFile("../res/level4.xml");
             break;
         case 4:
-            eResult = map.LoadFile("../res/practice_level.xml");
-            break;
-        case 5:
-            eResult = map.LoadFile("../res/practice_level.xml");
-            break;
-        case 6:
-            eResult = map.LoadFile("../res/practice_level.xml");
-            break;
-        case 7:
-            eResult = map.LoadFile("../res/practice_level.xml");
-            break;
-        case 8:
-            eResult = map.LoadFile("../res/practice_level.xml");
-            break;
-        case 9:
-            eResult = map.LoadFile("../res/practice_level.xml");
+            eResult = map.LoadFile("../res/level5.xml");
             break;
     }
     if (eResult != tinyxml2::XML_SUCCESS) {

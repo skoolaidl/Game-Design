@@ -32,7 +32,7 @@ void HumanView::init() {
     }
     texture.setRepeated(true);
     background = sf::Sprite(texture);
-    background.setTextureRect({ 0, 0, 4000, height});
+    background.setTextureRect({ 0, 0, 12000, height});
     //load font
     if (!font.loadFromFile("../res/times.ttf"))
     {
@@ -352,7 +352,7 @@ void HumanView::drawFinalScore() {
     score.setFont(font);
     float posY = height / 4;
     unsigned int finalScore = 0;
-    for(int i = 0; i < 10; ++i)
+    for(int i = 0; i < 5; ++i)
     {
         finalScore += logic.getScore(i);
     }
@@ -453,7 +453,7 @@ void HumanView::readSaveFile() {
     if (file.is_open()) {
         file >> x;
         currentLevel = x;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             file >> x;
             logic.setScore(i, x);
         }
@@ -475,7 +475,7 @@ void HumanView::writeSaveFile() {
     std::ofstream file("../res/save.txt", std::ios::trunc);
     if (file.is_open()) {
         file << std::to_string(currentLevel) + " ";
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             file << std::to_string(logic.getScore(i)) + " ";            
         }
         file << std::to_string(levelsWon) + " ";
@@ -496,7 +496,7 @@ void HumanView::checkKeyboardEndLevel(float timeS) {
         currTime = timeS;
         first = true;
         //if last level, go to final end game state
-        if (currentLevel > 9) {
+        if (currentLevel > 4) {
             logic.setGameState(6);
         }
         else {
