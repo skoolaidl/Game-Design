@@ -59,6 +59,7 @@ void GameLogic::setLevel(int level) {
     //load specified level
     setCountDown(180);
     playerFail = false;
+    scoreMultiplier = 1;
     player.init();
     loader.init();
     actorsVector.clear();
@@ -133,10 +134,6 @@ void GameLogic::softReset() {
     scoreMultiplier = 1;
 }
 
-void GameLogic::reset() {
-    //restart level? or restart game?
-}
-
 int GameLogic::getGameState() {
     //gameState can be 0, uninitialized; 1, running; or others
     return gameState;
@@ -188,14 +185,18 @@ void GameLogic::updateProjectileCollisions() {
                 if (projectiles[p].get().getSprite().getGlobalBounds().intersects(enemies[e].get().getSprite().getGlobalBounds())) {
                     projectiles[p].get().setAvailable();
                     //update score
-                    if(enemies[e].get().getKillStatus())
+                    if(killPreferences[enemies[e].get().getType()])
                     {
-                        increaseScore(currentLevel, pointsPerKill * scoreMultiplier);
+                        changeScore(currentLevel, pointsPerKill * scoreMultiplier);
                         scoreMultiplier++;
                     }
-                    else if(!enemies[e].get().getKillStatus())
+                    else
                     {
                         scoreMultiplier = 1;
+                        if(scores[currentLevel] > 0)
+                        {
+                            changeScore(currentLevel, -1 * pointsPerKill);
+                        }
                     }
                     removeFromActorsVector(enemies[e].get());
                     enemies.erase(enemies.begin() + e);
@@ -217,7 +218,7 @@ void GameLogic::removeFromActorsVector(Actor& actor) {
     return;
 }
 
-void GameLogic::increaseScore(int level, unsigned int increase) {
+void GameLogic::changeScore(int level, int increase) {
     //only if using level 1 not 0 level--;
     if ( level >= 0 && level <= 9 ) {
         scores[level] = scores[level] + increase;
@@ -466,22 +467,10 @@ void GameLogic::addPreference(std::string pref, int type)
 {
     if(pref == "Kill")
     {
-        for(int e = 0; e < enemies.size(); ++e)
-        {
-            if(enemies[e].get().getType() == type)
-            {
-                enemies[e].get().setKillStatus(true);
-            }
-        }
+        killPreferences[type] = true;
     }
     else if(pref == "Ignore")
     {
-        for(int e = 0; e < enemies.size(); ++e)
-        {
-            if(enemies[e].get().getType() == type)
-            {
-                enemies[e].get().setKillStatus(false);
-            }
-        }
+        killPreferences[type] = false;
     }
 }

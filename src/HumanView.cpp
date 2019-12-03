@@ -88,8 +88,8 @@ void HumanView::drawMenu() {
     current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     current.setFillColor(sf::Color::Red);
     start.setFillColor(sf::Color::Red);
-    titleText.loadFromFile("../res/title_resized.png");
-    sf::Sprite title(titleText);
+    titleTexture.loadFromFile("../res/title_resized.png");
+    sf::Sprite title(titleTexture);
     display.draw(current);
     display.draw(title);
     display.draw(start);
@@ -107,7 +107,7 @@ void HumanView::drawSettingsMenu() {
                         + strings.getString("Shoot") + strings.getKey(shoot), font, 30);
     keys.setPosition(display.getSize().x / 2, display.getSize().y / 8);
     keys.setFillColor(sf::Color::Red);
-    sf::Sprite title(titleText);
+    sf::Sprite title(titleTexture);
     display.draw(keys);
     display.draw(title);
     display.draw(settings);
@@ -115,24 +115,32 @@ void HumanView::drawSettingsMenu() {
 
 }
 
-void HumanView::drawDialogueBox() {
+void HumanView::drawDialogueBox(int dir) {
     display.clear();
-    chadText.loadFromFile("../res/chad.png");
-    sf::Sprite chad(chadText);
+    chadTexture.loadFromFile("../res/chad.png");
+    sf::Sprite chad(chadTexture);
     chad.setScale(1.4f, 1.4f);
     chad.setPosition(20, 375);
-    girlText.loadFromFile("../res/girl_example_sprite.png");
-    sf::Sprite girl(girlText);
-    girl.setPosition(width - 250, 360);
-    sf::RectangleShape textBox(sf::Vector2f(700, 300));
-    textBox.setPosition(width / 9, 30);
-    textBox.setOutlineColor(sf::Color::Red);
+    girlTexture.loadFromFile("../res/girl_example_sprite.png");
+    sf::Sprite girl(girlTexture);
+    girl.setPosition(width - 230, 360);
+    if(dir == 0)
+    {
+        speechBubbleTexture.loadFromFile("../res/speech_bubble_left.png");
+    }
+    else
+    {
+        speechBubbleTexture.loadFromFile("../res/speech_bubble_right.png");
+    }
+    sf::Sprite speechBubble(speechBubbleTexture);
+    speechBubble.setScale(0.94f, 0.9f);
+    speechBubble.setPosition(80, 30);
     sf::Text instruct(strings.getString("PressEnter"), font, 20);
-    instruct.setPosition(width / 5, 300);
-    instruct.setFillColor(sf::Color::White);
+    instruct.setPosition(width / 3, 210);
+    instruct.setFillColor(sf::Color::Black);
     display.draw(girl);
     display.draw(chad);
-    display.draw(textBox);
+    display.draw(speechBubble);
     display.draw(instruct);
 }
 
@@ -158,21 +166,48 @@ void HumanView::drawLevelDialogue() {
     if (dialogueStage > 3) {
         return;
     }
-    if (first) {
-        //randomize enemies and their preference
-        std::string preference = removeRandomString(preferencesVector);
-        int type = removeRandomInt(enemyTypesVector);
-        preferenceText = strings.getPreference(preference, type);
-        logic.addPreference(preference, type);
-        first = false;
+    if(dialogueStage == -1)
+    {
+        if(first)
+        {
+            display.clear();
+            sf::Text context(strings.getContext(), font, 38);
+            context.setFillColor(sf::Color::White);
+            sf::FloatRect contextRect = context.getLocalBounds();
+            context.setOrigin(contextRect.left + contextRect.width/2.f,
+                        contextRect.top  + contextRect.height/2.f);
+            context.setPosition(sf::Vector2f(width/2.f, height/2.f));
+
+            sf::Text goodLuckText(strings.getString("GoodLuck"), font, 38);
+            goodLuckText.setFillColor(sf::Color::White);
+            sf::FloatRect goodLuckRect = goodLuckText.getLocalBounds();
+            goodLuckText.setOrigin(goodLuckRect.left + goodLuckRect.width/2.f,
+                        goodLuckRect.top  + goodLuckRect.height/2.f);
+            goodLuckText.setPosition(sf::Vector2f(width/2.f, context.getGlobalBounds().top + context.getGlobalBounds().height + 30));
+
+            display.draw(context);
+            display.draw(goodLuckText);
+            first = false;
+        }
     }
-    drawDialogueBox();
-    sf::Text dialogue;
-    dialogue.setFont(font);  
-    dialogue.setString(preferenceText);
-    dialogue.setFillColor(sf::Color::Magenta);
-    dialogue.setPosition(width / 8, 40);
-    display.draw(dialogue);
+    else
+    {
+        if (first) {
+            //randomize enemies and their preference
+            std::string preference = removeRandomString(preferencesVector);
+            int type = removeRandomInt(enemyTypesVector);
+            preferenceText = strings.getPreference(preference, type); 
+            logic.addPreference(preference, type);
+            first = false;
+        }
+        drawDialogueBox(1);
+        sf::Text dialogue;
+        dialogue.setFont(font);  
+        dialogue.setString(preferenceText);
+        dialogue.setFillColor(sf::Color::Magenta);
+        dialogue.setPosition(width / 8, 40);
+        display.draw(dialogue);
+    }
     display.display();
 }
 
@@ -180,13 +215,17 @@ void HumanView::drawEndLevelDialogue() {
     if (dialogueStage > 1) {
         return;
     }
+    view.setCenter(width / 2, height / 2);
+    display.setView(view);
     if (first) {
         switch (dialogueStage) {
             //eventually change to be appropriate based on score
-            case 0: 
+            case 0:
+                drawDialogueBox(1);
                 response = (logic.getPlayerFail()) ? strings.getResponse("DateNo") : strings.getResponse("DateYes");
                 break;
-            case 1: 
+            case 1:
+                drawDialogueBox(0);
                 response = (logic.getPlayerFail()) ? strings.getString("ChadRejected") : strings.getResponse("Rejections");
                 if(!logic.getPlayerFail())
                 {
@@ -196,10 +235,6 @@ void HumanView::drawEndLevelDialogue() {
         }
         first = false;
     }
-    first = false;
-    view.setCenter(width / 2, height / 2);
-    display.setView(view);
-    drawDialogueBox();
     sf::Text dialogue;
     dialogue.setFont(font);
     dialogue.setString(response);
@@ -289,8 +324,18 @@ void HumanView::checkKeyboardEndDialogue(float timeS) {
 void HumanView::drawEndLevel() {
     first = false;
     display.clear();
-    sf::Text end(strings.getString("EndLevel") + std::to_string(logic.getScore(currentLevel)), font, 50);
-    end.setPosition(display.getSize().x / 8, display.getSize().y - 400);
+    sf::Text end;
+    end.setFont(font);
+    end.setCharacterSize(45);
+    if(logic.getPlayerFail())
+    {
+        end.setString(strings.getString("LostLevel") + std::to_string(logic.getScore(currentLevel)));
+    }
+    else
+    {
+        end.setString(strings.getString("WonLevel") + std::to_string(logic.getScore(currentLevel)));
+    }
+    end.setPosition(display.getSize().x / 12, display.getSize().y - 400);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
     view.setCenter(width/2,height/2);
@@ -384,6 +429,12 @@ void HumanView::checkKeyboardStart(float timeS) {
         startTime = timeS;
         currTime = timeS;
         first = true;
+        logic.setLevel(currentLevel);
+        //displays the context screen if a new playthrough
+        if(currentLevel == 0)
+        {
+            dialogueStage = -1;
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //set gameState to settings

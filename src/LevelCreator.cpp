@@ -128,18 +128,18 @@ void LevelCreator::loadLevel(int level){
     }
 }
 
-std::vector<Platform> LevelCreator::getPlatforms() {
+std::vector<Platform>& LevelCreator::getPlatforms() {
     return platforms;
 }
 
-std::vector<Spike> LevelCreator::getSpikes() {
+std::vector<Spike>& LevelCreator::getSpikes() {
     return spikes;
 }
 
-std::vector<Enemy> LevelCreator::getEnemies() {
+std::vector<Enemy>& LevelCreator::getEnemies() {
     return enemies;
 }
 
-Girl LevelCreator::getGirl() {
+Girl& LevelCreator::getGirl() {
     return girl;
 }

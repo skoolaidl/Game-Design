@@ -31,7 +31,6 @@ void Enemy::init() {
     stepSize = 100.f;
     getSprite().setPosition(xpos, ypos);
     paused = false;
-    killStatus = false;
 }
 
 void Enemy::init(float x, float y, int color) {
@@ -210,12 +209,4 @@ void Enemy::setTexture() {
 }
 int Enemy::getType() {
     return type;
-}
-
-void Enemy::setKillStatus(bool b) {
-    killStatus = b;
-}
-
-bool Enemy::getKillStatus() {
-    return killStatus;
 }
