@@ -111,7 +111,6 @@ void LevelCreator::loadLevel(int level){
             }
         }
     }
-    std::cout << "loaded successfully" << std::endl;
 }
 
 std::vector<Platform>& LevelCreator::getPlatforms() {

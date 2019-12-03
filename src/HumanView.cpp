@@ -58,7 +58,7 @@ void HumanView::update(float timeS) {
         //settings screen
         case 3: drawSettingsMenu(); checkKeyboardSettings(); break;
         //starting dialogue
-        case 4: if (first) { logic.setLevel(currentLevel); drawLevelDialogue(); } checkKeyboardDialogue(timeS); break;
+        case 4: if (first) { drawLevelDialogue(); } checkKeyboardDialogue(timeS); break;
         //ending dialogue
         case 5: if (first) { drawEndLevelDialogue(); } checkKeyboardEndDialogue(timeS); break;
         //final score screen
@@ -495,6 +495,7 @@ void HumanView::checkKeyboardEndLevel(float timeS) {
         startTime = timeS;
         currTime = timeS;
         first = true;
+        logic.setLevel(currentLevel);
         //if last level, go to final end game state
         if (currentLevel > 4) {
             logic.setGameState(6);

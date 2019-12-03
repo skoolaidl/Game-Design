@@ -17,11 +17,11 @@
     <scaleX>1</scaleX>
     <scaleY>1</scaleY>
     <x>800</x>
-    <y>480</y>
+    <y>380</y>
   </Spike>
   <Enemy>
     <x>1000</x>
-    <y>470</y>
+    <y>370</y>
     <color>3</color>
   </Enemy>
   <Platform>
