@@ -45,6 +45,7 @@ void Player::init() {
     stepSizeY = 500.f;
     direction = true;
     getAnimatedSprite().setPosition(xpos, ypos);
+    getAnimatedSprite().play(*currentAnimation);
 }
 
 void Player::resetPosition() {
@@ -67,6 +68,7 @@ void Player::updateTexture(float velX)
         currentAnimation = &walkingAnimationLeft;
         noKeyWasPressed = false;
     }
+    getAnimatedSprite().play(*currentAnimation);
 
 }
 
@@ -83,8 +85,6 @@ void Player::setVelocityY(float velY)
 
 void Player::updateMovement() 
 {
-
-    getAnimatedSprite().play(*currentAnimation);
 
     if (noKeyWasPressed)
         {
