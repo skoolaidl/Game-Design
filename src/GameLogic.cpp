@@ -220,7 +220,7 @@ void GameLogic::removeFromActorsVector(Actor& actor) {
 
 void GameLogic::changeScore(int level, int increase) {
     //only if using level 1 not 0 level--;
-    if ( level >= 0 && level <= 9 ) {
+    if ( level >= 0 && level <= scores.size()-1 ) {
         scores[level] = scores[level] + increase;
     }
     else {
@@ -229,21 +229,21 @@ void GameLogic::changeScore(int level, int increase) {
 }
 
 unsigned int GameLogic::getScore(int level) {
-    if (level < 0 || level > 9) {
+    if (level < 0 || level > scores.size()-1) {
         return 0;
     }
     return scores[level];
 }
 
 unsigned int GameLogic::getGoalScore(int level) {
-    if (level < 0 || level > 9) {
+    if (level < 0 || level > scores.size()-1) {
         return 0;
     }
     return goalScores[level];
 }
 
 bool GameLogic::setScore(int level, unsigned int score) {
-    if (level < 0 || level > 9) {
+    if (level < 0 || level > scores.size()-1) {
         return false;
     }
     scores[level] = score;
