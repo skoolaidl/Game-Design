@@ -58,7 +58,8 @@ class GameLogic {
         void enemyTrack(Enemy& enemy, float timeS);
         void removeFromActorsVector(Actor& actor);
         void updateCountDown(float timeS);
-
+        int removeRandomInt(std::vector<int>& vec);
+        void setRandomEnemiesColor(std::vector<Enemy>& defaultEnemies, int enemyCount);
 
 
 	public:

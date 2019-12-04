@@ -17,7 +17,7 @@ void Projectile::init(int pType, float x, float y, bool pDirection) {
     switch (type) {
         case 0: 
             text = (pDirection ? "../res/fireball_resized_1.png" : "../res/fireball_resized_0.png");
-            stepSize = 300.f;
+            stepSize = 250.f;
             maxDistance = 350.f;
             break;
         case 1: 

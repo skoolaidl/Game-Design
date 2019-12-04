@@ -13,6 +13,7 @@ class Player : public Moveable {
         float velocityY;
         float xpos;
         float ypos;
+        float jumpDistance;
         float maxJumpHeight;
         bool inAir;
         bool falling;

@@ -71,6 +71,11 @@ void Enemy::updateTexture(float velX)
     }
 }
 
+void Enemy::setColor(int color)
+{
+    type = color;
+}
+
 void Enemy::setVelocityX(float velX)
 {
     updateTexture(velX);

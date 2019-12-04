@@ -129,12 +129,12 @@
     <y>300</y>
   </Platform>
   <Enemy>
-    <x>6050</x>
+    <x>6100</x>
     <y>370</y>
     <color>0</color>
   </Enemy>
   <Enemy>
-    <x>6050</x>
+    <x>5950</x>
     <y>270</y>
     <color>0</color>
   </Enemy>
