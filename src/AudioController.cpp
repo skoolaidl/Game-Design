@@ -4,6 +4,7 @@ void AudioController::init() {
     fireball.loadFromFile("../res/fireball.wav");
     shotgun.loadFromFile("../res/gunshot.wav");
     jump.loadFromFile("../res/jump.wav");
+    hit.loadFromFile("../res/hit.wav");
 }
 
 void AudioController::playSound(int soundNum) {
@@ -14,5 +15,7 @@ void AudioController::playSound(int soundNum) {
     case 1: gunSound.setBuffer(shotgun); gunSound.play(); break;
         //jump
     case 2: jumpSound.setBuffer(jump); jumpSound.play(); break;
+        //hit
+    case 3: hitSound.setBuffer(hit); hitSound.play(); break;
     }
 }

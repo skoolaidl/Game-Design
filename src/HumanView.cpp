@@ -552,6 +552,10 @@ void HumanView::checkPlaySounds() {
     if (logic.getPlayerJumping() == 1) {
         audio.playSound(2);
     }
+    if (logic.isPlayerHit()) {
+        audio.playSound(3);
+        logic.setPlayerHit(false);
+    }
 }
 
 void HumanView::resetPreferencesVector()

@@ -6,9 +6,11 @@ class AudioController {
         sf::SoundBuffer fireball;
         sf::SoundBuffer shotgun;
         sf::SoundBuffer jump;
+        sf::SoundBuffer hit;
         sf::Sound jumpSound;
         sf::Sound gunSound;
         sf::Sound fireSound;
+        sf::Sound hitSound;
 
     public:
         AudioController() {}

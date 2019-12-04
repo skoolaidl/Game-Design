@@ -18,6 +18,9 @@ void GameLogic::init(int wWidth, int wHeight) {
     gameState = 0;
     player.init();  
     loader.init();
+    playerShot = false;
+    enemyShot = false;
+    playerHit = false;
 
 }
 
@@ -147,12 +150,14 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
         if (player.getSprite().getGlobalBounds().intersects( spikes[i].get().getSprite().getGlobalBounds() ) )
         {
             softReset();
+            playerHit = true;
         }                                                                                                                                                                                          
     }
     for(int i = 0; i < enemies.size(); ++i) {
         if (player.getSprite().getGlobalBounds().intersects( enemies[i].get().getSprite().getGlobalBounds() ) )
         {
             softReset();
+            playerHit = true;
         }    
     }
     
@@ -172,6 +177,7 @@ void GameLogic::updateProjectileCollisions() {
         if (projectiles[p].get().getType() == 0) {
             if (projectiles[p].get().getSprite().getGlobalBounds().intersects(player.getSprite().getGlobalBounds())) {
                 softReset();
+                playerHit = true;
                 projectiles[p].get().setAvailable();
                 removeFromActorsVector(projectiles[p].get());
                 projectiles.erase(projectiles.begin() + p);
@@ -376,6 +382,7 @@ void GameLogic::playerFall(float timeS) {
         player.setVelocityY(gravity * timeS);
         if (player.getSprite().getPosition().y > 600.f) {
             softReset();
+            playerHit = true;
         }
     }
 }

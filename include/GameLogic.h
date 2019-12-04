@@ -33,6 +33,7 @@ class GameLogic {
         bool playerShot;
         bool enemyShot;
         int playerJumping;
+        bool playerHit;
 
         Player player;
         Girl girl;
@@ -98,6 +99,8 @@ class GameLogic {
         int getPlayerJumping() { return playerJumping; }
         void setPlayerShot(bool shot) { playerShot = shot; }
         void setEnemyShot(bool shot) { enemyShot = shot; }
+        bool isPlayerHit() { return playerHit; }
+        void setPlayerHit(bool hit) { playerHit = hit; }
 
 };
 
