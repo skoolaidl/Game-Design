@@ -21,6 +21,7 @@ void GameLogic::init(int wWidth, int wHeight) {
     playerShot = false;
     enemyShot = false;
     playerHit = false;
+    enemyHit = false;
 
 }
 
@@ -187,6 +188,7 @@ void GameLogic::updateProjectileCollisions() {
             for (int e = 0; e < enemies.size(); ++e) {
                 if (projectiles[p].get().getSprite().getGlobalBounds().intersects(enemies[e].get().getSprite().getGlobalBounds())) {
                     projectiles[p].get().setAvailable();
+                    enemyHit = true;
                     //update score
                     if(killPreferences[enemies[e].get().getType()])
                     {

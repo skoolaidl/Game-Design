@@ -556,6 +556,10 @@ void HumanView::checkPlaySounds() {
         audio.playSound(3);
         logic.setPlayerHit(false);
     }
+    if (logic.isEnemyHit()) {
+        audio.playSound(4);
+        logic.setEnemyHit(false);
+    }
 }
 
 void HumanView::resetPreferencesVector()
