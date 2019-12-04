@@ -140,18 +140,18 @@ void Enemy::checkMaxDistance()
 bool Enemy::trackPlayer(Player& player, float timeS)
 {
     float velX = stepSize * timeS;
-    if(player.isInAir() || (xpos > player.getSprite().getPosition().x - velX && xpos < player.getSprite().getPosition().x + velX))
+    if(player.isInAir() || (xpos > player.getAnimatedSprite().getPosition().x - velX && xpos < player.getAnimatedSprite().getPosition().x + velX))
     {
         setPaused(true);
         return false;
     }
-    else if(xpos < player.getSprite().getPosition().x)
+    else if(xpos < player.getAnimatedSprite().getPosition().x)
     {
         setVelocityX(velX);
         direction = true;
         return true;
     }
-    else if(xpos > player.getSprite().getPosition().x)
+    else if(xpos > player.getAnimatedSprite().getPosition().x)
     {
         setVelocityX(-1 * velX);
         direction = false;
