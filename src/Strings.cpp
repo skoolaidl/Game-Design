@@ -25,6 +25,7 @@ Strings::Strings() {
     strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is:" });
     strings.insert({ "FinalScore", "Your final score is: "});
     strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
+    strings.insert({ "EndLevelInstruct", "Press backspace to return to the menu, press escape to exit\npress R to replay the current level" });
     strings.insert({ "GoodLuck", "Good Luck Player!"});
     context = std::string("You are THE Chad Chamberlain, and you've been sent to Hell for your playboy lifestyle on Earth. ") + 
                         "Nonetheless, because of your lecherous way of living, a trip to Hell is not enough to deter you from pursuing nearby hotties. " +

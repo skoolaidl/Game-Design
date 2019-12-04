@@ -15,7 +15,7 @@ class GameLogic {
     private:
         std::vector<unsigned int> scores = std::vector<unsigned int>(5, 0);
         //temporarily set arbitrary amounts for the goal scores of each level
-        std::vector<unsigned int> goalScores = {400, 800, 1000, 1500, 1800};
+        std::vector<unsigned int> goalScores = {200, 600, 800, 1200, 1500};
         unsigned int pointsPerKill = 100;
         unsigned int scoreMultiplier = 1;
         int gameState = 0;

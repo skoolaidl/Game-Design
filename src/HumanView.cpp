@@ -338,6 +338,10 @@ void HumanView::drawEndLevel() {
     end.setPosition(display.getSize().x / 12, display.getSize().y - 400);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
+    end.setCharacterSize(20);
+    end.setString(strings.getString("EndLevelInstruct"));
+    end.setPosition(width / 5, height/2+100);
+    display.draw(end);
     view.setCenter(width/2,height/2);
     display.setView(view);
     display.display();
@@ -378,6 +382,7 @@ void HumanView::checkKeyboardFinal() {
     //only options are backspace to go back to menu
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         logic.setGameState(0);
+        currentLevel = 0;
     }
 }
 
@@ -510,6 +515,13 @@ void HumanView::checkKeyboardEndLevel(float timeS) {
         writeSaveFile();
         first = true;
         logic.setGameState(0);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+        logic.setGameState(4);
+        startTime = timeS;
+        currTime = timeS;
+        first = true;
+        logic.setLevel(currentLevel);
     }
     currTime += timeS;
 }

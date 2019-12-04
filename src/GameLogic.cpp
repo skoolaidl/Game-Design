@@ -86,6 +86,7 @@ void GameLogic::setLevel(int level) {
     currentLevel = level;
     //load specified level
     setCountDown(300);
+    scores[level] = 0;
     playerFail = false;
     scoreMultiplier = 1;
     player.init();
@@ -229,7 +230,7 @@ void GameLogic::updateProjectileCollisions() {
                     }
                     else
                     {
-                        scoreMultiplier = 1;
+                        //scoreMultiplier = 1;
                         if(scores[currentLevel] > 0)
                         {
                             changeScore(currentLevel, -1 * pointsPerKill);
