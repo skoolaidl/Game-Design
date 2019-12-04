@@ -12,7 +12,7 @@ void Spike::init(const float w, const float h, const float x, const float y) {
     scaleHeight = h;
     xpos = x;
     ypos = y;
-    if (!texture.loadFromFile("../res/spike_trap.png"))
+    if (!texture.loadFromFile("../res/Spikes_Fitted.png"))
     {
         // error...
     }
@@ -22,7 +22,7 @@ void Spike::init(const float w, const float h, const float x, const float y) {
 }
 
 void Spike::setTexture() {
-    if (!texture.loadFromFile("../res/spike_trap.png"))
+    if (!texture.loadFromFile("../res/Spikes_Fitted.png"))
     {
         // error...
     }
