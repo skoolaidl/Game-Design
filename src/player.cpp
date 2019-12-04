@@ -45,6 +45,7 @@ void Player::init() {
     stepSizeY = 500.f;
     direction = true;
     getAnimatedSprite().setPosition(xpos, ypos);
+    setAnimated(true);
     getAnimatedSprite().play(*currentAnimation);
 }
 
