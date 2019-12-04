@@ -3,15 +3,12 @@
 #include <time.h> 
 #include <algorithm>
 #include <cmath>
+#include "AudioController.h"
 
 /*
 GameLogic class that holds all of the game objects and detects collisions
 and updates game status
 */
-
-GameLogic::GameLogic() {
-
-}
 
 void GameLogic::init(int wWidth, int wHeight) {
     srand(time(NULL));
@@ -361,10 +358,12 @@ void GameLogic::playerJump(float timeS) {
     //character jumps only if he's on the ground or is in the middle of jumping up
     if (!player.atMaxJumpHeight() && !player.isFalling())
     {
+        playerJumping++;
         player.setVelocityY((-1*player.getStepSizeY()) * timeS);
     }
     else
     {
+        playerJumping = 0;
         playerFall(timeS);
     }
 
@@ -450,6 +449,7 @@ void GameLogic::playerShoot(){
         player.getBullet().init(1,pos.x+player.getBulletOffsetX(),pos.y + player.getBulletOffsetY(), player.getDirection());
         projectiles.push_back(player.getBullet());
         actorsVector.push_back(player.getBullet());
+        playerShot = true;
     }
 }
 
@@ -459,6 +459,7 @@ void GameLogic::enemyShoot(Enemy& enemy) {
 		enemy.getProjectile().init(0, pos.x + enemy.getProjectileOffsetX(), pos.y + enemy.getProjectileOffsetY(), enemy.getDirection());
 		projectiles.push_back(enemy.getProjectile());
 		actorsVector.push_back(enemy.getProjectile());
+        enemyShot = true;
 	}
 }
 

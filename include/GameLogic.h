@@ -30,6 +30,10 @@ class GameLogic {
         bool playerFail = false;
         std::vector<bool> killPreferences = {false, false, false, false};
 
+        bool playerShot;
+        bool enemyShot;
+        int playerJumping;
+
         Player player;
         Girl girl;
 
@@ -62,7 +66,7 @@ class GameLogic {
 
 
 	public:
-	GameLogic();
+        GameLogic(){}
 
         int getGameState();
         void setGameState(int newState);
@@ -88,6 +92,12 @@ class GameLogic {
         void setCountDown(int levelTime);
         int getCountDown();
         bool getPlayerFail();
+
+        bool hasPlayerShot() { return playerShot; }
+        bool hasEnemyShot() { return enemyShot; }
+        int getPlayerJumping() { return playerJumping; }
+        void setPlayerShot(bool shot) { playerShot = shot; }
+        void setEnemyShot(bool shot) { enemyShot = shot; }
 
 };
 
