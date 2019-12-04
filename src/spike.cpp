@@ -16,8 +16,9 @@ void Spike::init(const float w, const float h, const float x, const float y) {
     {
         // error...
     }
+    texture.setRepeated(true);
     setSprite(sf::Sprite(texture));
-    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    getSprite().setTextureRect({ 0, 0, int((texture.getSize().x) * scaleWidth), int((texture.getSize().y) * scaleHeight) });
     getSprite().setPosition(xpos, ypos);
 }
 
@@ -26,8 +27,9 @@ void Spike::setTexture() {
     {
         // error...
     }
+    texture.setRepeated(true);
     setSprite(sf::Sprite(texture));
-    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    getSprite().setTextureRect({ 0, 0, int((texture.getSize().x) * scaleWidth), int((texture.getSize().y) * scaleHeight) });
     getSprite().setPosition(xpos, ypos);
 }
 

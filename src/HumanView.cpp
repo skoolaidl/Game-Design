@@ -364,7 +364,7 @@ void HumanView::drawFinalScore() {
     score.setPosition(width / 10, posY + 100);
     display.draw(score);
     score.setCharacterSize(50);
-    score.setString(strings.getTier((levelsWon-1)/2));
+    score.setString(strings.getTier(levelsWon));
     score.setPosition(width / 4, posY + 140);
     display.draw(score);
     score.setCharacterSize(20);
