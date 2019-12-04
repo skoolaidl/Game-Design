@@ -12,22 +12,24 @@ void Spike::init(const float w, const float h, const float x, const float y) {
     scaleHeight = h;
     xpos = x;
     ypos = y;
-    if (!texture.loadFromFile("../res/spike_trap.png"))
+    if (!texture.loadFromFile("../res/Spikes_Fitted.png"))
     {
         // error...
     }
+    texture.setRepeated(true);
     setSprite(sf::Sprite(texture));
-    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    getSprite().setTextureRect({ 0, 0, int((texture.getSize().x) * scaleWidth), int((texture.getSize().y) * scaleHeight) });
     getSprite().setPosition(xpos, ypos);
 }
 
 void Spike::setTexture() {
-    if (!texture.loadFromFile("../res/spike_trap.png"))
+    if (!texture.loadFromFile("../res/Spikes_Fitted.png"))
     {
         // error...
     }
+    texture.setRepeated(true);
     setSprite(sf::Sprite(texture));
-    getSprite().setScale(sf::Vector2f(scaleWidth, scaleHeight));
+    getSprite().setTextureRect({ 0, 0, int((texture.getSize().x) * scaleWidth), int((texture.getSize().y) * scaleHeight) });
     getSprite().setPosition(xpos, ypos);
 }
 

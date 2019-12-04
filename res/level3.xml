@@ -3,7 +3,7 @@
 <Actors>
   <Platform>
     <scaleX>3</scaleX>
-    <scaleY>4</scaleY>
+    <scaleY>1</scaleY>
     <x>100</x>
     <y>350</y>
   </Platform>
@@ -31,7 +31,7 @@
   </Enemy>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>4</scaleY>
+    <scaleY>1</scaleY>
     <x>1900</x>
     <y>350</y>
   </Platform>
@@ -66,7 +66,7 @@
   </Platform>
   <Platform>
     <scaleX>3</scaleX>
-    <scaleY>4</scaleY>
+    <scaleY>1</scaleY>
     <x>3500</x>
     <y>350</y>
   </Platform>
@@ -94,13 +94,13 @@
   </Spike>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>4</scaleY>
+    <scaleY>1</scaleY>
     <x>4700</x>
     <y>400</y>
   </Platform>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>4</scaleY>
+    <scaleY>1</scaleY>
     <x>5600</x>
     <y>350</y>
   </Platform>
