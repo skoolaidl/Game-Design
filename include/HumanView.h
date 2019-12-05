@@ -35,6 +35,8 @@ class HumanView : public View {
         sf::Texture chadTexture;
         sf::Texture girlTexture;
         sf::Texture titleTexture;
+        sf::Texture optionsTexture;
+        sf::Texture settingsTexture;
         sf::Texture speechBubbleTexture;
         sf::Sprite background;
         void drawObjects();
