@@ -3,7 +3,6 @@
 #include <time.h> 
 #include <algorithm>
 #include <cmath>
-#include "AudioController.h"
 
 /*
 GameLogic class that holds all of the game objects and detects collisions
