@@ -10,7 +10,7 @@ Player::Player() {
 }
 
 void Player::init() {
-    if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/Chad_Sprite_Sheet.png"))
+    if (!texture.loadFromFile("../res/Chad_Sprite_Sheet.png"))
     {
         std::cout << "Failed to load player spritesheet!" << std::endl;
         return;
