@@ -34,7 +34,7 @@ void HumanView::init() {
     background = sf::Sprite(texture);
     background.setTextureRect({ 0, 0, 12000, height});
     //load font
-    if (!font.loadFromFile("../res/times.ttf"))
+    if (!font.loadFromFile("../res/ImperfectaRegular.ttf"))
     {
         // error...
     }
@@ -82,35 +82,43 @@ void HumanView::drawMenu() {
         shoot = sf::Keyboard::Space;
     }
     display.clear();
-    sf::Text start(strings.getString("MenuText"), font, 50);
-    start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
-    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1) + strings.getString("LoadLevel"), font, 40);	    
-    current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
-    current.setFillColor(sf::Color::Red);
-    start.setFillColor(sf::Color::Red);
-    titleTexture.loadFromFile("../res/title_resized.png");
+
+    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1), font, 30);	    
+    current.setPosition(280, 510);
+    current.setFillColor(sf::Color(112,1,1));
+
+    titleTexture.loadFromFile("../res/TitleLogo_Final.png");
     sf::Sprite title(titleTexture);
+    title.setPosition(100,-60);
+
+    optionsTexture.loadFromFile("../res/OptionsText.png");
+    sf::Sprite options(optionsTexture);
+    options.setPosition(200,210);
+
+    display.draw(options);
     display.draw(current);
     display.draw(title);
-    display.draw(start);
     display.display();
 }
 
 void HumanView::drawSettingsMenu() {
     display.clear();
-    sf::Text settings(strings.getString("SettingsText"), font, 30);
-    settings.setPosition(display.getSize().x / 8, display.getSize().y - 200);
-    settings.setFillColor(sf::Color::Red);
+
+    settingsTexture.loadFromFile("../res/Settings_Centered.png");
+    sf::Sprite settingsOptions(settingsTexture);
+    settingsOptions.setPosition(0,500);
+
     sf::Text keys(strings.getString("CurrentKeys") + strings.getString("MoveRight") + strings.getKey(right) + 
                         "\n" + strings.getString("MoveLeft") + strings.getKey(left) + "\n" 
                         + strings.getString("Jump") + strings.getKey(up) + "\n" 
                         + strings.getString("Shoot") + strings.getKey(shoot), font, 30);
-    keys.setPosition(display.getSize().x / 2, display.getSize().y / 8);
-    keys.setFillColor(sf::Color::Red);
+    keys.setPosition(250, 340);
+    keys.setFillColor(sf::Color(112,1,1));
     sf::Sprite title(titleTexture);
+    title.setPosition(100,-60);
     display.draw(keys);
     display.draw(title);
-    display.draw(settings);
+    display.draw(settingsOptions);
     display.display();
 
 }
