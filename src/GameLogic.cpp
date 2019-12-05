@@ -230,7 +230,7 @@ void GameLogic::updateProjectileCollisions() {
                     }
                     else
                     {
-                        //scoreMultiplier = 1;
+                        scoreMultiplier = 1;
                         if(scores[currentLevel] > 0)
                         {
                             changeScore(currentLevel, -1 * pointsPerKill);
