@@ -15,17 +15,14 @@ void Player::init() {
         std::cout << "Failed to load player spritesheet!" << std::endl;
         return;
     }
-    //setSprite(sf::Sprite(texture));
     setAnimatedSprite(AnimatedSprite(sf::seconds(0.2), true, true));
 
     walkingAnimationRight.setSpriteSheet(texture);
-    //walkingAnimationRight.addFrame(sf::IntRect(37,0,37,37));
     walkingAnimationRight.addFrame(sf::IntRect(74,0,37,37));
     walkingAnimationRight.addFrame(sf::IntRect(111,0,37,37));
     walkingAnimationRight.addFrame(sf::IntRect(148,0,37,37));
 
     walkingAnimationLeft.setSpriteSheet(texture);
-    //walkingAnimationLeft.addFrame(sf::IntRect(37,37,37,37));
     walkingAnimationLeft.addFrame(sf::IntRect(74,37,37,37));
     walkingAnimationLeft.addFrame(sf::IntRect(111,37,37,37));
     walkingAnimationLeft.addFrame(sf::IntRect(148,37,37,37));
@@ -63,7 +60,6 @@ void Player::resetPosition() {
 void Player::updateTexture(float velX)
 {
 
-    //std::cout << "updating1" << std::endl;
 
     if(velocityX < velocityX + velX)
     {
@@ -105,7 +101,6 @@ void Player::updateMovement()
             currentAnimation = &stoppedAnimationLeft; 
         }
         getAnimatedSprite().play(*currentAnimation); 
-        //getAnimatedSprite().stop();    
     }
     noKeyWasPressed = true;
 
