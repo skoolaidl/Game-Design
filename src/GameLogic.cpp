@@ -86,6 +86,7 @@ void GameLogic::setLevel(int level) {
     currentLevel = level;
     //load specified level
     setCountDown(300);
+    scores[level] = 0;
     playerFail = false;
     scoreMultiplier = 1;
     player.init();
