@@ -78,7 +78,7 @@ Strings::Strings() {
         "When I was younger, I always wanted to become like Draco the *** Demon. Legend has it, he single handedly caused the Chernobyl meltdown.",
         "I idolize my tough-skinned *** Grandpa. He fought in the legendary Demons and Angels War and obliterated an entire battalion of cherubs.",
         "My favorite character in my TV show just died. He was a *** demon with the perfect balance of cynicism and ruthlessness.",
-        "When I was in college, my professor, Dr. *** Demon, inspired me to pursure a double major in Sadism and Witchcraft. Absolutely no regrets.",
+        "When I was in college, my professor, Dr. *** Demon, inspired me to pursue a double major in Sadism and Witchcraft. Absolutely no regrets.",
         "My best friend was always there for me. If it wasn't for that amazing *** demon, Hell would be the absolute worst.",
         "If it wasn't for Yolanda the *** Torturer's influence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
 
