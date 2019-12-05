@@ -412,12 +412,12 @@ void HumanView::drawObjects() {
     {
         display.draw(logic.getActors()[i].get().getSprite());
     }
-    display.draw(logic.getPlayer().getAnimatedSprite());
     sf::Text timerText("TIME\n " + formatCountDown(logic.getCountDown()), digitalFont, 40);
     timerText.setLineSpacing(1.5f);
     timerText.setPosition((view.getCenter().x + width/2) - timerText.getGlobalBounds().width - 30.f, view.getSize().y / 60);
     timerText.setFillColor(sf::Color::White);
     display.draw(timerText);
+    display.draw(logic.getPlayer().getAnimatedSprite());
     display.display();
 }
 
