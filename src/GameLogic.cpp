@@ -332,20 +332,10 @@ bool GameLogic::updatePlatformCollisions(Actor actor)
 {
     for(int i = 0; i < platforms.size(); ++i)
     {
-        if (actor.isAnimated())
+        if (actor.getSprite().getGlobalBounds().intersects(platforms[i].get().getSprite().getGlobalBounds()))
         {
-            if (actor.getAnimatedSprite().getGlobalBounds().intersects( platforms[i].get().getSprite().getGlobalBounds() ) ) 
-            {
-                return true;
-            }
+            return true;
         }
-        else
-        {
-            if (actor.getSprite().getGlobalBounds().intersects( platforms[i].get().getSprite().getGlobalBounds() ) )
-            {
-                return true;
-            }       
-        }                                                                                                                                                                                        
     }
     return false;
 }
