@@ -23,6 +23,7 @@ class Player : public Moveable {
         //true is facing right, false is left
         bool direction;
         void updateTexture(float velX);
+        int number = 0;
         Projectile bullet;
         float bulletOffsetX = 20.f;
         float bulletOffsetY = 15.f;
@@ -30,6 +31,8 @@ class Player : public Moveable {
         Animation* currentAnimation;
         Animation walkingAnimationRight;
         Animation walkingAnimationLeft;
+        Animation stoppedAnimationRight;
+        Animation stoppedAnimationLeft;
         bool noKeyWasPressed = true;
         sf::Clock frameClock;
         sf::Time frameTime;

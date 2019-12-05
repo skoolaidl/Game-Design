@@ -10,7 +10,7 @@ Player::Player() {
 }
 
 void Player::init() {
-    if (!texture.loadFromFile("../res/Chad_Sprite_Sheet.png"))
+    if (!texture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/Chad_Sprite_Sheet.png"))
     {
         std::cout << "Failed to load player spritesheet!" << std::endl;
         return;
@@ -19,20 +19,24 @@ void Player::init() {
     setAnimatedSprite(AnimatedSprite(sf::seconds(0.2), true, false));
 
     walkingAnimationRight.setSpriteSheet(texture);
-    walkingAnimationRight.addFrame(sf::IntRect(0,0,37,37));
-    walkingAnimationRight.addFrame(sf::IntRect(37,0,37,37));
+    //walkingAnimationRight.addFrame(sf::IntRect(37,0,37,37));
     walkingAnimationRight.addFrame(sf::IntRect(74,0,37,37));
     walkingAnimationRight.addFrame(sf::IntRect(111,0,37,37));
     walkingAnimationRight.addFrame(sf::IntRect(148,0,37,37));
 
     walkingAnimationLeft.setSpriteSheet(texture);
-    walkingAnimationLeft.addFrame(sf::IntRect(0,37,37,37));
-    walkingAnimationLeft.addFrame(sf::IntRect(37,37,37,37));
+    //walkingAnimationLeft.addFrame(sf::IntRect(37,37,37,37));
     walkingAnimationLeft.addFrame(sf::IntRect(74,37,37,37));
     walkingAnimationLeft.addFrame(sf::IntRect(111,37,37,37));
     walkingAnimationLeft.addFrame(sf::IntRect(148,37,37,37));
 
-    currentAnimation = &walkingAnimationRight;
+    stoppedAnimationRight.setSpriteSheet(texture);
+    stoppedAnimationRight.addFrame(sf::IntRect(0,0,37,37));
+
+    stoppedAnimationLeft.setSpriteSheet(texture);
+    stoppedAnimationLeft.addFrame(sf::IntRect(0,37,37,37));
+
+    currentAnimation = &stoppedAnimationRight;
 
     velocityX = 0.f;
     velocityY = 0.f;
@@ -57,6 +61,9 @@ void Player::resetPosition() {
 
 void Player::updateTexture(float velX)
 {
+
+    //std::cout << "updating1" << std::endl;
+
     if(velocityX < velocityX + velX)
     {
         //right
@@ -70,7 +77,6 @@ void Player::updateTexture(float velX)
         noKeyWasPressed = false;
     }
     getAnimatedSprite().play(*currentAnimation);
-
 }
 
 void Player::setVelocityX(float velX)
@@ -87,7 +93,6 @@ void Player::setVelocityY(float velY)
 void Player::updateMovement() 
 {
     frameTime = frameClock.restart();
-
     if (noKeyWasPressed)
     {
         if (direction)
@@ -99,10 +104,11 @@ void Player::updateMovement()
             currentAnimation = &stoppedAnimationLeft; 
         }
         getAnimatedSprite().play(*currentAnimation); 
+        //getAnimatedSprite().stop();    
     }
     noKeyWasPressed = true;
 
-    getAnimatedSprite().update(frameTime);f
+    getAnimatedSprite().update(frameTime);
 
     xpos += velocityX;
     ypos += velocityY;
