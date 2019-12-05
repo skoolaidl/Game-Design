@@ -373,8 +373,16 @@ void HumanView::drawEndLevel() {
     end.setPosition(display.getSize().x / 12, display.getSize().y - 400);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
-    end.setCharacterSize(20);
-    end.setString(strings.getString("EndLevelInstruct"));
+    end.setCharacterSize(30);
+    if(currentLevel < 4)
+    {
+        end.setString(strings.getString("EndLevelInstruct"));
+    }
+    else
+    {
+        end.setString(strings.getString("PressEnter"));
+    }
+    
     end.setPosition(width / 5, height/2+100);
     display.draw(end);
     view.setCenter(width/2,height/2);
@@ -416,7 +424,7 @@ void HumanView::drawFinalScore() {
 
     score.setCharacterSize(30);
     score.setString(strings.getString("PressEnter"));
-    score.setPosition(width / 3, posY + 400);
+    score.setPosition(width / 3, posY + 370);
     display.draw(score);
     display.display();
 }
