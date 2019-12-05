@@ -42,10 +42,11 @@ void Player::init() {
     velocityY = 0.f;
     xpos = 200.f;
     ypos = 300.f;
-    maxJumpHeight = ypos - 150.f;
+    jumpDistance = 160.f;
+    maxJumpHeight = ypos - jumpDistance;
     inAir = false;
     falling = false;
-    stepSizeX = 300.f;
+    stepSizeX = 350.f;
     stepSizeY = 500.f;
     direction = true;
     getAnimatedSprite().setPosition(xpos, ypos);
@@ -129,7 +130,7 @@ bool Player::atMaxJumpHeight()
 
 void Player::setMaxJumpHeight()
 {
-    maxJumpHeight = ypos - 150.f;
+    maxJumpHeight = ypos - jumpDistance;
 }
 
 bool Player::isInAir()

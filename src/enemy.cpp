@@ -13,8 +13,8 @@ Enemy::Enemy() {
 }
 
 void Enemy::init() {
-    leftTexture = "../res/demon_red_sprite_resized_0.png";
-    rightTexture = "../res/demon_red_sprite_resized_1.png";
+    leftTexture = "../res/devil_red_left_1.png";
+    rightTexture = "../res/devil_red_right_1.png";
     if (!texture.loadFromFile(leftTexture))
     {
         // error...
@@ -36,9 +36,10 @@ void Enemy::init() {
 void Enemy::init(float x, float y, int color) {
     //need to add case for last demon not yet created
     switch (color) {
-        case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
-        case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
-        case 2: leftTexture = "../res/demon_green_sprite_resized_0.png"; rightTexture = "../res/demon_green_sprite_resized_1.png"; break;
+        case 0: leftTexture = "../res/devil_red_left_1.png"; rightTexture = "../res/devil_red_right_1.png"; break;
+        case 1: leftTexture = "../res/devil_blue_left_1.png"; rightTexture = "../res/devil_blue_right_1.png"; break;
+        case 2: leftTexture = "../res/devil_green_left_1.png"; rightTexture = "../res/devil_green_right_1.png"; break;
+        case 3: leftTexture = "../res/devil_yellow_left_1.png"; rightTexture = "../res/devil_yellow_right_1.png"; break;
     }
     if (!texture.loadFromFile(leftTexture))
     {
@@ -68,6 +69,11 @@ void Enemy::updateTexture(float velX)
     {
         getSprite().setTexture(texture);
     }
+}
+
+void Enemy::setColor(int color)
+{
+    type = color;
 }
 
 void Enemy::setVelocityX(float velX)
@@ -196,9 +202,10 @@ float Enemy::getProjectileOffsetY() {
 
 void Enemy::setTexture() {
     switch (type) {
-    case 0: leftTexture = "../res/demon_red_sprite_resized_0.png"; rightTexture = "../res/demon_red_sprite_resized_1.png"; break;
-    case 1: leftTexture = "../res/demon_blue_sprite_resized_0.png"; rightTexture = "../res/demon_blue_sprite_resized_1.png"; break;
-    case 2: leftTexture = "../res/demon_green_sprite_resized_0.png"; rightTexture = "../res/demon_green_sprite_resized_1.png"; break;
+        case 0: leftTexture = "../res/devil_red_left_1.png"; rightTexture = "../res/devil_red_right_1.png"; break;
+        case 1: leftTexture = "../res/devil_blue_left_1.png"; rightTexture = "../res/devil_blue_right_1.png"; break;
+        case 2: leftTexture = "../res/devil_green_left_1.png"; rightTexture = "../res/devil_green_right_1.png"; break;
+        case 3: leftTexture = "../res/devil_yellow_left_1.png"; rightTexture = "../res/devil_yellow_right_1.png"; break;
     }
     if (!texture.loadFromFile(leftTexture))
     {

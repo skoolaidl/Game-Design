@@ -54,10 +54,38 @@ void GameLogic::update(float timeS) {
 
 }
 
+int GameLogic::removeRandomInt(std::vector<int>& vec)
+{
+    int n = rand() % vec.size();
+    std::swap(vec[n], vec.back());
+    int randElement = vec.back();
+    vec.pop_back();
+    return randElement;
+}
+
+void GameLogic::setRandomEnemiesColor(std::vector<Enemy>& defaultEnemies, int enemyCount)
+{
+    std::vector<int> enemyTypes;
+    for(int i = 0; i < enemyCount; ++i)
+    {
+        enemyTypes.push_back(0);
+        enemyTypes.push_back(1);
+        enemyTypes.push_back(2);
+        enemyTypes.push_back(3);
+    }
+    int index = 0;
+    while(!enemyTypes.empty())
+    {
+        int randType = removeRandomInt(enemyTypes);
+        defaultEnemies[index].setColor(randType);
+        index++;
+    }
+}
+
 void GameLogic::setLevel(int level) {
     currentLevel = level;
     //load specified level
-    setCountDown(180);
+    setCountDown(300);
     playerFail = false;
     scoreMultiplier = 1;
     player.init();
@@ -72,6 +100,15 @@ void GameLogic::setLevel(int level) {
     spikeVector = loader.getSpikes();
     enemyVector = loader.getEnemies();
     girl = loader.getGirl();
+    //randomize enemy types
+    if(level == 0)
+    {
+        setRandomEnemiesColor(enemyVector, 2);
+    }
+    else
+    {
+        setRandomEnemiesColor(enemyVector, 3);
+    }
 
     for (int i = 0; i < platformVector.size(); i++) {
         platformVector[i].setTexture();
@@ -220,7 +257,7 @@ void GameLogic::removeFromActorsVector(Actor& actor) {
 
 void GameLogic::changeScore(int level, int increase) {
     //only if using level 1 not 0 level--;
-    if ( level >= 0 && level <= 9 ) {
+    if ( level >= 0 && level <= scores.size()-1 ) {
         scores[level] = scores[level] + increase;
     }
     else {
@@ -229,21 +266,21 @@ void GameLogic::changeScore(int level, int increase) {
 }
 
 unsigned int GameLogic::getScore(int level) {
-    if (level < 0 || level > 9) {
+    if (level < 0 || level > scores.size()-1) {
         return 0;
     }
     return scores[level];
 }
 
 unsigned int GameLogic::getGoalScore(int level) {
-    if (level < 0 || level > 9) {
+    if (level < 0 || level > scores.size()-1) {
         return 0;
     }
     return goalScores[level];
 }
 
 bool GameLogic::setScore(int level, unsigned int score) {
-    if (level < 0 || level > 9) {
+    if (level < 0 || level > scores.size()-1) {
         return false;
     }
     scores[level] = score;

@@ -51,6 +51,7 @@ class Enemy : public Moveable {
         float getProjectileOffsetY();
         void setTexture();
         int getType();
+        void setColor(int color);
 
 };
 

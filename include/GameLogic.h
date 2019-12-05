@@ -13,9 +13,9 @@
 
 class GameLogic {
     private:
-        std::vector<unsigned int> scores = std::vector<unsigned int>(10, 0);
+        std::vector<unsigned int> scores = std::vector<unsigned int>(5, 0);
         //temporarily set arbitrary amounts for the goal scores of each level
-        std::vector<unsigned int> goalScores = {400, 500, 600, 700, 800, 900, 1000, 1200, 1500, 1800};
+        std::vector<unsigned int> goalScores = {400, 800, 1000, 1500, 1800};
         unsigned int pointsPerKill = 100;
         unsigned int scoreMultiplier = 1;
         int gameState = 0;
@@ -58,7 +58,8 @@ class GameLogic {
         void enemyTrack(Enemy& enemy, float timeS);
         void removeFromActorsVector(Actor& actor);
         void updateCountDown(float timeS);
-
+        int removeRandomInt(std::vector<int>& vec);
+        void setRandomEnemiesColor(std::vector<Enemy>& defaultEnemies, int enemyCount);
 
 
 	public:
