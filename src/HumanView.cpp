@@ -62,7 +62,9 @@ void HumanView::update(float timeS) {
         //ending dialogue
         case 5: if (first) { drawEndLevelDialogue(); } checkKeyboardEndDialogue(timeS); break;
         //final score screen
-        case 6: if (first) { drawFinalScore(); } checkKeyboardFinal(); break;
+        case 6: if (first) { drawFinalScore(); } checkKeyboardFinal(timeS); break;
+        //credits screen
+        case 7: if (first) { drawCredits(); } checkKeyboardCredits(); break;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
@@ -166,12 +168,12 @@ void HumanView::drawLevelDialogue() {
     if (dialogueStage > 3) {
         return;
     }
-    if(dialogueStage == -1)
+    if(dialogueStage == -2)
     {
         if(first)
         {
             display.clear();
-            sf::Text context(strings.getContext(), font, 38);
+            sf::Text context(strings.getParagraph("Context"), font, 34);
             context.setFillColor(sf::Color::White);
             sf::FloatRect contextRect = context.getLocalBounds();
             context.setOrigin(contextRect.left + contextRect.width/2.f,
@@ -183,10 +185,34 @@ void HumanView::drawLevelDialogue() {
             sf::FloatRect goodLuckRect = goodLuckText.getLocalBounds();
             goodLuckText.setOrigin(goodLuckRect.left + goodLuckRect.width/2.f,
                         goodLuckRect.top  + goodLuckRect.height/2.f);
-            goodLuckText.setPosition(sf::Vector2f(width/2.f, context.getGlobalBounds().top + context.getGlobalBounds().height + 30));
+            goodLuckText.setPosition(sf::Vector2f(width/2.f, context.getGlobalBounds().top + context.getGlobalBounds().height + 30.f));
 
             display.draw(context);
             display.draw(goodLuckText);
+            first = false;
+        }
+    }
+    else if(dialogueStage == -1)
+    {
+        if(first)
+        {
+            display.clear();
+            sf::Text instructions(strings.getParagraph("Instructions"), font, 30);
+            instructions.setFillColor(sf::Color::White);
+            sf::FloatRect instructionsRect = instructions.getLocalBounds();
+            instructions.setOrigin(instructionsRect.left + instructionsRect.width/2.f,
+                        instructionsRect.top  + instructionsRect.height/2.f);
+            instructions.setPosition(sf::Vector2f(width/2.f, height/2.f + 40.f));
+
+            sf::Text instructionsTitleText(strings.getString("InstructionsTitle"), font, 36);
+            instructionsTitleText.setFillColor(sf::Color::White);
+            sf::FloatRect instructionsTitleRect = instructionsTitleText.getLocalBounds();
+            instructionsTitleText.setOrigin(instructionsTitleRect.left + instructionsTitleRect.width/2.f,
+                        instructionsTitleRect.top  + instructionsTitleRect.height/2.f);
+            instructionsTitleText.setPosition(sf::Vector2f(width/2.f, instructions.getGlobalBounds().top - 40.f));
+
+            display.draw(instructionsTitleText);
+            display.draw(instructions);
             first = false;
         }
     }
@@ -272,11 +298,12 @@ void HumanView::checkRebindingKeyPressed(sf::Keyboard::Key key) {
     }
     else if (waitingForKey > 0) {
         switch (waitingForKey) {
-            case 1: if (checkDuplicateKeys(key)) { right = key; }  break;
-            case 2: if (checkDuplicateKeys(key)) { left = key; }  break;
-            case 3: if (checkDuplicateKeys(key)) { up = key; }  break;
-            case 4: if (checkDuplicateKeys(key)) { shoot = key; }  break;
+            case 1: if (checkDuplicateKeys(key)) { right = key; strings.setString("RightKey", strings.getKey(right)); }  break;
+            case 2: if (checkDuplicateKeys(key)) { left = key; strings.setString("LeftKey", strings.getKey(left)); }  break;
+            case 3: if (checkDuplicateKeys(key)) { up = key; strings.setString("JumpKey", strings.getKey(up)); }  break;
+            case 4: if (checkDuplicateKeys(key)) { shoot = key; strings.setString("ShootKey", strings.getKey(shoot)); }  break;
         }
+        strings.updateInstructionsString();
         waitingForKey = 0;
     }
 }
@@ -357,27 +384,78 @@ void HumanView::drawFinalScore() {
         finalScore += logic.getScore(i);
     }
     score.setString(strings.getString("FinalScore") + std::to_string(finalScore));
-    score.setPosition(width / 4, posY);
+    score.setPosition(width / 4 + 20, posY);
     display.draw(score);
-    score.setCharacterSize(30);
+    score.setCharacterSize(40);
     score.setString(strings.getString("Tier"));
-    score.setPosition(width / 10, posY + 100);
+    score.setPosition(width / 12, posY + 100);
     display.draw(score);
-    score.setCharacterSize(50);
-    score.setString(strings.getTier((levelsWon-1)/2));
-    score.setPosition(width / 4, posY + 140);
-    display.draw(score);
-    score.setCharacterSize(20);
-    score.setString(strings.getString("FinalInstruct"));
-    score.setPosition(width / 5, posY + 400);
+    
+    sf::Text tierText;
+    tierText.setFillColor(sf::Color::Red);
+    tierText.setFont(font);
+    tierText.setCharacterSize(50);
+    tierText.setString(strings.getTier(levelsWon-1));
+    sf::FloatRect tierTextRect = tierText.getLocalBounds();
+    tierText.setOrigin(tierTextRect.left + tierTextRect.width/2.f,
+                tierTextRect.top  + tierTextRect.height/2.f);
+    tierText.setPosition(sf::Vector2f(width/2.f, score.getGlobalBounds().top + score.getGlobalBounds().height + 50.f));
+    display.draw(tierText);
+
+    score.setCharacterSize(30);
+    score.setString(strings.getString("PressEnter"));
+    score.setPosition(width / 3, posY + 400);
     display.draw(score);
     display.display();
 }
 
-void HumanView::checkKeyboardFinal() {
-    //only options are backspace to go back to menu
+void HumanView::drawCredits() {
+    first = false;
+    display.clear();
+    sf::Text thankYou(strings.getString("ThankYou"), font, 40);
+    thankYou.setFillColor(sf::Color::White);
+    sf::FloatRect thankYouRect = thankYou.getLocalBounds();
+    thankYou.setOrigin(thankYouRect.left + thankYouRect.width/2.f,
+                thankYouRect.top  + thankYouRect.height/2.f);
+    thankYou.setPosition(sf::Vector2f(width/2.f, height/2.f - 100.f));
+
+    sf::Text credits(strings.getString("Credits"), font, 40);
+    credits.setFillColor(sf::Color::White);
+    sf::FloatRect creditsRect = credits.getLocalBounds();
+    credits.setOrigin(creditsRect.left + creditsRect.width/2.f,
+                creditsRect.top  + creditsRect.height/2.f);
+    credits.setPosition(sf::Vector2f(width/2.f, thankYou.getGlobalBounds().top + thankYou.getGlobalBounds().height + 100.f));
+
+    sf::Text finalInstruction(strings.getString("FinalInstruct"), font, 30);
+    finalInstruction.setFillColor(sf::Color::White);
+    sf::FloatRect finalInstructionRect = finalInstruction.getLocalBounds();
+    finalInstruction.setOrigin(finalInstructionRect.left + finalInstructionRect.width/2.f,
+                finalInstructionRect.top  + finalInstructionRect.height/2.f);
+    finalInstruction.setPosition(sf::Vector2f(width/2.f, credits.getGlobalBounds().top + credits.getGlobalBounds().height + 150.f));
+
+    display.draw(thankYou);
+    display.draw(credits);
+    display.draw(finalInstruction);
+    display.display();
+}
+
+void HumanView::checkKeyboardFinal(float timeS) {
+    //only option is enter to go to credits
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && currTime - startTime > 1) {
+        first = true;
+        startTime = timeS;
+        currTime = timeS;
+        logic.setGameState(7);
+    }
+    currTime += timeS;
+}
+
+void HumanView::checkKeyboardCredits() {
+    //only option is backspace to go back to menu
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         logic.setGameState(0);
+        //game completed, so restart game
+        currentLevel = 0;
     }
 }
 
@@ -433,7 +511,7 @@ void HumanView::checkKeyboardStart(float timeS) {
         //displays the context screen if a new playthrough
         if(currentLevel == 0)
         {
-            dialogueStage = -1;
+            dialogueStage = -2;
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
@@ -498,6 +576,7 @@ void HumanView::checkKeyboardEndLevel(float timeS) {
         logic.setLevel(currentLevel);
         //if last level, go to final end game state
         if (currentLevel > 4) {
+            currentLevel--;
             logic.setGameState(6);
         }
         else {

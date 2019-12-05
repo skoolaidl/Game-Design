@@ -18,17 +18,33 @@ Strings::Strings() {
     strings.insert({ "Shoot", "Shoot(Spacebar): " });
     strings.insert({ "NewLine", "\n" });
     strings.insert({ "LoadLevel", "\nTo load progress press L" });
-    strings.insert({ "PressEnter", "Press enter to advance dialogue" });
+    strings.insert({ "PressEnter", "Press enter to continue" });
     strings.insert({ "ChadRejected", "Pffft, I don't need you anyway! You've made the biggest \nmistake of your life, and you're gonna regret \nturning down THE Chad Chamberlain!" });
     strings.insert({ "WonLevel", "You successfully rejected the date\nYour score was: " });
     strings.insert({ "LostLevel", "You failed and got rejected by the girl\nYour score was: " });
-    strings.insert({ "Tier", "Your tier based on the number of rejections Chad gave is:" });
+    strings.insert({ "Tier", "Your tier based on the number of rejections\n                      Chad gave is:" });
     strings.insert({ "FinalScore", "Your final score is: "});
     strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
     strings.insert({ "GoodLuck", "Good Luck Player!"});
+    strings.insert({ "InstructionsTitle", "How to Play"});
+    strings.insert({ "RightKey", "Right"});
+    strings.insert({ "LeftKey", "Left"});
+    strings.insert({ "JumpKey", "Up"});
+    strings.insert({ "ShootKey", "Space"});
+    strings.insert({ "ThankYou", "Thank you for playing our game,\n      we hoped you enjoyed it!"});
+    strings.insert({ "Credits", "                        Created By:\nSeth Layton, Carter Greis, and Jordan Kula"});
+    
     context = std::string("You are THE Chad Chamberlain, and you've been sent to Hell for your playboy lifestyle on Earth. ") + 
                         "Nonetheless, because of your lecherous way of living, a trip to Hell is not enough to deter you from pursuing nearby hotties. " +
                         "You must fight your way through a variety of demons, in an attempt to impress your dates and win them over.";
+    instructions = std::string("Before every level, the date will describe her preference in demons to you, and you will have to pay attention to know which demons you should kill and which you should ignore. ") +
+                        "If you are able to reach the date at the end of the level with a high enough score and within the time limit, you will win over that date! " +
+                        "However, if you fail the level, you will be utterly embarrassed and rejected. " +
+                        "Throughout the levels, you must avoid enemies, spikes, and pitfalls or suffer being sent back to the beginning of the level. " +
+                        "To move left, press the " + getString("LeftKey") + " key. To move right, press the " + getString("RightKey") + " key. " +
+                        "To jump, press the " + getString("JumpKey") + " key. To shoot, press the " + getString("ShootKey") + " key.";
+    paragraphs.insert({ "Context", context});
+    paragraphs.insert({ "Instructions", instructions});
 
     responses.insert({"Rejections", { "Sorry babe, it's not me, it's you.",
         "This isn't gonna work out between us, but I'm sure you've got a great personality.",
@@ -119,9 +135,9 @@ std::string Strings::getString(std::string key) {
     return strings[key];
 }
 
-std::string Strings::getContext()
+std::string Strings::getParagraph(std::string key)
 {
-    return insertNewLines(context, 41);
+    return insertNewLines(paragraphs[key], 46);
 }
 
 std::string Strings::insertNewLines(const std::string &in, const size_t every_n)
@@ -148,6 +164,9 @@ std::string Strings::getResponse(std::string key) {
 }
 
 std::string Strings::getTier(int rank) {
+    if(rank < 0){
+        rank = 0;
+    }
     return insertNewLines(tierList[rank], 25);
 }
 
@@ -191,5 +210,21 @@ std::string Strings::getKey( int key ) {
         return "Unknown";
     }
     return keys[key];
+}
+
+void Strings::setString(std::string key, std::string value)
+{
+    strings[key] = value;
+}
+
+void Strings::updateInstructionsString()
+{
+    instructions = std::string("Before every level, the date will describe her preference in demons to you, and you will have to pay attention to know which demons you should kill and which you should ignore. ") +
+                        "If you are able to reach the date at the end of the level with a high enough score and within the time limit, you will win over that date! " +
+                        "However, if you fail the level, you will be utterly embarrassed and rejected. " +
+                        "Throughout the levels, you must avoid enemies, spikes, and pitfalls or suffer being sent back to the beginning of the level. " +
+                        "To move left, press the " + getString("LeftKey") + " key. To move right, press the " + getString("RightKey") + " key. " +
+                        "To jump, press the " + getString("JumpKey") + " key. To shoot, press the " + getString("ShootKey") + " key.";
+    paragraphs["Instructions"] = instructions;
 }
 

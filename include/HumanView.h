@@ -23,10 +23,12 @@ class HumanView : public View {
         void drawLevelDialogue();
         void drawEndLevelDialogue();
         void drawFinalScore();
+        void drawCredits();
         void checkKeyboardSettings();
         void checkKeyboardDialogue(float timeS);
         void checkKeyboardEndDialogue(float timeS);
-        void checkKeyboardFinal();
+        void checkKeyboardFinal(float timeS);
+        void checkKeyboardCredits();
         sf::Font font;
         sf::Font digitalFont;
         sf::Texture texture;
