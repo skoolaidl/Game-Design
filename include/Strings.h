@@ -7,11 +7,13 @@ class Strings{
 
     private:
         std::map<std::string, std::string> strings;
+        std::map<std::string, std::string> paragraphs;
         std::map<std::string, std::vector<std::string>> responses;
         std::map<std::string, std::vector<std::string>> preferences;
         std::vector<std::string> tierList;
         std::vector<std::string> keys;
         std::string context;
+        std::string instructions;
         int prevKillPref = -1;
         int prevIgnorePref = -1;
         std::string insertNewLines(const std::string &in, const size_t every_n);
@@ -24,5 +26,7 @@ class Strings{
         std::string getTier(int rank);
         std::string getPreference(std::string key, int color);
         std::string getKey(int key);
-        std::string getContext();
+        std::string getParagraph(std::string key);
+        void setString(std::string key, std::string value);
+        void updateInstructionsString();
 };

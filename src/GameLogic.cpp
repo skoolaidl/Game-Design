@@ -83,6 +83,10 @@ void GameLogic::setRandomEnemiesColor(std::vector<Enemy>& defaultEnemies, int en
 }
 
 void GameLogic::setLevel(int level) {
+    if(level > 4 || level < 0)
+    {
+        level = 0;
+    }
     currentLevel = level;
     //load specified level
     setCountDown(300);
