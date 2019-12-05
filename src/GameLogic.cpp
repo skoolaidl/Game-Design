@@ -9,10 +9,6 @@ GameLogic class that holds all of the game objects and detects collisions
 and updates game status
 */
 
-GameLogic::GameLogic() {
-
-}
-
 void GameLogic::init(int wWidth, int wHeight) {
     srand(time(NULL));
     width = wWidth;
@@ -21,6 +17,10 @@ void GameLogic::init(int wWidth, int wHeight) {
     gameState = 0;
     player.init();  
     loader.init();
+    playerShot = false;
+    enemyShot = false;
+    playerHit = false;
+    enemyHit = false;
 
 }
 
@@ -187,12 +187,14 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
         if (player.getSprite().getGlobalBounds().intersects( spikes[i].get().getSprite().getGlobalBounds() ) )
         {
             softReset();
+            playerHit = true;
         }                                                                                                                                                                                          
     }
     for(int i = 0; i < enemies.size(); ++i) {
         if (player.getSprite().getGlobalBounds().intersects( enemies[i].get().getSprite().getGlobalBounds() ) )
         {
             softReset();
+            playerHit = true;
         }    
     }
     
@@ -212,6 +214,7 @@ void GameLogic::updateProjectileCollisions() {
         if (projectiles[p].get().getType() == 0) {
             if (projectiles[p].get().getSprite().getGlobalBounds().intersects(player.getSprite().getGlobalBounds())) {
                 softReset();
+                playerHit = true;
                 projectiles[p].get().setAvailable();
                 removeFromActorsVector(projectiles[p].get());
                 projectiles.erase(projectiles.begin() + p);
@@ -221,6 +224,7 @@ void GameLogic::updateProjectileCollisions() {
             for (int e = 0; e < enemies.size(); ++e) {
                 if (projectiles[p].get().getSprite().getGlobalBounds().intersects(enemies[e].get().getSprite().getGlobalBounds())) {
                     projectiles[p].get().setAvailable();
+                    enemyHit = true;
                     //update score
                     if(killPreferences[enemies[e].get().getType()])
                     {
@@ -398,10 +402,12 @@ void GameLogic::playerJump(float timeS) {
     //character jumps only if he's on the ground or is in the middle of jumping up
     if (!player.atMaxJumpHeight() && !player.isFalling())
     {
+        playerJumping++;
         player.setVelocityY((-1*player.getStepSizeY()) * timeS);
     }
     else
     {
+        playerJumping = 0;
         playerFall(timeS);
     }
 
@@ -414,6 +420,7 @@ void GameLogic::playerFall(float timeS) {
         player.setVelocityY(gravity * timeS);
         if (player.getSprite().getPosition().y > 600.f) {
             softReset();
+            playerHit = true;
         }
     }
 }
@@ -487,6 +494,7 @@ void GameLogic::playerShoot(){
         player.getBullet().init(1,pos.x+player.getBulletOffsetX(),pos.y + player.getBulletOffsetY(), player.getDirection());
         projectiles.push_back(player.getBullet());
         actorsVector.push_back(player.getBullet());
+        playerShot = true;
     }
 }
 
@@ -496,6 +504,7 @@ void GameLogic::enemyShoot(Enemy& enemy) {
 		enemy.getProjectile().init(0, pos.x + enemy.getProjectileOffsetX(), pos.y + enemy.getProjectileOffsetY(), enemy.getDirection());
 		projectiles.push_back(enemy.getProjectile());
 		actorsVector.push_back(enemy.getProjectile());
+        enemyShot = true;
 	}
 }
 
