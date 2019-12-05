@@ -34,7 +34,7 @@ void HumanView::init() {
     background = sf::Sprite(texture);
     background.setTextureRect({ 0, 0, 12000, height});
     //load font
-    if (!font.loadFromFile("../res/times.ttf"))
+    if (!font.loadFromFile("../res/ImperfectaRegular.ttf"))
     {
         // error...
     }
@@ -52,7 +52,7 @@ void HumanView::update(float timeS) {
         //error, game not initialized
         case 0: drawMenu(); checkKeyboardStart(timeS); break;
         //running
-        case 1: drawObjects(); checkKeyboard(timeS); break;
+        case 1: drawObjects(); checkKeyboard(timeS); checkPlaySounds(); break;
         //end of level
         case 2: if (first) { drawEndLevel(); } checkKeyboardEndLevel(timeS); break;
         //settings screen
@@ -84,35 +84,43 @@ void HumanView::drawMenu() {
         shoot = sf::Keyboard::Space;
     }
     display.clear();
-    sf::Text start(strings.getString("MenuText"), font, 50);
-    start.setPosition(display.getSize().x / 8, display.getSize().y - 200);
-    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1) + strings.getString("LoadLevel"), font, 40);	    
-    current.setPosition(display.getSize().x / 2, display.getSize().y / 8);
-    current.setFillColor(sf::Color::Red);
-    start.setFillColor(sf::Color::Red);
-    titleTexture.loadFromFile("../res/title_resized.png");
+
+    sf::Text current(strings.getString("CurrentLevel") + std::to_string(currentLevel+1), font, 30);	    
+    current.setPosition(280, 510);
+    current.setFillColor(sf::Color(112,1,1));
+
+    titleTexture.loadFromFile("../res/TitleLogo_Final.png");
     sf::Sprite title(titleTexture);
+    title.setPosition(100,-60);
+
+    optionsTexture.loadFromFile("../res/OptionsText.png");
+    sf::Sprite options(optionsTexture);
+    options.setPosition(200,210);
+
+    display.draw(options);
     display.draw(current);
     display.draw(title);
-    display.draw(start);
     display.display();
 }
 
 void HumanView::drawSettingsMenu() {
     display.clear();
-    sf::Text settings(strings.getString("SettingsText"), font, 30);
-    settings.setPosition(display.getSize().x / 8, display.getSize().y - 200);
-    settings.setFillColor(sf::Color::Red);
+
+    settingsTexture.loadFromFile("../res/Settings_Centered.png");
+    sf::Sprite settingsOptions(settingsTexture);
+    settingsOptions.setPosition(0,500);
+
     sf::Text keys(strings.getString("CurrentKeys") + strings.getString("MoveRight") + strings.getKey(right) + 
                         "\n" + strings.getString("MoveLeft") + strings.getKey(left) + "\n" 
                         + strings.getString("Jump") + strings.getKey(up) + "\n" 
                         + strings.getString("Shoot") + strings.getKey(shoot), font, 30);
-    keys.setPosition(display.getSize().x / 2, display.getSize().y / 8);
-    keys.setFillColor(sf::Color::Red);
+    keys.setPosition(250, 340);
+    keys.setFillColor(sf::Color(112,1,1));
     sf::Sprite title(titleTexture);
+    title.setPosition(100,-60);
     display.draw(keys);
     display.draw(title);
-    display.draw(settings);
+    display.draw(settingsOptions);
     display.display();
 
 }
@@ -365,6 +373,10 @@ void HumanView::drawEndLevel() {
     end.setPosition(display.getSize().x / 12, display.getSize().y - 400);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
+    end.setCharacterSize(20);
+    end.setString(strings.getString("EndLevelInstruct"));
+    end.setPosition(width / 5, height/2+100);
+    display.draw(end);
     view.setCenter(width/2,height/2);
     display.setView(view);
     display.display();
@@ -480,11 +492,10 @@ std::string HumanView::formatCountDown(int countDown)
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
-    float x = logic.getPlayer().getSprite().getPosition().x;
+    float x = logic.getPlayer().getAnimatedSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;
     } 
-
     view.setCenter(x,height/2);
     display.setView(view);
     for(int i = 0; i < logic.getActors().size(); ++i)
@@ -496,7 +507,7 @@ void HumanView::drawObjects() {
     timerText.setPosition((view.getCenter().x + width/2) - timerText.getGlobalBounds().width - 30.f, view.getSize().y / 60);
     timerText.setFillColor(sf::Color::White);
     display.draw(timerText);
-    display.draw(logic.getPlayer().getSprite());
+    display.draw(logic.getPlayer().getAnimatedSprite());
     display.display();
 }
 
@@ -590,6 +601,13 @@ void HumanView::checkKeyboardEndLevel(float timeS) {
         first = true;
         logic.setGameState(0);
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+        logic.setGameState(4);
+        startTime = timeS;
+        currTime = timeS;
+        first = true;
+        logic.setLevel(currentLevel);
+    }
     currTime += timeS;
 }
 
@@ -618,6 +636,28 @@ void HumanView::checkKeyboard(float timeS) {
         logic.playerShoot();
     }
 
+}
+
+void HumanView::checkPlaySounds() {
+    if (logic.hasPlayerShot()) {
+        audio.playSound(1);
+        logic.setPlayerShot(false);
+    }
+    if (logic.hasEnemyShot()) {
+        audio.playSound(0);
+        logic.setEnemyShot(false);
+    }
+    if (logic.getPlayerJumping() == 1) {
+        audio.playSound(2);
+    }
+    if (logic.isPlayerHit()) {
+        audio.playSound(3);
+        logic.setPlayerHit(false);
+    }
+    if (logic.isEnemyHit()) {
+        audio.playSound(4);
+        logic.setEnemyHit(false);
+    }
 }
 
 void HumanView::resetPreferencesVector()

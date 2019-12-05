@@ -8,9 +8,7 @@ Strings::Strings() {
 
     strings.insert({ "Title", "Match Made in Hell" });
     strings.insert({ "CurrentLevel", "The Current Level is: " });
-    strings.insert({ "MenuText", "Welcome to Match Made in Hell!\nPress s to go to the settings menu\nPress enter to start" });
     strings.insert({ "Settings", "Settings Menu\n" });
-    strings.insert({ "SettingsText", "Press Backspace to return to the main menu\nPress the key you wish to change and then press\nthe key you want." });
     strings.insert({ "CurrentKeys", "The current keybindings are : \n" });
     strings.insert({ "MoveRight", "Move Right(RightArrow):" });
     strings.insert({ "MoveLeft", "Move Left(LeftArrow): " });
@@ -25,6 +23,7 @@ Strings::Strings() {
     strings.insert({ "Tier", "Your tier based on the number of rejections\n                      Chad gave is:" });
     strings.insert({ "FinalScore", "Your final score is: "});
     strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
+    strings.insert({ "EndLevelInstruct", "Press backspace to return to the menu, press escape to exit\nPress R to replay the current level" });
     strings.insert({ "GoodLuck", "Good Luck Player!"});
     strings.insert({ "InstructionsTitle", "How to Play"});
     strings.insert({ "RightKey", "Right"});
@@ -94,7 +93,7 @@ Strings::Strings() {
         "When I was younger, I always wanted to become like Draco the *** Demon. Legend has it, he single handedly caused the Chernobyl meltdown.",
         "I idolize my tough-skinned *** Grandpa. He fought in the legendary Demons and Angels War and obliterated an entire battalion of cherubs.",
         "My favorite character in my TV show just died. He was a *** demon with the perfect balance of cynicism and ruthlessness.",
-        "When I was in college, my professor, Dr. *** Demon, inspired me to pursure a double major in Sadism and Witchcraft. Absolutely no regrets.",
+        "When I was in college, my professor, Dr. *** Demon, inspired me to pursue a double major in Sadism and Witchcraft. Absolutely no regrets.",
         "My best friend was always there for me. If it wasn't for that amazing *** demon, Hell would be the absolute worst.",
         "If it wasn't for Yolanda the *** Torturer's influence on my life on Earth, I might have ended up in Heaven. That would have been absolute torture!"} });
 

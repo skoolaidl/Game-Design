@@ -15,7 +15,7 @@ class GameLogic {
     private:
         std::vector<unsigned int> scores = std::vector<unsigned int>(5, 0);
         //temporarily set arbitrary amounts for the goal scores of each level
-        std::vector<unsigned int> goalScores = {400, 800, 1000, 1500, 1800};
+        std::vector<unsigned int> goalScores = {200, 600, 800, 1200, 1500};
         unsigned int pointsPerKill = 100;
         unsigned int scoreMultiplier = 1;
         int gameState = 0;
@@ -29,6 +29,12 @@ class GameLogic {
         int countDown = 0;
         bool playerFail = false;
         std::vector<bool> killPreferences = {false, false, false, false};
+
+        bool playerShot;
+        bool enemyShot;
+        int playerJumping;
+        bool playerHit;
+        bool enemyHit;
 
         Player player;
         Girl girl;
@@ -58,11 +64,12 @@ class GameLogic {
         void enemyTrack(Enemy& enemy, float timeS);
         void removeFromActorsVector(Actor& actor);
         void updateCountDown(float timeS);
-
+        int removeRandomInt(std::vector<int>& vec);
+        void setRandomEnemiesColor(std::vector<Enemy>& defaultEnemies, int enemyCount);
 
 
 	public:
-	GameLogic();
+        GameLogic(){}
 
         int getGameState();
         void setGameState(int newState);
@@ -88,6 +95,16 @@ class GameLogic {
         void setCountDown(int levelTime);
         int getCountDown();
         bool getPlayerFail();
+
+        bool hasPlayerShot() { return playerShot; }
+        bool hasEnemyShot() { return enemyShot; }
+        int getPlayerJumping() { return playerJumping; }
+        void setPlayerShot(bool shot) { playerShot = shot; }
+        void setEnemyShot(bool shot) { enemyShot = shot; }
+        bool isPlayerHit() { return playerHit; }
+        void setPlayerHit(bool hit) { playerHit = hit; }
+        bool isEnemyHit() { return enemyHit; }
+        void setEnemyHit(bool hit) { enemyHit = hit; }
 
 };
 

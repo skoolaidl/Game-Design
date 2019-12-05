@@ -3,13 +3,13 @@
 <Actors>
   <Platform>
     <scaleX>1</scaleX>
-    <scaleY>4</scaleY>
+    <scaleY>1</scaleY>
     <x>100</x>
     <y>350</y>
   </Platform>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>4</scaleY>
+    <scaleY>1</scaleY>
     <x>600</x>
     <y>400</y>
   </Platform>
@@ -66,7 +66,7 @@
   </Enemy>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>3</scaleY>
+    <scaleY>1</scaleY>
     <x>2400</x>
     <y>450</y>
   </Platform>
@@ -94,7 +94,7 @@
   </Platform>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>5</scaleY>
+    <scaleY>1</scaleY>
     <x>3800</x>
     <y>350</y>
   </Platform>
@@ -128,7 +128,7 @@
   </Platform>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>3</scaleY>
+    <scaleY>1</scaleY>
     <x>5700</x>
     <y>500</y>
   </Platform>
@@ -157,7 +157,7 @@
   </Spike>
   <Platform>
     <scaleX>3</scaleX>
-    <scaleY>5</scaleY>
+    <scaleY>1</scaleY>
     <x>7100</x>
     <y>400</y>
   </Platform>
@@ -179,7 +179,7 @@
   </Enemy>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>5</scaleY>
+    <scaleY>1</scaleY>
     <x>8400</x>
     <y>500</y>
   </Platform>
@@ -231,7 +231,7 @@
   </Spike>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>6</scaleY>
+    <scaleY>1</scaleY>
     <x>10300</x>
     <y>350</y>
   </Platform>
@@ -243,6 +243,6 @@
   </Spike>
   <Girl>
     <x>10700</x>
-    <y>320</y>
+    <y>310</y>
   </Girl>
 </Actors>
