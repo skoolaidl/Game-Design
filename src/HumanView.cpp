@@ -407,11 +407,10 @@ std::string HumanView::formatCountDown(int countDown)
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
-    float x = logic.getPlayer().getSprite().getPosition().x;
+    float x = logic.getPlayer().getAnimatedSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;
     } 
-
     view.setCenter(x,height/2);
     display.setView(view);
     for(int i = 0; i < logic.getActors().size(); ++i)
@@ -423,7 +422,7 @@ void HumanView::drawObjects() {
     timerText.setPosition((view.getCenter().x + width/2) - timerText.getGlobalBounds().width - 30.f, view.getSize().y / 60);
     timerText.setFillColor(sf::Color::White);
     display.draw(timerText);
-    display.draw(logic.getPlayer().getSprite());
+    display.draw(logic.getPlayer().getAnimatedSprite());
     display.display();
 }
 

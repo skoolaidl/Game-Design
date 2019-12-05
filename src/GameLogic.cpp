@@ -185,14 +185,14 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
     //check if player is colliding with any spikes    
     for(int i = 0; i < spikes.size(); ++i)
     {
-        if (player.getSprite().getGlobalBounds().intersects( spikes[i].get().getSprite().getGlobalBounds() ) )
+        if (player.getAnimatedSprite().getGlobalBounds().intersects( spikes[i].get().getSprite().getGlobalBounds() ) )
         {
             softReset();
             playerHit = true;
         }                                                                                                                                                                                          
     }
     for(int i = 0; i < enemies.size(); ++i) {
-        if (player.getSprite().getGlobalBounds().intersects( enemies[i].get().getSprite().getGlobalBounds() ) )
+        if (player.getAnimatedSprite().getGlobalBounds().intersects( enemies[i].get().getSprite().getGlobalBounds() ) )
         {
             softReset();
             playerHit = true;
@@ -202,18 +202,18 @@ void GameLogic::updatePlayerCollisionSpikesEnemy() {
 }
 
 void GameLogic::updatePlayerCollisionGirl() {
-    if (player.getSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
-    {
-        playerFail = (getScore(currentLevel) < getGoalScore(currentLevel));
-        gameState = 5;
-    }          
+    if (player.getAnimatedSprite().getGlobalBounds().intersects( girl.getSprite().getGlobalBounds() ) )
+        {
+            playerFail = (getScore(currentLevel) < getGoalScore(currentLevel));
+            gameState = 5;
+        }          
 }
 
 void GameLogic::updateProjectileCollisions() {
     //loop through projectiles and check if they are hitting the player or an enemy
     for(int p = 0; p < projectiles.size(); ++p) {
         if (projectiles[p].get().getType() == 0) {
-            if (projectiles[p].get().getSprite().getGlobalBounds().intersects(player.getSprite().getGlobalBounds())) {
+            if (projectiles[p].get().getSprite().getGlobalBounds().intersects(player.getAnimatedSprite().getGlobalBounds())) {
                 softReset();
                 playerHit = true;
                 projectiles[p].get().setAvailable();
@@ -310,10 +310,21 @@ bool GameLogic::collides(Actor actor, std::vector<std::reference_wrapper<Actor>>
 {
     for(int i = 0; i < objVector.size(); ++i)
     {
-        if (actor.getSprite().getGlobalBounds().intersects( objVector[i].get().getSprite().getGlobalBounds() ) )
+        if (actor.isAnimated())
         {
-            return true;
+            if (actor.getAnimatedSprite().getGlobalBounds().intersects(objVector[i].get().getSprite().getGlobalBounds() ) )
+            {
+                return true;
+            }
         }
+        else 
+        {
+            if (actor.getSprite().getGlobalBounds().intersects(objVector[i].get().getSprite().getGlobalBounds() ) )
+            {
+                return true;
+            }
+        }
+        
     }
     return false;
 }
@@ -322,20 +333,20 @@ bool GameLogic::updatePlatformCollisions(Actor actor)
 {
     for(int i = 0; i < platforms.size(); ++i)
     {
-        if (actor.getSprite().getGlobalBounds().intersects( platforms[i].get().getSprite().getGlobalBounds() ) )
+        if (actor.getSprite().getGlobalBounds().intersects(platforms[i].get().getSprite().getGlobalBounds()))
         {
             return true;
-        }                                                                                                                                                                                                
+        }
     }
     return false;
 }
 
 void GameLogic::updatePlayerCollision(float timeS)
 {
-    float playerX = player.getSprite().getPosition().x;
-    float playerY = player.getSprite().getPosition().y;
-    float playerWidth = player.getSprite().getGlobalBounds().width;
-    float playerHeight = player.getSprite().getGlobalBounds().height;
+    float playerX = player.getAnimatedSprite().getPosition().x;
+    float playerY = player.getAnimatedSprite().getPosition().y;
+    float playerWidth = player.getAnimatedSprite().getGlobalBounds().width;
+    float playerHeight = player.getAnimatedSprite().getGlobalBounds().height;
     float bufferSpaceY = player.getStepSizeY() * timeS;
     float bufferSpaceX = player.getStepSizeX() * timeS;
     sf::FloatRect topHitBox = sf::FloatRect(playerX, playerY, playerWidth, bufferSpaceY);
@@ -419,7 +430,7 @@ void GameLogic::playerFall(float timeS) {
     {
         player.setFalling(true); //player has already jumped and needs to fall before jumping again
         player.setVelocityY(gravity * timeS);
-        if (player.getSprite().getPosition().y > 600.f) {
+        if (player.getAnimatedSprite().getPosition().y > 600.f) {
             softReset();
             playerHit = true;
         }
@@ -460,8 +471,8 @@ void GameLogic::enemySetBounds(Enemy& enemy)
 void GameLogic::enemyTrack(Enemy& enemy, float timeS) {
     //if player within range, move towards him
     enemy.setPaused(false); 
-    if (player.getSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
-        && player.getSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
+    if (player.getAnimatedSprite().getPosition().x >= enemy.getStartX() - enemy.getMaxLeftDistance() 
+        && player.getAnimatedSprite().getPosition().x <= enemy.getStartX() + enemy.getMaxRightDistance())
      {
 		if (enemy.trackPlayer(player, timeS)) {
 			enemyShoot(enemy);
@@ -491,7 +502,7 @@ void GameLogic::updateEnemyMovement(Enemy& enemy, float timeS) {
 
 void GameLogic::playerShoot(){
     if ( player.getBullet().getIsAvailable() ) {
-		sf::Vector2f pos = player.getSprite().getPosition();
+		sf::Vector2f pos = player.getAnimatedSprite().getPosition();
         player.getBullet().init(1,pos.x+player.getBulletOffsetX(),pos.y + player.getBulletOffsetY(), player.getDirection());
         projectiles.push_back(player.getBullet());
         actorsVector.push_back(player.getBullet());

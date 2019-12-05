@@ -2,9 +2,11 @@
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 #include "moveable.h"
 #include "platform.h"
 #include "projectile.h"
+#include "AnimatedSprite.h"
 
 class Player : public Moveable {
     private:
@@ -22,9 +24,19 @@ class Player : public Moveable {
         //true is facing right, false is left
         bool direction;
         void updateTexture(float velX);
+        int number = 0;
         Projectile bullet;
         float bulletOffsetX = 20.f;
         float bulletOffsetY = 15.f;
+        //Animation
+        Animation* currentAnimation;
+        Animation walkingAnimationRight;
+        Animation walkingAnimationLeft;
+        Animation stoppedAnimationRight;
+        Animation stoppedAnimationLeft;
+        bool noKeyWasPressed = true;
+        sf::Clock frameClock;
+        sf::Time frameTime;
 
     public:
         Player();
