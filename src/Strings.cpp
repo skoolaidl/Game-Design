@@ -22,8 +22,8 @@ Strings::Strings() {
     strings.insert({ "LostLevel", "You failed and got rejected by the girl\nYour score was: " });
     strings.insert({ "Tier", "Your tier based on the number of rejections\n                      Chad gave is:" });
     strings.insert({ "FinalScore", "Your final score is: "});
-    strings.insert({ "FinalInstruct", "Press backspace to return to the menu, press escape to exit" });
-    strings.insert({ "EndLevelInstruct", "Press backspace to return to the menu, press escape to exit\nPress R to replay the current level" });
+    strings.insert({ "FinalInstruct", "Press backspace to return to the menu\nPress escape to exit" });
+    strings.insert({ "EndLevelInstruct", "Press backspace to return to the menu\nPress escape to exit\nPress R to replay the current level" });
     strings.insert({ "GoodLuck", "Good Luck Player!"});
     strings.insert({ "InstructionsTitle", "How to Play"});
     strings.insert({ "RightKey", "Right"});
