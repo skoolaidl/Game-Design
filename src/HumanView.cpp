@@ -87,11 +87,11 @@ void HumanView::drawMenu() {
     current.setPosition(280, 510);
     current.setFillColor(sf::Color(112,1,1));
 
-    titleTexture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/TitleLogo_Final.png");
+    titleTexture.loadFromFile("../res/TitleLogo_Final.png");
     sf::Sprite title(titleTexture);
     title.setPosition(100,-60);
 
-    optionsTexture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/OptionsText.png");
+    optionsTexture.loadFromFile("../res/OptionsText.png");
     sf::Sprite options(optionsTexture);
     options.setPosition(200,210);
 
@@ -104,7 +104,7 @@ void HumanView::drawMenu() {
 void HumanView::drawSettingsMenu() {
     display.clear();
 
-    settingsTexture.loadFromFile("/Users/Seth/Desktop/Game-Design/res/Settings_Centered.png");
+    settingsTexture.loadFromFile("../res/Settings_Centered.png");
     sf::Sprite settingsOptions(settingsTexture);
     settingsOptions.setPosition(0,500);
 
