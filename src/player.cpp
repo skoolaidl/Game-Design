@@ -16,7 +16,7 @@ void Player::init() {
         return;
     }
     //setSprite(sf::Sprite(texture));
-    setAnimatedSprite(AnimatedSprite(sf::seconds(0.2), true, false));
+    setAnimatedSprite(AnimatedSprite(sf::seconds(0.2), true, true));
 
     walkingAnimationRight.setSpriteSheet(texture);
     //walkingAnimationRight.addFrame(sf::IntRect(37,0,37,37));
