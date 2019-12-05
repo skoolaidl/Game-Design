@@ -26,10 +26,13 @@ class Player : public Moveable {
         Projectile bullet;
         float bulletOffsetX = 20.f;
         float bulletOffsetY = 15.f;
+        //Animation
         Animation* currentAnimation;
         Animation walkingAnimationRight;
         Animation walkingAnimationLeft;
         bool noKeyWasPressed = true;
+        sf::Clock frameClock;
+        sf::Time frameTime;
 
     public:
         Player();

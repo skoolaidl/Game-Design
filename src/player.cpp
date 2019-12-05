@@ -86,12 +86,23 @@ void Player::setVelocityY(float velY)
 
 void Player::updateMovement() 
 {
+    frameTime = frameClock.restart();
 
     if (noKeyWasPressed)
+    {
+        if (direction)
         {
-            getAnimatedSprite().stop();
+            currentAnimation = &stoppedAnimationRight;
         }
+        else
+        {
+            currentAnimation = &stoppedAnimationLeft; 
+        }
+        getAnimatedSprite().play(*currentAnimation); 
+    }
     noKeyWasPressed = true;
+
+    getAnimatedSprite().update(frameTime);f
 
     xpos += velocityX;
     ypos += velocityY;
