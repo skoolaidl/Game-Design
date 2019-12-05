@@ -85,7 +85,7 @@
   </Platform>
   <Platform>
     <scaleX>2</scaleX>
-    <scaleY>8</scaleY>
+    <scaleY>1</scaleY>
     <x>3900</x>
     <y>275</y>
   </Platform>
@@ -189,6 +189,6 @@
   </Enemy>
   <Girl>
     <x>8800</x>
-    <y>320</y>
+    <y>310</y>
   </Girl>
 </Actors>

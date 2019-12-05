@@ -346,6 +346,10 @@ void HumanView::drawEndLevel() {
     end.setPosition(display.getSize().x / 12, display.getSize().y - 400);
     end.setFillColor(sf::Color::Red);
     display.draw(end);
+    end.setCharacterSize(20);
+    end.setString(strings.getString("EndLevelInstruct"));
+    end.setPosition(width / 5, height/2+100);
+    display.draw(end);
     view.setCenter(width/2,height/2);
     display.setView(view);
     display.display();
@@ -386,6 +390,7 @@ void HumanView::checkKeyboardFinal() {
     //only options are backspace to go back to menu
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
         logic.setGameState(0);
+        currentLevel = 0;
     }
 }
 
@@ -410,11 +415,10 @@ std::string HumanView::formatCountDown(int countDown)
 void HumanView::drawObjects() {
     display.clear();
     display.draw(background);
-    float x = logic.getPlayer().getSprite().getPosition().x;
+    float x = logic.getPlayer().getAnimatedSprite().getPosition().x;
     if ( x < width/2 ) {
         x = width/2;
     } 
-
     view.setCenter(x,height/2);
     display.setView(view);
     for(int i = 0; i < logic.getActors().size(); ++i)
@@ -426,7 +430,7 @@ void HumanView::drawObjects() {
     timerText.setPosition((view.getCenter().x + width/2) - timerText.getGlobalBounds().width - 30.f, view.getSize().y / 60);
     timerText.setFillColor(sf::Color::White);
     display.draw(timerText);
-    display.draw(logic.getPlayer().getSprite());
+    display.draw(logic.getPlayer().getAnimatedSprite());
     display.display();
 }
 
@@ -518,6 +522,13 @@ void HumanView::checkKeyboardEndLevel(float timeS) {
         writeSaveFile();
         first = true;
         logic.setGameState(0);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+        logic.setGameState(4);
+        startTime = timeS;
+        currTime = timeS;
+        first = true;
+        logic.setLevel(currentLevel);
     }
     currTime += timeS;
 }
