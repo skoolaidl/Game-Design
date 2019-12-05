@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include "GameLogic.h"
 #include "HumanView.h"
 #include "AIView.h"
+#include "AudioController.h"
 
 int main(int argc, char** argv)
 {
@@ -11,18 +13,26 @@ int main(int argc, char** argv)
   sf::Clock clock;
   sf::RenderWindow App(sf::VideoMode(windowWidth,windowHeight,32), "Match Made in Hell", sf::Style::Titlebar | sf::Style::Close);
   sf::View view;
+  AudioController audio;
   
   // create Strings, GameLogic, player view, and AI view
   Strings strings;
   GameLogic logic;
-  HumanView human(App, logic, view, strings);
+  HumanView human(audio, App, logic, view, strings);
   AIView ai(logic);
   
   //init GameLogic and views
   logic.init(windowWidth, windowHeight);
   human.init();
   ai.init();
+  audio.init();
   App.setVerticalSyncEnabled(true);
+  sf::Music music;
+  if (!music.openFromFile("../res/background.wav"))
+      return -1; // error
+  music.setLoop(true);
+  music.setVolume(40);
+  music.play();
   
   bool focused = true;
 
@@ -58,6 +68,7 @@ int main(int argc, char** argv)
         ai.update(deltaS);
     
     }
+
     
   }
   // Done.

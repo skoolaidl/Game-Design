@@ -6,6 +6,7 @@
 #include "GameLogic.h"
 #include "platform.h"
 #include "Strings.h"
+#include "AudioController.h"
 
 class HumanView : public View {
     
@@ -14,6 +15,7 @@ class HumanView : public View {
         sf::RenderWindow& display;
         sf::View& view;
         Strings& strings;
+        AudioController& audio;
         void drawMenu();
         void checkKeyboard(float timeS);
         void checkKeyboardStart(float timeS);
@@ -65,9 +67,10 @@ class HumanView : public View {
         void resetPreferencesVector();
         void resetEnemyTypesVector();
         std::string formatCountDown(int countDown);
+        void checkPlaySounds();
     
     public: 
-        HumanView(sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), display(App), view(pView),  strings(s) {};
+        HumanView(AudioController& audio, sf::RenderWindow& App, GameLogic& logic, sf::View& pView, Strings& s): View( logic ), audio(audio), display(App), view(pView),  strings(s) {};
         
         void init();
 

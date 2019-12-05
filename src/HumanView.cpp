@@ -52,7 +52,7 @@ void HumanView::update(float timeS) {
         //error, game not initialized
         case 0: drawMenu(); checkKeyboardStart(timeS); break;
         //running
-        case 1: drawObjects(); checkKeyboard(timeS); break;
+        case 1: drawObjects(); checkKeyboard(timeS); checkPlaySounds(); break;
         //end of level
         case 2: if (first) { drawEndLevel(); } checkKeyboardEndLevel(timeS); break;
         //settings screen
@@ -538,6 +538,28 @@ void HumanView::checkKeyboard(float timeS) {
         logic.playerShoot();
     }
 
+}
+
+void HumanView::checkPlaySounds() {
+    if (logic.hasPlayerShot()) {
+        audio.playSound(1);
+        logic.setPlayerShot(false);
+    }
+    if (logic.hasEnemyShot()) {
+        audio.playSound(0);
+        logic.setEnemyShot(false);
+    }
+    if (logic.getPlayerJumping() == 1) {
+        audio.playSound(2);
+    }
+    if (logic.isPlayerHit()) {
+        audio.playSound(3);
+        logic.setPlayerHit(false);
+    }
+    if (logic.isEnemyHit()) {
+        audio.playSound(4);
+        logic.setEnemyHit(false);
+    }
 }
 
 void HumanView::resetPreferencesVector()
